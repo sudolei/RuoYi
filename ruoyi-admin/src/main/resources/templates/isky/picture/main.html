@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <title>喜悦造物图片上传</title>
+    <link rel="stylesheet" href="../dropzone/basic.css">
+    <link rel="stylesheet" href="../dropzone/dropzone.css">
+    <script type="text/javascript" src="../dropzone/dropzone.js"></script>
+    <script type="text/javascript" src="../picture/jquery.min.js"></script>
+    <style type="text/css">
+        .dropzone {
+            border: 2px dashed #0087F7;
+            border-radius: 5px;
+            background: #bcdffb ;
+            height:auto;
+        }
+
+        #upBox {
+            text-align: center;
+            width: 800px;
+            padding: 20px;
+            margin: auto;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        #btn {
+            outline: none;
+            width: 350px;
+            height: 90px;
+            background: cornflowerblue;
+            border: 1px solid cornflowerblue;
+            font-size: 33px;
+            color: white;
+            cursor: pointer;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<script th:inline="javascript"> var ctx = [[@{
+    /}]];</script>
+<body style="background-color:#bcdffb ">
+<div class="dropzone" id="myDropzone"  >
+    <div class="am-text-success dz-message">
+        <br><br>
+        <h1 style="font-size: 60px;color: #000000">点击此处，选择照片</h1>
+        <br>
+        <h1 style="font-size: 24px;color: #000000">安卓推荐腾讯浏览器（可多选）</h1>
+        <h2 style="font-size: 24px;color: #000000">图片上传完成之前请勿关闭页面，关闭或切换界面会造成上传失败！</h2>
+    </div>
+</div>
+
+<div id="upBox">
+
+    <input type="button" id="btn" value="获取订单号" onclick="getOrderId();">
+</div>
+<script type="text/javascript">
+    Dropzone.autoDiscover = false;
+    var randomOrderId = randomn(8);
+    var datas = new Array();
+    var myDropzone = new Dropzone("#myDropzone", {
+        url: "pic/uploadDropZone", // 文件提交地址
+        method: "post",  // 也可用put
+//        previewTemplate: $('#myDropzone').html(),
+        paramName: "file", // 默认为file
+        maxFiles: 200,// 一次性上传的文件数量上限
+        maxFilesize: 15, // 文件大小，单位：MB
+        headers: {"orderid": randomOrderId},
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1,// 一次上传的文件数量
+        dictDefaultMessage: '拖动文件至此或者点击上传',
+        dictMaxFilesExceeded: "您最多只能上传200个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictRemoveFile: "删除",
+        dictCancelUpload: "取消",
+        init: function () {
+            this.on("addedfile", function (file) {
+                // 上传文件时触发的事件
+            });
+            this.on("success", function (file, data) {
+                // 上传成功触发的事件
+                var fileName = file.name;
+                var orderFileNmae = data.msg;
+                var myobj = new Object();
+                myobj.fileName = fileName;
+                myobj.orderFileName = orderFileNmae;
+                datas.push(myobj);
+            });
+            this.on("error", function (file, data) {
+                // 上传失败触发的事件
+            });
+            this.on("removedfile", function (file) {
+                // 删除文件时触发的方法
+                var fileName = file.name;
+                for (var i = 0; i < datas.length; i++) {
+                    var f = datas[i].fileName;
+                    if (f == fileName) {
+                        datas.splice(i, 1);
+                    }
+                }
+
+
+
+            });
+        }
+    });
+
+
+    function randomn(n) {
+        var today = new Date();
+        var seed = today.getTime();
+        seed = ( seed * 9301 + 49297 ) % 233280;
+        var rn1 = parseInt((Math.random() + 1) * Math.pow(10, n - 1));
+        var rn2 = parseInt((Math.random() + 1) * Math.pow(10, n - 1));
+        var rn3 = parseInt((Math.random() + 1) * Math.pow(10, n - 1));
+        var result = rn1 + rn2 + rn3 - seed;
+        return result;
+    }
+
+
+    function getOrderId() {
+        if(datas.length>0){
+            var mymessage=confirm("您已成功上传 "+datas.length+" 张,请确认图片是否上传完毕");
+            if(mymessage==true)
+            {
+                var datastr = JSON.stringify(datas);
+                var ajaxUrl = "pic/orderPicDropZone";
+                var ajaxData = {
+                    mydatas: datastr,
+                    orderid: randomOrderId
+                }
+                $.ajax({
+                    type: "POST",
+                    url: ajaxUrl,
+                    data: ajaxData,
+                    dataType: "json",
+                    success: function (msg) {
+                        var msg = msg.msg;
+                        alert("您已成功上传"+datas.length+" 张图片,请记录制作编号，及时与客服联系，订单编号：" + randomOrderId);
+                    }
+                });
+            }
+        }else{
+            alert("请先上传图片再获取订单号！")
+        }
+
+    }
+
+</script>
+</body>
+</html>

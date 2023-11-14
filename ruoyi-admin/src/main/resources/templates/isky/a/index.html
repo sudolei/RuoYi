@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+
+    <link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+    <link rel="stylesheet"
+          href="../mobile/css/themes/default/jquery.mobile.datepicker.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+
+
+    <!--弹出框样式 -->
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="../mobile/js/jquery.js"></script>
+    <script src="../mobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../mobile/js/jquery.ui.datepicker.js"></script>
+    <script id="mobile-datepicker"
+            src="../mobile/js/jquery.mobile.datepicker.js"></script>
+
+
+    <!--alert 弹出框 -->
+    <script src="../jqalert/alert.js" type="text/javascript"></script>
+    <script src="../jqalert/alertd.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div data-role="header">
+        <h1>订单发起</h1>
+        <a href="javascript:goBack(); "    class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-notext">Back</a>
+    </div>
+
+    <div data-role="content">
+        <div data-role="main" class="ui-content">
+            <form id="orderInfo" name="orderInfo" method="post" action="pstart">
+                <label for="orderName">订单名称：</label>
+                <input type="text" name="orderName" id="orderName" placeholder="华为/8寸山峰台历/5000本">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>实物打样已确认:
+                    </legend>
+                    <input type="radio" name="confirmInfo" id="2a" value="已确认">
+                    <label for="2a">已确认</label>
+                    <input type="radio" name="confirmInfo" id="2b" value="未确认">
+                    <label for="2b">未确认</label>
+                    <input type="radio" name="confirmInfo" id="2f" value="其他">
+                    <label for="2f">其他</label>
+                </fieldset>
+                <label for="loanAmount">货款支付信息：</label>
+                <input type="text" name="loanAmount" id="loanAmount" placeholder="货款金额:">
+                <input type="text" name="payAmount" id="payAmount" placeholder="支付金额:">
+                <label for="loanAmount">交货日期：</label>
+                <input type="date" name="deliveryTime" id="deliveryTime" placeholder="交货时间:">
+                <label for="loanAmount">订单信息：</label>
+                <input type="text" name="customerInfo" id="customerInfo" placeholder="客户信息:">
+                <input type="button" data-inline="true" value="返回列表" onclick="goBack();">
+                <input type="reset" data-inline="true" value="重写">
+                <input type="button" id="mysubmit" data-inline="true" value="下一步">
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    /**
+     * 根据form表单的id获取表单下所有可提交的表单数据，封装成数组对象
+     */
+    function getFormData(formId) {
+        var data = {};
+        var results = $(formId).serializeArray();
+        $.each(results, function (index, item) {
+            //文本表单的值不为空才处理
+            if (item.value && $.trim(item.value) != "") {
+                if (!data[item.name]) {
+                    data[item.name] = item.value;
+                } else {
+                    //name属性相同的表单，值以英文,拼接
+                    data[item.name] = data[item.name] + ',' + item.value;
+                }
+            }
+        });
+        return data;
+    }
+    
+    function  goBack() {
+        window.location.href="grid";
+    }
+
+
+    $("#mysubmit").click(function () {
+        var flag = true;
+        var orderName = $("#orderName").val();
+        var confirmInfo = "";
+        $('input[name="confirmInfo"]:checked').each(function () {
+            confirmInfo = $(this).val();
+        });
+        var loanAmount = $("#loanAmount").val();
+        var payAmount = $("#payAmount").val();
+        var deliveryTime = $("#deliveryTime").val();//customerInfo
+        var customerInfo = $("#customerInfo").val();
+
+        var sales = $("#sales").val();  // 销售
+        if (orderName == "") {
+            flag = false;
+        }
+        if (confirmInfo == "") {
+            flag = false;
+        }
+        if (loanAmount == "") {
+            flag = false;
+        }
+        if (payAmount == "") {
+            flag = false;
+        }
+        if (deliveryTime == "") {
+            flag = false;
+        }
+        if (customerInfo == "") {
+            flag = false;
+        }
+        if (sales == "") {
+            flag = false;
+        }
+        if (!flag) {
+            alert_c("您有信息没有填写或选择！");
+            return;
+        }
+
+        var data = getFormData("form");
+        var datasJson = JSON.stringify(data);
+        window.sessionStorage.setItem("datas", datasJson);
+        window.location.href = "pstart"
+    })
+
+
+</script>
+</body>
+</html>

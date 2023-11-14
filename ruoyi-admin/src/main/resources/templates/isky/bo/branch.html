@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>明信片</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <!--主要样式-->
+    <link rel="stylesheet" type="text/css"
+          href="../impression/css/reset.css"/>
+    <!-- 无所谓-->
+    <link rel="shortcut icon" href="favicon.ico">
+    <script src="../impression/js/rem.js"></script>
+    <script type="text/javascript">
+        if (screen.width == 2560) {
+            document
+                .write('<link href= "../impression/css/index_big.css" rel="stylesheet" type="text/css" />');
+        } else {
+            document
+                .write('<link href= "../impression/css/index.css" rel="stylesheet" type="text/css" />');
+        }
+    </SCRIPT>
+    <style>
+
+        .indeBox {
+            /*width: 10.5rem;*/
+            height: 11.15rem;
+            border-radius: 5px;
+            padding: 0 1rem;
+            position: relative;
+            margin-bottom: 5rem;
+            /*margin: 0 auto;*/
+        }
+    </style>
+</head>
+<body>
+<div class="login">
+    <img class="loginLogo" src="../impression/images/tm.png"/>
+    <div class="indeBox">
+        <div style="display: block;float: left;width: 48%">
+            <img src="../impression/images/mxp1111111.png" width="95%" onclick="gomxph();">
+        </div>
+        <div style="display: block;float: right;width: 48%">
+            <img src="../impression/images/tl888888.png" width="95%" onclick="gomxps();">
+        </div>
+    </div>
+</div>
+</body>
+<script src="../impression/js/jquery.min.js" type="text/javascript"></script>
+<!--alert弹出框结束 -->
+<script type="text/javascript">
+    /**
+     *以下代码用来调整页面宽高
+     */
+    $(document).ready(function () {
+        var windowHeight = $(document).height();
+        console.log(windowHeight)
+        console.log($("body").height())
+        if ($("body").height() < windowHeight) {
+            $("body").height(windowHeight);
+        }
+    });
+
+    function gomxph() {
+        window.location.href = "select?tid=12"
+    }
+
+    function gomxps() {
+        window.location.href = "select?tid=13"
+    }
+</script>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.IskyPhoneWorkMapper">
+    
+    <resultMap type="IskyPhoneWork" id="IskyPhoneWorkResult">
+        <result property="id"    column="id"    />
+        <result property="mbId"    column="mb_id"    />
+        <result property="workName"    column="work_name"    />
+        <result property="remark"    column="remark"    />
+        <result property="createDate"    column="create_date"    />
+    </resultMap>
+	
+	<sql id="selectIskyPhoneWorkVo">
+        select id, mb_id, work_name, remark, create_date from isky_phone_work
+    </sql>
+	
+    <select id="selectIskyPhoneWorkList" parameterType="IskyPhoneWork" resultMap="IskyPhoneWorkResult">
+        <include refid="selectIskyPhoneWorkVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="mbId != null "> and mb_id = #{mbId}</if>
+             <if test="workName != null  and workName != '' "> and work_name = #{workName}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+         </where>
+    </select>
+    
+    <select id="selectIskyPhoneWorkById" parameterType="Integer" resultMap="IskyPhoneWorkResult">
+        <include refid="selectIskyPhoneWorkVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertIskyPhoneWork" parameterType="IskyPhoneWork" useGeneratedKeys="true" keyProperty="id">
+        insert into isky_phone_work
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mbId != null  ">mb_id,</if>
+			<if test="workName != null  and workName != ''  ">work_name,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="createDate != null  ">create_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mbId != null  ">#{mbId},</if>
+			<if test="workName != null  and workName != ''  ">#{workName},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateIskyPhoneWork" parameterType="IskyPhoneWork">
+        update isky_phone_work
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="mbId != null  ">mb_id = #{mbId},</if>
+            <if test="workName != null  and workName != ''  ">work_name = #{workName},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteIskyPhoneWorkById" parameterType="Integer">
+        delete from isky_phone_work where id = #{id}
+    </delete>
+	
+    <delete id="deleteIskyPhoneWorkByIds" parameterType="String">
+        delete from isky_phone_work where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

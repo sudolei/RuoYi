@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <title>印刷数据内容表单</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link rel="stylesheet" href="../weui/lib/weui.min.css">
+    <link rel="stylesheet" href="../weui/css/jquery-weui.css">
+    <link rel="stylesheet" href="../weui/css/demos.css">
+</head>
+<body ontouchstart>
+<header class='demos-header'>
+    <h1 class="demos-title">纸张计算</h1>
+</header>
+
+<div class="weui-cells__title">纸张计算</div>
+<form id="myform" name="myform" method="post">
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">卡片长度</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="along" name="along" pattern="[0-9]*">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">卡片宽度</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="awidth" name="awidth" pattern="[0-9]*">
+            </div>
+        </div>
+    </div>
+    <div class="weui-form-preview">
+        <div class="weui-form-preview__hd">
+            <div class="weui-form-preview__item">
+                <label class="weui-form-preview__label">结果1</label>
+                <em class="weui-form-preview__value" id="maxResult"> </em>
+            </div>
+        </div>
+        <div class="weui-form-preview__hd">
+            <div class="weui-form-preview__item">
+                <label class="weui-form-preview__label">结果2</label>
+                <em class="weui-form-preview__value" id="minResult"> </em>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">计算</a>
+</div>
+<script src="../weui/lib/jquery-2.1.4.js"></script>
+<script src="../weui/lib/fastclick.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../weui/js/jquery-weui.js"></script>
+<script>
+
+    /**
+     * 根据form表单的id获取表单下所有可提交的表单数据，封装成数组对象
+     */
+    function getFormData(formId) {
+        var data = {};
+        var results = $(formId).serializeArray();
+        $.each(results, function (index, item) {
+            //文本表单的值不为空才处理
+            if (item.value && $.trim(item.value) != "") {
+                if (!data[item.name]) {
+                    data[item.name] = item.value;
+                } else {
+                    //name属性相同的表单，值以英文,拼接
+                    data[item.name] = data[item.name] + ',' + item.value;
+                }
+            }
+        });
+        return data;
+    }
+
+    $("#showTooltips").click(function () {
+        var awidth = $('#awidth').val();
+        var along = $('#along').val();
+
+        var jswidth = 315/parseInt(awidth);
+        var jslong = 460/parseInt(along);
+
+        var jswidth1 = 460/parseInt(awidth);
+        var jslong1 = 315/parseInt(along);
+
+        var maxResult=parseInt(jswidth)*parseInt(jslong);
+        var minResult=parseInt(jswidth1)*parseInt(jslong1);
+
+        $("#maxResult").text(parseInt(maxResult));
+        $("#minResult").text(parseInt(minResult));
+
+
+    });
+</script>
+</body>
+</html>

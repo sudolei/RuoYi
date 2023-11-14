@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+
+    <link rel="stylesheet" href="/mobile/css/themes/default/font.css">
+    <link rel="stylesheet"
+          href="/mobile/css/themes/default/jquery.mobile.datepicker.css">
+    <link rel="stylesheet" href="/mobile/css/themes/default/jqm-demos.css">
+    <!--弹出框样式 -->
+    <link href="/jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="/mobile/js/jquery.js"></script>
+    <script src="/mobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="/mobile/js/jquery.ui.datepicker.js"></script>
+    <script id="mobile-datepicker"
+            src="/mobile/js/jquery.mobile.datepicker.js"></script>
+    <!--alert 弹出框 -->
+    <script src="/jqalert/alert.js" type="text/javascript"></script>
+    <script src="/jqalert/alertd.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div data-role="header">
+        <h1>订单发起</h1>
+        <a href="javascript:goBack(); " class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-notext">Back</a>
+    </div>
+
+    <div data-role="content">
+        <div data-role="main" class="ui-content">
+            <form id="goodsForm" name="orderInfo" method="post" action="pstart">
+                <input type="hidden" name="goodId"  th:value="${goods.id}">
+                <label for="goodsName">产品名称：</label>
+                <input type="text" name="goodsName" id="goodsName" placeholder="相框" th:value="${goods.goodsName}">
+                <label for="warehouseA">曹县仓库：</label>
+                <input type="text" name="warehouseA" id="warehouseA" th:value="${goods.warehouseA}">
+                <label for="warehouseB">邹平仓库：</label>
+                <input type="text" name="warehouseB" id="warehouseB" th:value="${goods.warehouseB}">
+                <label for="warehouseC">即墨仓库：</label>
+                <input type="text" name="warehouseC" id="warehouseC" th:value="${goods.warehouseC}">
+                <label for="warehouseE">平度仓库：</label>
+                <input type="text" name="warehouseE" id="warehouseE" th:value="${goods.warehouseE}">
+                <label for="warehouseD">济南仓库：</label>
+                <input type="text" name="warehouseD" id="warehouseD" th:value="${goods.warehouseD}">
+                <input type="button" data-inline="true" value="返回列表" onclick="goBack();">
+                <input type="button" id="mysubmit" data-inline="true" value="提交">
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function setType(id) {
+//        $(".mytype").hide();
+//       $("#"+id).show();
+        $('input[name="goodsType"]:checked').each(function () {
+            $(this).prop("checked", false);
+        });
+        $(".mytype").css('display', 'none');
+        $("#" + id).css('display', 'block');
+    }
+
+    /**
+     * 根据form表单的id获取表单下所有可提交的表单数据，封装成数组对象
+     */
+    function getFormData(formId) {
+        var data = {};
+        var results = $(formId).serializeArray();
+        $.each(results, function (index, item) {
+            //文本表单的值不为空才处理
+            if (item.value && $.trim(item.value) != "") {
+                if (!data[item.name]) {
+                    data[item.name] = item.value;
+                } else {
+                    //name属性相同的表单，值以英文,拼接
+                    data[item.name] = data[item.name] + ',' + item.value;
+                }
+            }
+        });
+        return data;
+    }
+
+    function goBack() {
+        window.location.href = "/ck"
+    }
+
+
+    $("#mysubmit").click(function () {
+        var datas = getFormData("form");
+        var mydatas = JSON.stringify(datas);
+        var ajaxData = {
+            mydatas: mydatas
+        }
+        var ajaxUrl = "../editCk";
+        $.ajax({
+            type: "POST",
+            url: ajaxUrl,
+            data: ajaxData,
+            async: false,
+            dataType: "json",
+            success: function (msg) {
+                var msg = msg.msg;
+                if (msg == '1') {
+                    alert_c("保存成功！");
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

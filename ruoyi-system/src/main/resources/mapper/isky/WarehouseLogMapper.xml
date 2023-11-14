@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.WarehouseLogMapper">
+    
+    <resultMap type="WarehouseLog" id="WarehouseLogResult">
+        <result property="id"    column="id"    />
+        <result property="goodId"    column="good_id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="warehouseA"    column="warehouse_a"    />
+        <result property="warehouseB"    column="warehouse_b"    />
+        <result property="warehouseC"    column="warehouse_c"    />
+        <result property="warehouseD"    column="warehouse_d"    />
+        <result property="warehouseE"    column="warehouse_e"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+	
+	<sql id="selectWarehouseLogVo">
+        select a.id, a.good_id, a.user_id, a.warehouse_a, a.warehouse_b, a.warehouse_c, a.warehouse_d, a.warehouse_e, a.create_time, a.update_time,b.goods_name from seg_warehouse_log a left JOIN seg_warehouse_goods b on a.good_id=b.id
+    </sql>
+	
+    <select id="selectWarehouseLogList" parameterType="WarehouseLog" resultMap="WarehouseLogResult">
+        <include refid="selectWarehouseLogVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="goodId != null "> and good_id = #{goodId}</if>
+             <if test="userId != null "> and user_id = #{userId}</if>
+             <if test="warehouseA != null "> and warehouse_a = #{warehouseA}</if>
+             <if test="warehouseB != null "> and warehouse_b = #{warehouseB}</if>
+             <if test="warehouseC != null "> and warehouse_c = #{warehouseC}</if>
+             <if test="warehouseD != null "> and warehouse_d = #{warehouseD}</if>
+             <if test="warehouseE != null "> and warehouse_e = #{warehouseE}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="updateTime != null "> and update_time = #{updateTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectWarehouseLogById" parameterType="Integer" resultMap="WarehouseLogResult">
+        <include refid="selectWarehouseLogVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWarehouseLog" parameterType="WarehouseLog" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_warehouse_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="goodId != null  ">good_id,</if>
+			<if test="userId != null  ">user_id,</if>
+			<if test="warehouseA != null  ">warehouse_a,</if>
+			<if test="warehouseB != null  ">warehouse_b,</if>
+			<if test="warehouseC != null  ">warehouse_c,</if>
+			<if test="warehouseD != null  ">warehouse_d,</if>
+			<if test="warehouseE != null  ">warehouse_e,</if>
+			 create_time
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="goodId != null  ">#{goodId},</if>
+			<if test="userId != null  ">#{userId},</if>
+			<if test="warehouseA != null  ">#{warehouseA},</if>
+			<if test="warehouseB != null  ">#{warehouseB},</if>
+			<if test="warehouseC != null  ">#{warehouseC},</if>
+			<if test="warehouseD != null  ">#{warehouseD},</if>
+			<if test="warehouseE != null  ">#{warehouseE},</if>
+            sysdate()
+         </trim>
+    </insert>
+	 
+    <update id="updateWarehouseLog" parameterType="WarehouseLog">
+        update seg_warehouse_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodId != null  ">good_id = #{goodId},</if>
+            <if test="userId != null  ">user_id = #{userId},</if>
+            <if test="warehouseA != null  ">warehouse_a = #{warehouseA},</if>
+            <if test="warehouseB != null  ">warehouse_b = #{warehouseB},</if>
+            <if test="warehouseC != null  ">warehouse_c = #{warehouseC},</if>
+            <if test="warehouseD != null  ">warehouse_d = #{warehouseD},</if>
+            <if test="warehouseE != null  ">warehouse_e = #{warehouseE},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteWarehouseLogById" parameterType="Integer">
+        delete from seg_warehouse_log where id = #{id}
+    </delete>
+	
+    <delete id="deleteWarehouseLogByIds" parameterType="String">
+        delete from seg_warehouse_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

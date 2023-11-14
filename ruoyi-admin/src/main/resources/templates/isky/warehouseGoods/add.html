@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增库存树')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-warehouseGoods-add">
+			<input id="treeId" name="parentId" type="hidden" th:value="${goods.id}"   />
+			<div class="form-group">
+				<label class="col-sm-3 control-label ">上级：</label>
+				<div class="col-sm-8">
+					<div class="input-group">
+						<input class="form-control" type="text" onclick="selectDeptTree()" id="treeName" readonly="true" th:value="${goods.goodsName}">
+						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+					</div>
+				</div>
+			</div>
+			<!--<div class="form-group">	-->
+				<!--<label class="col-sm-3 control-label">用户编号：</label>-->
+				<!--<div class="col-sm-8">-->
+					<!--<input id="userId" name="userId" class="form-control" type="text">-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">名称：</label>
+				<div class="col-sm-8">
+					<input id="goodsName" name="goodsName" class="form-control" type="text">
+				</div>
+			</div>
+			<!--<div class="form-group">	-->
+				<!--<label class="col-sm-3 control-label">排序号：</label>-->
+				<!--<div class="col-sm-8">-->
+					<!--<input id="orderNum" name="orderNum" class="form-control" type="text">-->
+				<!--</div>-->
+			<!--</div>-->
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">曹县仓库：</label>
+				<div class="col-sm-8">
+					<input id="warehouseA" name="warehouseA" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">邹平仓库：</label>
+				<div class="col-sm-8">
+					<input id="warehouseB" name="warehouseB" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">即墨仓库：</label>
+				<div class="col-sm-8">
+					<input id="warehouseC" name="warehouseC" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">济南仓库：</label>
+				<div class="col-sm-8">
+					<input id="warehouseD" name="warehouseD" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">平度仓库：</label>
+				<div class="col-sm-8">
+					<input id="warehouseE" name="warehouseE" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">预警最小值：</label>
+				<div class="col-sm-8">
+					<input id="warningMinQuantity" name="warningMinQuantity" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">预警最大值：</label>
+				<div class="col-sm-8">
+					<input id="warningMaxQuantity" name="warningMaxQuantity" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "isky/warehouseGoods"
+		$("#form-warehouseGoods-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+		    var aa = $('#form-warehouseGoods-add').serialize();
+		    debugger;
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-warehouseGoods-add').serialize());
+	        }
+	    }
+
+        /*部门管理-新增-选择父部门树*/
+        function selectDeptTree() {
+            var options = {
+                title: '上级选择',
+                width: "380",
+                url: prefix + "/selectDeptTree/" + $("#treeId").val(),
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        }
+
+
+        function doSubmit(index, layero){
+            debugger;
+            var body = layer.getChildFrame('body', index);
+            $("#treeId").val(body.find('#treeId').val());
+            $("#treeName").val(body.find('#treeName').val());
+            layer.close(index);
+        }
+	</script>
+</body>
+</html>

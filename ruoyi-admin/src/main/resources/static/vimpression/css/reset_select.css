@@ -1,0 +1,20 @@
+body,html{height:100%;font-family: "Microsoft Yahei",helvetica;color: #161616;font-size: .55rem;background: #fff;margin:0 auto;padding:0;letter-spacing:.1rem;font-weight: 600;}
+
+body > div{margin-right:auto;margin-left:auto;}
+div,form,ul,ol,li,span,p{margin:0;padding:0;border:0;}
+img,a img{border:0;margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;font-size:.55rem;font-weight:normal;}
+ul,ol,li{list-style:none}
+table,td,input{font-size:.55rem;}
+a{outline-style:none;color:#161616;text-decoration:none;vertical-align: middle;}
+span{font-size: .55rem;}
+.fl{float: left;}
+.fr{float: right;}
+.oh{overflow: hidden;}
+i{font-style: normal;}
+.db{display: block;}
+.m0a{margin: 0 auto;}
+input{margin: 0;padding: 0;border: 0;color:#161616;outline: none;}
+button{border: 0;outline: none;font-size: .55rem;color:#161616;letter-spacing:.1rem;font-weight: 600;background: none;}
+.red{color: red;padding: 0 .5rem;}
+.relative{position: relative;}

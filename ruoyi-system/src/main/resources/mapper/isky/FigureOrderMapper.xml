@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureOrderMapper">
+
+    <resultMap type="FigureOrder" id="FigureOrderResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="meteriaName" column="meteria_name"/>
+        <result property="picNum" column="pic_num"/>
+        <result property="dsm" column="dsm"/>
+        <result property="bno" column="bno"/>
+        <result property="orderId" column="order_id"/>
+        <result property="meterialId" column="meterial_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="remark" column="remark"/>
+        <result property="print" column="print"/>
+        <result property="state" column="state"/>
+        <result property="genre" column="genre"/>
+    </resultMap>
+
+
+    <resultMap type="FigureOrder" id="FigureOrderResultGL">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="taobao" column="taobao"/>
+        <result property="username" column="username"/>
+        <result property="telephone" column="telephone"/>
+        <result property="meteriaName" column="meteria_name"/>
+        <result property="picNum" column="pic_num"/>
+        <result property="bno" column="bno"/>
+        <result property="dsm" column="dsm"/>
+        <result property="orderId" column="order_id"/>
+        <result property="meterialId" column="meterial_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="remark" column="remark"/>
+        <result property="print" column="print"/>
+        <result property="state" column="state"/>
+        <result property="genre" column="genre"/>
+    </resultMap>
+
+    <sql id="selectFigureOrderVo">
+        select id, user_id, meteria_name, pic_num, dsm,bno, order_id, meterial_id, create_by, create_date, update_by, del_flag, remark, print, state, genre from seg_figure_order
+    </sql>
+
+    <sql id="selectFigureOrderVoGL">
+        select a.id, a.user_id, a.meteria_name, a.pic_num, a.bno,a.dsm, a.order_id, a.meterial_id, a.create_by, a.create_date,b.taobao,b.username,b.telephone,
+        a.update_by, a.del_flag, a.remark, a.print, a.state, a.genre from seg_figure_order a,seg_figure_login b where a.user_id=b.id
+    </sql>
+
+    <select id="selectFigureOrderList" parameterType="FigureOrder" resultMap="FigureOrderResultGL">
+        <include refid="selectFigureOrderVoGL"/>
+        <if test="id != null ">and a.id = #{id}</if>
+        <if test="userId != null ">and user_id = #{userId}</if>
+        <if test="meteriaName != null  and meteriaName != '' ">and meteria_name = #{meteriaName}</if>
+        <if test="picNum != null  and picNum != '' ">and pic_num = #{picNum}</if>
+        <if test="bno != null  and bno != '' ">and bno = #{bno}</if>
+        <if test="dsm != null  and dsm != '' ">and dsm = #{dsm}</if>
+        <if test="orderId != null  and orderId != '' ">and order_id = #{orderId}</if>
+        <if test="meterialId != null  and meterialId != '' ">and meterial_id = #{meterialId}</if>
+        <if test="createBy != null  and createBy != '' ">and create_by = #{createBy}</if>
+        <if test="createDate != null ">and create_date = #{createDate}</if>
+        <if test="updateBy != null  and updateBy != '' ">and update_by = #{updateBy}</if>
+        <if test="telephone != null  and telephone != '' ">and b.telephone = #{telephone}</if>
+        <if test="delFlag != null  and delFlag != '' ">and del_flag = #{delFlag}</if>
+        <if test="remark != null  and remark != '' ">and remark = #{remark}</if>
+        <if test="print != null  and print != '' ">and print = #{print}</if>
+        <if test="state != null  and state != '' ">and state = #{state}</if>
+        <if test="genre != null  and genre != '' ">and genre = #{genre}</if>
+        and  dsm in
+        <foreach collection="dsmList" item="dsm" index="index" open="(" close=")" separator=",">
+            #{dsm}
+        </foreach>
+
+        order by id desc
+    </select>
+
+
+    <select id="selectFigureOrders" parameterType="FigureOrder" resultMap="FigureOrderResult">
+        <include refid="selectFigureOrderVo"/>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="orderId != null  and orderId != '' ">and order_id = #{orderId}</if>
+            <if test="createBy != null  and createBy != '' ">and create_by = #{createBy}</if>
+            <if test="createDate != null ">and create_date = #{createDate}</if>
+            <if test="updateBy != null  and updateBy != '' ">and update_by = #{updateBy}</if>
+            <if test="delFlag != null  and delFlag != '' ">and del_flag = #{delFlag}</if>
+            <if test="remark != null  and remark != '' ">and remark = #{remark}</if>
+            <if test="print != null  and print != '' ">and print = #{print}</if>
+            <if test="state != null  and state != '' ">and state = #{state}</if>
+            <if test="bno != null  and bno != '' ">and bno = #{bno}</if>
+            <if test="genre != null  and genre != '' ">and genre = #{genre}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectFigureOrderById" parameterType="Integer" resultMap="FigureOrderResult">
+        <include refid="selectFigureOrderVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFigureOrder" parameterType="FigureOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null  ">user_id,</if>
+            <if test="meteriaName != null  and meteriaName != ''  ">meteria_name,</if>
+            <if test="picNum != null  and picNum != ''  ">pic_num,</if>
+            <if test="dsm != null  and dsm != ''  ">dsm,</if>
+            <if test="bno != null  and bno != ''  ">bno,</if>
+            <if test="orderId != null  and orderId != ''  ">order_id,</if>
+            <if test="meterialId != null  and meterialId != ''  ">meterial_id,</if>
+            <if test="createBy != null  and createBy != ''  ">create_by,</if>
+            <if test="createDate != null  ">create_date,</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag,</if>
+            <if test="remark != null  and remark != ''  ">remark,</if>
+            <if test="print != null  and print != ''  ">print,</if>
+            <if test="state != null  and state != ''  ">state,</if>
+            <if test="genre != null  and genre != ''  ">genre,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null  ">#{userId},</if>
+            <if test="meteriaName != null  and meteriaName != ''  ">#{meteriaName},</if>
+            <if test="picNum != null  and picNum != ''  ">#{picNum},</if>
+            <if test="dsm != null  and dsm != ''  ">#{dsm},</if>
+            <if test="bno != null  and bno != ''  ">#{bno},</if>
+            <if test="orderId != null  and orderId != ''  ">#{orderId},</if>
+            <if test="meterialId != null  and meterialId != ''  ">#{meterialId},</if>
+            <if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+            <if test="createDate != null  ">#{createDate},</if>
+            <if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+            <if test="delFlag != null  and delFlag != ''  ">#{delFlag},</if>
+            <if test="remark != null  and remark != ''  ">#{remark},</if>
+            <if test="print != null  and print != ''  ">#{print},</if>
+            <if test="state != null  and state != ''  ">#{state},</if>
+            <if test="genre != null  and genre != ''  ">#{genre},</if>
+        </trim>
+    </insert>
+
+    <update id="updateFigureOrder" parameterType="FigureOrder">
+        update seg_figure_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null  ">user_id = #{userId},</if>
+            <if test="meteriaName != null  and meteriaName != ''  ">meteria_name = #{meteriaName},</if>
+            <if test="picNum != null  and picNum != ''  ">pic_num = #{picNum},</if>
+            <if test="dsm != null  and dsm != ''  ">dsm = #{dsm},</if>
+            <if test="bno != null  and bno != ''  ">bno = #{bno},</if>
+            <if test="orderId != null  and orderId != ''  ">order_id = #{orderId},</if>
+            <if test="meterialId != null  and meterialId != ''  ">meterial_id = #{meterialId},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag = #{delFlag},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="print != null  and print != ''  ">print = #{print},</if>
+            <if test="state != null  and state != ''  ">state = #{state},</if>
+            <if test="genre != null  and genre != ''  ">genre = #{genre},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFigureOrderById" parameterType="Integer">
+        delete from seg_figure_order where id = #{id}
+    </delete>
+
+    <delete id="deleteFigureOrderByIds" parameterType="String">
+        delete from seg_figure_order where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

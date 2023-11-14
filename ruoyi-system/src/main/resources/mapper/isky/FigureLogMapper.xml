@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureLogMapper">
+    
+    <resultMap type="FigureLog" id="FigureLogResult">
+        <result property="id"    column="id"    />
+        <result property="bno"    column="bno"    />
+        <result property="userId"    column="user_id"    />
+        <result property="typeId"    column="type_id"    />
+        <result property="imageId"    column="image_id"    />
+        <result property="propertyId"    column="property_id"    />
+        <result property="state"    column="state"    />
+        <result property="orders"    column="orders"    />
+        <result property="newFileName"    column="new_file_name"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="height"    column="height"    />
+        <result property="width"    column="width"    />
+        <result property="xsite"    column="xsite"    />
+        <result property="ysite"    column="ysite"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+	
+	<sql id="selectFigureLogVo">
+        select id, bno, user_id, type_id, image_id, property_id, state, orders, new_file_name, file_name, height, width, xsite, ysite, create_date, remark from seg_figure_log
+    </sql>
+	
+    <select id="selectFigureLogList" parameterType="FigureLog" resultMap="FigureLogResult">
+        <include refid="selectFigureLogVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="bno != null  and bno != '' "> and bno = #{bno}</if>
+             <if test="userId != null "> and user_id = #{userId}</if>
+             <if test="typeId != null "> and type_id = #{typeId}</if>
+             <if test="imageId != null "> and image_id = #{imageId}</if>
+             <if test="propertyId != null "> and property_id = #{propertyId}</if>
+             <if test="state != null  and state != '' "> and state = #{state}</if>
+             <if test="orders != null "> and orders = #{orders}</if>
+             <if test="newFileName != null  and newFileName != '' "> and new_file_name = #{newFileName}</if>
+             <if test="fileName != null  and fileName != '' "> and file_name = #{fileName}</if>
+             <if test="height != null  and height != '' "> and height = #{height}</if>
+             <if test="width != null  and width != '' "> and width = #{width}</if>
+             <if test="xsite != null  and xsite != '' "> and xsite = #{xsite}</if>
+             <if test="ysite != null  and ysite != '' "> and ysite = #{ysite}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+         </where>
+    </select>
+    
+    <select id="selectFigureLogById" parameterType="Integer" resultMap="FigureLogResult">
+        <include refid="selectFigureLogVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigureLog" parameterType="FigureLog" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bno != null  and bno != ''  ">bno,</if>
+			<if test="userId != null  ">user_id,</if>
+			<if test="typeId != null  ">type_id,</if>
+			<if test="imageId != null  ">image_id,</if>
+			<if test="propertyId != null  ">property_id,</if>
+			<if test="state != null  and state != ''  ">state,</if>
+			<if test="orders != null  ">orders,</if>
+			<if test="newFileName != null  and newFileName != ''  ">new_file_name,</if>
+			<if test="fileName != null  and fileName != ''  ">file_name,</if>
+			<if test="height != null  and height != ''  ">height,</if>
+			<if test="width != null  and width != ''  ">width,</if>
+			<if test="xsite != null  and xsite != ''  ">xsite,</if>
+			<if test="ysite != null  and ysite != ''  ">ysite,</if>
+			<if test="createDate != null  ">create_date,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bno != null  and bno != ''  ">#{bno},</if>
+			<if test="userId != null  ">#{userId},</if>
+			<if test="typeId != null  ">#{typeId},</if>
+			<if test="imageId != null  ">#{imageId},</if>
+			<if test="propertyId != null  ">#{propertyId},</if>
+			<if test="state != null  and state != ''  ">#{state},</if>
+			<if test="orders != null  ">#{orders},</if>
+			<if test="newFileName != null  and newFileName != ''  ">#{newFileName},</if>
+			<if test="fileName != null  and fileName != ''  ">#{fileName},</if>
+			<if test="height != null  and height != ''  ">#{height},</if>
+			<if test="width != null  and width != ''  ">#{width},</if>
+			<if test="xsite != null  and xsite != ''  ">#{xsite},</if>
+			<if test="ysite != null  and ysite != ''  ">#{ysite},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigureLog" parameterType="FigureLog">
+        update seg_figure_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bno != null  and bno != ''  ">bno = #{bno},</if>
+            <if test="userId != null  ">user_id = #{userId},</if>
+            <if test="typeId != null  ">type_id = #{typeId},</if>
+            <if test="imageId != null  ">image_id = #{imageId},</if>
+            <if test="propertyId != null  ">property_id = #{propertyId},</if>
+            <if test="state != null  and state != ''  ">state = #{state},</if>
+            <if test="orders != null  ">orders = #{orders},</if>
+            <if test="newFileName != null  and newFileName != ''  ">new_file_name = #{newFileName},</if>
+            <if test="fileName != null  and fileName != ''  ">file_name = #{fileName},</if>
+            <if test="height != null  and height != ''  ">height = #{height},</if>
+            <if test="width != null  and width != ''  ">width = #{width},</if>
+            <if test="xsite != null  and xsite != ''  ">xsite = #{xsite},</if>
+            <if test="ysite != null  and ysite != ''  ">ysite = #{ysite},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureLogById" parameterType="Integer">
+        delete from seg_figure_log where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureLogByIds" parameterType="String">
+        delete from seg_figure_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

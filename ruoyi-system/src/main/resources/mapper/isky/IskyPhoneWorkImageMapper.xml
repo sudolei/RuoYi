@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.IskyPhoneWorkImageMapper">
+    
+    <resultMap type="IskyPhoneWorkImage" id="IskyPhoneWorkImageResult">
+        <result property="id"    column="id"    />
+        <result property="workId"    column="work_id"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="remark"    column="remark"    />
+        <result property="createDate"    column="create_date"    />
+    </resultMap>
+	
+	<sql id="selectIskyPhoneWorkImageVo">
+        select id, work_id, image_url, remark, create_date from isky_phone_work_image
+    </sql>
+	
+    <select id="selectIskyPhoneWorkImageList" parameterType="IskyPhoneWorkImage" resultMap="IskyPhoneWorkImageResult">
+        <include refid="selectIskyPhoneWorkImageVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="workId != null "> and work_id = #{workId}</if>
+             <if test="imageUrl != null  and imageUrl != '' "> and image_url = #{imageUrl}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+         </where>
+    </select>
+    
+    <select id="selectIskyPhoneWorkImageById" parameterType="Integer" resultMap="IskyPhoneWorkImageResult">
+        <include refid="selectIskyPhoneWorkImageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertIskyPhoneWorkImage" parameterType="IskyPhoneWorkImage" useGeneratedKeys="true" keyProperty="id">
+        insert into isky_phone_work_image
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="workId != null  ">work_id,</if>
+			<if test="imageUrl != null  and imageUrl != ''  ">image_url,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="createDate != null  ">create_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="workId != null  ">#{workId},</if>
+			<if test="imageUrl != null  and imageUrl != ''  ">#{imageUrl},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateIskyPhoneWorkImage" parameterType="IskyPhoneWorkImage">
+        update isky_phone_work_image
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="workId != null  ">work_id = #{workId},</if>
+            <if test="imageUrl != null  and imageUrl != ''  ">image_url = #{imageUrl},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteIskyPhoneWorkImageById" parameterType="Integer">
+        delete from isky_phone_work_image where id = #{id}
+    </delete>
+	
+    <delete id="deleteIskyPhoneWorkImageByIds" parameterType="String">
+        delete from isky_phone_work_image where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

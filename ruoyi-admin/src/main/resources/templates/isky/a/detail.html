@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>订单详细</title>
+    <link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+    <script src="../mobile/js/jquery.js"></script>
+    <script src="../mobile/js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="page" class="jqm-demos" data-quicklinks="true">
+    <div data-role="header">
+        <h1>客服查看</h1>
+        <a href="javascript:goback(); "    class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-notext">Back</a>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <div data-demo-html="true">
+            <h3 class="ui-bar ui-bar-a ui-corner-all">订单信息</h3>
+            <ul data-role="listview" data-inset="true">
+                <li>
+                    <h2 th:text="${begin.orderName}">Stephen Weber</h2>
+                    <p><strong th:text="${begin.confirm}">You've been </strong></p>
+                    <p th:text="${begin.loanAmount}">Hey Stephen, if you're available at 10am tomorrow, </p>
+                    <p><strong th:text="${begin.payAmout}">You've been </strong></p>
+                    <p th:text="${begin.deliveryTime}">Hey Stephen, if you're available at 10am tomorrow, </p>
+                </li>
+            </ul>
+        </div>
+
+        <div th:if="${userGroup=='1'}">
+            <div data-demo-html="true">
+                <ul data-role="listview" data-split-icon="gear" data-inset="true">
+                    <li onclick="setKeys('pages')" style="display: none" id="pagedivId"><a href="#">
+                        <img th:src="${begin.pagesImg}">
+                        <div th:switch="${begin.pagesState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.pages}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.pages}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.pages}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.pageZzInfo!=null}">
+                            <h2 th:text="${begin.pageZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.pagesWcInfo!=null}">
+                            <h2 th:text="${begin.pagesWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                    </a>
+                        <a href="#poppages" data-rel="popup" data-position-to="window" data-transition="pop">
+                            album</a>
+                        <div data-role="popup" id="poppages" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.pagesImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('base')" style="display: none" id="basedivId"><a href="#">
+                        <img th:src="${begin.baseImg}">
+                        <div th:switch="${begin.baseState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.base}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.base}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.base}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.baseZzInfo!=null}">
+                            <h2 th:text="${begin.baseZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.baseWcInfo!=null}">
+                            <h2 th:text="${begin.baseWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                    </a>
+                        <a href="#popBase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popBase" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.baseImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('pack')" style="display: none" id="packdivId"><a href="#">
+                        <img th:src="${begin.packImg}">
+                        <div th:switch="${begin.packState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.pack}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.pack}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.pack}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+
+                        <div th:if="${begin.packZzInfo!=null}">
+                            <h2 th:text="${begin.packZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.packWcInfo!=null}">
+                            <h2 th:text="${begin.packWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+
+                    </a>
+                        <a href="#popPack" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popPack" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.packImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('thermoprint')" style="display: none" id="thermoprintdivId"><a href="#">
+                        <img th:src="${begin.thermoprintImg}">
+                        <div th:switch="${begin.thermoprintState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.thermoprint}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.thermoprint}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.thermoprint}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.thermoprintZzInfo!=null}">
+                            <h2 th:text="${begin.thermoprintZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.thermoprintWcInfo!=null}">
+                            <h2 th:text="${begin.thermoprintWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                    </a>
+                        <a href="#popTh" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popTh" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.thermoprintImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('carving')" style="display: none" id="carvingdivId"><a href="#">
+                        <img th:src="${begin.carvingImg}">
+                        <div th:switch="${begin.carvingState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.carving}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.carving}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.carving}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.carvingZzInfo!=null}">
+                            <h2 th:text="${begin.carvingZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.carvingWcInfo!=null}">
+                            <h2 th:text="${begin.carvingWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                    </a>
+                        <a href="#popCarving" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popCarving" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.carvingImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div th:if="${userGroup=='2'}">
+            <div data-demo-html="true">
+                <ul data-role="listview" data-split-icon="gear" data-inset="true">
+                    <li onclick="setKeys('pages')" style="display: none" id="pageAdivId"><a href="#">
+                        <img th:src="${begin.pagesImg}">
+                        <div th:switch="${begin.pagesState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.pages}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.pages}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.pages}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.pageZzInfo!=null}">
+                            <h2 th:text="${begin.pageZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.pagesWcInfo!=null}">
+                            <h2 th:text="${begin.pagesWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                    </a>
+                        <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.pagesImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('base')" style="display: none" id="baseAdivId"><a href="#">
+                        <img th:src="${begin.baseImg}">
+                        <div th:switch="${begin.baseState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.base}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.base}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.base}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.baseZzInfo!=null}">
+                            <h2 th:text="${begin.baseZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.baseWcInfo!=null}">
+                            <h2 th:text="${begin.baseWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        </a>
+                        <a href="#popupbase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popupbase" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.baseImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('pack')" style="display: none" id="packAdivId"><a href="#">
+                        <img th:src="${begin.packImg}">
+                        <div th:switch="${begin.packState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.pack}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.pack}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.pack}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+
+                        <div th:if="${begin.packZzInfo!=null}">
+                           <h2 th:text="${begin.packZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.packWcInfo!=null}">
+                            <h2 th:text="${begin.packWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+
+                        </a>
+                        <a href="#popuppack" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popuppack" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.packImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('thermoprint')" style="display: none" id="thermoprintAdivId"><a href="#">
+                        <img th:src="${begin.thermoprintImg}">
+                        <div th:switch="${begin.thermoprintState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.thermoprint}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.thermoprint}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.thermoprint}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.thermoprintZzInfo!=null}">
+                            <h2 th:text="${begin.thermoprintZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.thermoprintWcInfo!=null}">
+                            <h2 th:text="${begin.thermoprintWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        </a>
+                        <a href="#popupTh" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popupTh" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.thermoprintImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                    <li onclick="setKeys('carving')" style="display: none" id="carvingAdivId"><a href="#">
+                        <img th:src="${begin.carvingImg}">
+                        <div th:switch="${begin.carvingState}">
+                            <div th:case="'0'">
+                                <h2 th:text="${begin.carving}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: grey;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'1'">
+                                <h2 th:text="${begin.carving}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                            <div th:case="'2'">
+                                <h2 th:text="${begin.carving}"
+                                    style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                    Broken Bells</h2>
+                            </div>
+                        </div>
+                        <div th:if="${begin.carvingZzInfo!=null}">
+                            <h2 th:text="${begin.carvingZzInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: blue;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        <div th:if="${begin.carvingWcInfo!=null}">
+                            <h2 th:text="${begin.carvingWcInfo}"
+                                style="display: block;padding:5px;float:left;color:#ffffff;background-color: green;margin-left: 10px;border-radius: 25px;">
+                                Broken Bells</h2>
+                        </div>
+                        </a>
+                        <a href="#popupcarving" data-rel="popup" data-position-to="window" data-transition="pop">Purchase
+                            album</a>
+                        <div data-role="popup" id="popupcarving" data-overlay-theme="b" data-theme="b" data-corners="false">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <img class="popphoto" th:src="${begin.carvingImg}"  style="max-height:512px;"  >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-demo-html="true">
+            <h3 class="ui-bar ui-bar-a ui-corner-all">客户信息</h3>
+            <div class="ui-body ui-body-a ui-corner-all">
+                <p th:text="${begin.customerInfo}">11月5 李云霞 华为/8寸台历/5000本</p>
+            </div>
+            <h3 class="ui-bar ui-bar-a ui-corner-all">备注</h3>
+            <div class="ui-body ui-body-a ui-corner-all">
+                <p th:text="${begin.remark}">大师傅</p>
+            </div>
+            <h3 class="ui-bar ui-bar-a ui-corner-all">销售客服</h3>
+            <div class="ui-body ui-body-a ui-corner-all">
+                <p th:text="${begin.salesName}">大师傅</p>
+            </div>
+        </div>
+        <div th:if="${userGroup=='2'}">
+            <input type="button" data-inline="true" value="开始制作" onclick="startZz();">
+            <input type="button" data-inline="true" value="完成" onclick="startWc();">
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<input type="hidden" id="beginId" th:value="${begin.id}">
+<input type="hidden" id="mykeys">
+
+
+<input type="hidden" id="pagesHidden" th:value="${begin.pages}">
+<input type="hidden" id="baseHidden" th:value="${begin.base}">
+<input type="hidden" id="packHidden" th:value="${begin.pack}">
+<input type="hidden" id="thermoprintHidden" th:value="${begin.thermoprint}">
+<input type="hidden" id="carvingHidden" th:value="${begin.carving}">
+
+
+<input type="hidden" id="pagesState" th:value="${begin.pagesState}">
+<input type="hidden" id="baseState" th:value="${begin.baseState}">
+<input type="hidden" id="packState" th:value="${begin.packState}">
+<input type="hidden" id="thermoprintState" th:value="${begin.thermoprintState}">
+<input type="hidden" id="carvingState" th:value="${begin.carvingState}">
+
+<script th:inline="javascript"> var ctx = [[@{
+    /}]];</script>
+<script>
+
+    $(function () {
+        var pageHidValue = $("#pagesHidden").val();
+        if(pageHidValue!=""){
+            $("#pageAdivId").show();
+            $("#pagedivId").show();
+        }
+
+        var baseHidValue = $("#baseHidden").val();
+        if(baseHidValue!=""){
+            $("#baseAdivId").show();
+            $("#basedivId").show();
+        }
+
+        var packHidValue = $("#packHidden").val();
+        if(packHidValue!=""){
+            $("#packAdivId").show();
+            $("#packdivId").show();
+        }
+
+        var thermoprintHidValue = $("#thermoprintHidden").val();
+        if(thermoprintHidValue!=""){
+            $("#thermoprintAdivId").show();
+            $("#thermoprintdivId").show();
+        }
+
+        var carvingHidValue = $("#carvingHidden").val();
+        if(carvingHidValue!=""){
+            $("#carvingAdivId").show();
+            $("#carvingdivId").show();
+        }
+
+    })
+
+    function goback(){
+        window.location.href=ctx+"zz/grid";
+    }
+
+    function setKeys(t) {
+        $("#mykeys").val(t);
+    }
+
+    function startZz() {
+        var mykeys = $("#mykeys").val();
+        if(mykeys==""){
+            alert("请点击选择一项制作");
+            return ;
+        }
+        var id = $("#beginId").val();
+        var state = "0";
+        if(mykeys=="pages"){
+            state = $("#pagesState").val();
+        }else
+        if(mykeys=="base"){
+            state = $("#baseState").val();
+        }else
+        if(mykeys=="pack"){
+            state = $("#packState").val();
+        }else
+        if(mykeys=="thermoprint"){
+            state = $("#thermoprintState").val();
+        }else
+        if(mykeys=="carving"){
+            state = $("#carvingState").val();
+        }
+
+        if(state!="0"){
+            alert("已制作,无法再次操作");
+            return ;
+        }
+
+        var ajaxData = {
+            id: id,
+            keys: mykeys
+        }
+        var ajaxUrl = "startZz";
+        $.ajax({
+            type: "POST",
+            url: ajaxUrl,
+            data: ajaxData,
+            dataType: "json",
+            success: function (msg) {
+                var msg = msg.msg;
+                window.location.reload();
+            }
+        });
+    }
+
+    function startWc() {
+        var mykeys = $("#mykeys").val();
+        if(mykeys==""){
+            alert("请点击选择一项制作");
+            return ;
+        }
+        var id = $("#beginId").val();
+        var state = "0";
+        if(mykeys=="pages"){
+            state = $("#pagesState").val();
+        }else
+        if(mykeys=="base"){
+            state = $("#baseState").val();
+        }else
+        if(mykeys=="pack"){
+            state = $("#packState").val();
+        }else
+        if(mykeys=="thermoprint"){
+            state = $("#thermoprintState").val();
+        }else
+        if(mykeys=="carving"){
+            state = $("#carvingState").val();
+        }
+        if(state=="2"){
+            alert("已制作完成,无法再次操作");
+            return ;
+        }
+        if(state!="1"){
+            alert("尚未制作,无法操作");
+            return ;
+        }
+        var ajaxData = {
+            id: id,
+            keys: mykeys
+        }
+        var ajaxUrl = "startWc";
+        $.ajax({
+            type: "POST",
+            url: ajaxUrl,
+            data: ajaxData,
+            dataType: "json",
+            success: function (msg) {
+                var msg = msg.msg;
+                window.location.reload();
+            }
+        });
+    }
+</script>
+</body>
+</html>

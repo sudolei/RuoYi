@@ -1,0 +1,38 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+<link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+
+<script src="../mobile/js/jquery.js"></script>
+<input type="hidden" id="pageNum1" value="1"/>
+<input type="hidden" id="pageSize1" value="10"/>
+<input type="hidden" id="total1" th:value="${total}"/>
+<input type="hidden" id="parentId" th:value="${parentId}"/>
+<input type="hidden" id="currentPage1" value="1">
+
+<div data-demo-html="true">
+    <div class="ui-grid-a">
+        <div class="ui-block-a" style="width:70%">
+            <div class="ui-bar ui-bar-b" style="height:30px;">名称</div>
+        </div>
+
+        <div class="ui-block-b" style="width:30%">
+            <div class="ui-bar ui-bar-b" style="height:30px;">操作</div>
+        </div>
+    </div>
+
+    <h2>Filter</h2>
+    <p>To make a list filterable, simply add the <code>data-filter="true"</code> attribute to the list. The framework will then append a search box above the list and add the behavior to filter out list items that don't contain the current search string as the user types. The input's placeholder text defaults to "Filter items...". To configure the placeholder text in the search input, use the <code>data-filter-placeholder</code> attribute. By default the search box will inherit its theme from its parent. The search box theme can be configured using the data attribute <code>data-filter-theme</code> on your listview.</p>
+    <div data-demo-html="true">
+        <ul data-role="listview" data-filter="true" data-filter-placeholder="Search fruits..." data-inset="true">
+            <li><a href="#">Apple</a></li>
+            <li><a href="#">Banana</a></li>
+            <li><a href="#">Cherry</a></li>
+            <li><a href="#">Cranberry</a></li>
+            <li><a href="#">Grape</a></li>
+            <li><a href="#">Orange</a></li>
+        </ul>
+    </div><!--/demo-html -->
+
+</div>
+</html>

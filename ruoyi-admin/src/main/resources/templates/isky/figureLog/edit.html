@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改操作日志')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-figureLog-edit" th:object="${figureLog}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">批次号：</label>
+				<div class="col-sm-8">
+					<input id="bno" name="bno" th:field="*{bno}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户编号：</label>
+				<div class="col-sm-8">
+					<input id="userId" name="userId" th:field="*{userId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">模板编号：</label>
+				<div class="col-sm-8">
+					<input id="typeId" name="typeId" th:field="*{typeId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">图片编号：</label>
+				<div class="col-sm-8">
+					<input id="imageId" name="imageId" th:field="*{imageId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">属性编号：</label>
+				<div class="col-sm-8">
+					<input id="propertyId" name="propertyId" th:field="*{propertyId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">状态(0:添加，1删除)：</label>
+				<div class="col-sm-8">
+					<input id="state" name="state" th:field="*{state}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">排序：</label>
+				<div class="col-sm-8">
+					<input id="orders" name="orders" th:field="*{orders}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">生成的文件编号：</label>
+				<div class="col-sm-8">
+					<input id="newFileName" name="newFileName" th:field="*{newFileName}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">原始文件：</label>
+				<div class="col-sm-8">
+					<input id="fileName" name="fileName" th:field="*{fileName}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">高度：</label>
+				<div class="col-sm-8">
+					<input id="height" name="height" th:field="*{height}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">宽度：</label>
+				<div class="col-sm-8">
+					<input id="width" name="width" th:field="*{width}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">X坐标：</label>
+				<div class="col-sm-8">
+					<input id="xsite" name="xsite" th:field="*{xsite}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">Y坐标：</label>
+				<div class="col-sm-8">
+					<input id="ysite" name="ysite" th:field="*{ysite}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">日期：</label>
+				<div class="col-sm-8">
+					<input id="createDate" name="createDate" th:field="*{createDate}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "isky/figureLog";
+		$("#form-figureLog-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-figureLog-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

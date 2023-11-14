@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureQrcodeMapper">
+    
+    <resultMap type="FigureQrcode" id="FigureQrcodeResult">
+        <result property="id"    column="id"    />
+        <result property="codeStr"    column="code_str"    />
+        <result property="codeUrl"    column="code_url"    />
+        <result property="codeType"    column="code_type"    />
+        <result property="codeUser"    column="code_user"    />
+        <result property="codeImg"    column="code_img"    />
+        <result property="textInfo"    column="text_info"    />
+        <result property="isUse"    column="is_use"    />
+        <result property="codeGenre"    column="code_genre"    />
+        <result property="isPrint"    column="is_print"    />
+        <result property="remark"    column="remark"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+	
+	<sql id="selectFigureQrcodeVo">
+        select id, code_str, code_url, code_type,code_user, code_img, text_info, is_use, code_genre, is_print, remark, del_flag, create_time from seg_figure_qrcode
+    </sql>
+	
+    <select id="selectFigureQrcodeList" parameterType="FigureQrcode" resultMap="FigureQrcodeResult">
+        <include refid="selectFigureQrcodeVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="codeStr != null  and codeStr != '' "> and code_str = #{codeStr}</if>
+             <if test="codeUrl != null  and codeUrl != '' "> and code_url = #{codeUrl}</if>
+             <if test="codeType != null  and codeType != '' "> and code_type = #{codeType}</if>
+             <if test="codeUser != null  and codeUser != '' "> and code_user = #{codeUser}</if>
+             <if test="codeImg != null  and codeImg != '' "> and code_img = #{codeImg}</if>
+             <if test="textInfo != null  and textInfo != '' "> and text_info = #{textInfo}</if>
+             <if test="isUse != null  and isUse != '' "> and is_use = #{isUse}</if>
+             <if test="codeGenre != null  and codeGenre != '' "> and code_genre = #{codeGenre}</if>
+             <if test="isPrint != null  and isPrint != '' "> and is_print = #{isPrint}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+         </where>
+
+        order by create_time desc
+    </select>
+    
+    <select id="selectFigureQrcodeById" parameterType="Integer" resultMap="FigureQrcodeResult">
+        <include refid="selectFigureQrcodeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigureQrcode" parameterType="FigureQrcode" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_qrcode
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="codeStr != null  and codeStr != ''  ">code_str,</if>
+			<if test="codeUrl != null  and codeUrl != ''  ">code_url,</if>
+			<if test="codeType != null  and codeType != ''  ">code_type,</if>
+            <if test="codeUser != null  and codeUser != ''  ">code_user,</if>
+			<if test="codeImg != null  and codeImg != ''  ">code_img,</if>
+			<if test="textInfo != null  and textInfo != ''  ">text_info,</if>
+			<if test="isUse != null  and isUse != ''  ">is_use,</if>
+			<if test="codeGenre != null  and codeGenre != ''  ">code_genre,</if>
+			<if test="isPrint != null  and isPrint != ''  ">is_print,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="delFlag != null  and delFlag != ''  ">del_flag,</if>
+			<if test="createTime != null  ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="codeStr != null  and codeStr != ''  ">#{codeStr},</if>
+			<if test="codeUrl != null  and codeUrl != ''  ">#{codeUrl},</if>
+			<if test="codeType != null  and codeType != ''  ">#{codeType},</if>
+            <if test="codeUser != null  and codeUser != ''  ">#{codeUser},</if>
+			<if test="codeImg != null  and codeImg != ''  ">#{codeImg},</if>
+			<if test="textInfo != null  and textInfo != ''  ">#{textInfo},</if>
+			<if test="isUse != null  and isUse != ''  ">#{isUse},</if>
+			<if test="codeGenre != null  and codeGenre != ''  ">#{codeGenre},</if>
+			<if test="isPrint != null  and isPrint != ''  ">#{isPrint},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="delFlag != null  and delFlag != ''  ">#{delFlag},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigureQrcode" parameterType="FigureQrcode">
+        update seg_figure_qrcode
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="codeStr != null  and codeStr != ''  ">code_str = #{codeStr},</if>
+            <if test="codeUrl != null  and codeUrl != ''  ">code_url = #{codeUrl},</if>
+            <if test="codeType != null  and codeType != ''  ">code_type = #{codeType},</if>
+            <if test="codeUser != null  and codeUser != ''  ">code_user = #{codeUser},</if>
+            <if test="codeImg != null  and codeImg != ''  ">code_img = #{codeImg},</if>
+            <if test="textInfo != null  and textInfo != ''  ">text_info = #{textInfo},</if>
+            <if test="isUse != null  and isUse != ''  ">is_use = #{isUse},</if>
+            <if test="codeGenre != null  and codeGenre != ''  ">code_genre = #{codeGenre},</if>
+            <if test="isPrint != null  and isPrint != ''  ">is_print = #{isPrint},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag = #{delFlag},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureQrcodeById" parameterType="Integer">
+        delete from seg_figure_qrcode where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureQrcodeByIds" parameterType="String">
+        delete from seg_figure_qrcode where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

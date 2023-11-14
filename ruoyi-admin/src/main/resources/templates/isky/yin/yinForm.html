@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <title>印刷数据内容表单</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link rel="stylesheet" href="../weui/lib/weui.min.css">
+    <link rel="stylesheet" href="../weui/css/jquery-weui.css">
+    <link rel="stylesheet" href="../weui/css/demos.css">
+</head>
+<body ontouchstart>
+<header class='demos-header'>
+    <h1 class="demos-title">印刷数据内容表单</h1>
+</header>
+
+<div class="weui-cells__title">印刷统计</div>
+<form id="myform" name="myform" method="post"  >
+<div class="weui-cells weui-cells_form">
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">4C+0</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" id="c4" name="c4" pattern="[0-9]*" value="0">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">4C+4C</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" id="c8" name="c8" pattern="[0-9]*" value="0">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">4C+1C</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" id="c5" name="c5" pattern="[0-9]*" value="0">
+        </div>
+    </div>
+
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">1C+1C</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" id="c2" name="c2" pattern="[0-9]*" value="0">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">1C+0</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" id="c1" name="c1" pattern="[0-9]*" value="0">
+        </div>
+    </div>
+</div>
+
+    <div class="weui-cells__tips">浪费统计</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">4C+4C</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="c8f" name="c8f" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">4C+1C</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="c5f" name="c5f" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">4C+0</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="c4f" name="c4f" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">1C+1C</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="c2f" name="c2f" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">1C+0</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="c1f" name="c1f" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-cells__tips">纸张统计</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">白卡</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="bk" name="bk" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">哑粉</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="yf" name="yf" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">高超</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="gc" name="gc" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">高米</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="gm" name="gm" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">雪卡</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="xk" name="xk" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">细格</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="xg" name="xg" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">亮卡</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="lk" name="lk" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">珠光</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="zg" name="zg" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">铜板</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="tb" name="tb" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">纯质</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="cz" name="cz" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">满天星</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="mtx" name="mtx" pattern="[0-9]*" value="0">
+            </div>
+        </div>
+    </div>
+
+</div>
+</form>
+<div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
+</div>
+<div style="display: none;">
+
+    <input th:value="${userid}" id="userid">
+
+    <input type="text" id="typeid" th:value="${tid}">
+</div>
+
+<script src="../weui/lib/jquery-2.1.4.js"></script>
+<script src="../weui/lib/fastclick.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../weui/js/jquery-weui.js"></script>
+<script>
+
+    /**
+     * 根据form表单的id获取表单下所有可提交的表单数据，封装成数组对象
+     */
+    function getFormData(formId) {
+        var data = {};
+        var results = $(formId).serializeArray();
+        $.each(results, function (index, item) {
+            //文本表单的值不为空才处理
+            if (item.value && $.trim(item.value) != "") {
+                if (!data[item.name]) {
+                    data[item.name] = item.value;
+                } else {
+                    //name属性相同的表单，值以英文,拼接
+                    data[item.name] = data[item.name] + ',' + item.value;
+                }
+            }
+        });
+        return data;
+    }
+
+    $("#showTooltips").click(function () {
+        var userid=$("#userid").val();
+        var ajaxVialidateData = {
+            userid:userid
+        }
+        var flag = flag;
+        $.ajax({
+            type: "POST",
+            url: "queryValidate",
+            data:ajaxVialidateData,
+            async: false,
+            dataType: "json",
+            success: function (msg) {
+                flag = msg.isflag;
+            }
+        });
+
+        if(flag){
+            var c8 = $('#c8').val();
+            var c5 = $('#c5').val();
+            var c4 = $('#c4').val();
+            var c2 = $('#c2').val();
+            var c1 = $('#c1').val();
+            if (!c8) $.toptip('请输入4C+4C');
+            else  if (!c5) $.toptip('请输入4C+1C');
+            else  if (!c4) $.toptip('请输入4C+0');
+            else  if (!c2) $.toptip('请输入1C+1C');
+            else  if (!c1) $.toptip('请输入1C+0');
+
+            var datas = getFormData("form");
+            var mydatas = JSON.stringify(datas);
+            var ajaxData = {
+                mydatas: mydatas,
+                userid:userid
+            }
+            var ajaxUrl = "saveYin";
+            $.ajax({
+                type: "POST",
+                url: ajaxUrl,
+                data:ajaxData,
+                async: false,
+                dataType: "json",
+                success: function (msg) {
+                    var msg = msg.msg;
+                    if (msg == '1') {
+                        $.toptip('提交成功', 'success');
+                        window.location.href = "yinResult";
+                    }
+                }
+            });
+        }else{
+            $.toptip('一天只可以提交一次', 'error');
+        }
+
+
+    });
+</script>
+</body>
+</html>

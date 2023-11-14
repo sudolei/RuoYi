@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改模板')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-iskyPhoneMb-edit" th:object="${iskyPhoneMb}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="modelId" name="modelId" th:field="*{modelId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">模板：</label>
+				<div class="col-sm-8">
+					<input id="mbUrl" name="mbUrl" th:field="*{mbUrl}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">模板宽度：</label>
+				<div class="col-sm-8">
+					<input id="mbWidth" name="mbWidth" th:field="*{mbWidth}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">模板高度：</label>
+				<div class="col-sm-8">
+					<input id="mbHeight" name="mbHeight" th:field="*{mbHeight}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">X坐标：</label>
+				<div class="col-sm-8">
+					<input id="mbXsite" name="mbXsite" th:field="*{mbXsite}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">Y坐标：</label>
+				<div class="col-sm-8">
+					<input id="mbYsite" name="mbYsite" th:field="*{mbYsite}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">文本：</label>
+				<div class="col-sm-8">
+					<input id="mbText" name="mbText" th:field="*{mbText}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">排序：</label>
+				<div class="col-sm-8">
+					<input id="mbOrder" name="mbOrder" th:field="*{mbOrder}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "isky/iskyPhoneMb";
+		$("#form-iskyPhoneMb-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-iskyPhoneMb-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

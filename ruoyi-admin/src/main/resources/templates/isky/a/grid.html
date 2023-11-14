@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>预览</title>
+    <link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="../mobile/js/jquery.js"></script>
+    <script src="../mobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <!--alert 弹出框 -->
+    <script src="../jqalert/alert.js" type="text/javascript"></script>
+    <script src="../jqalert/alertd.js" type="text/javascript"></script>
+</head>
+<body>
+<div data-role="page" class="jqm-demos"  >
+    <div data-role="header">
+        <h1>订单列表</h1>
+        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-left" onclick="addOrder();">发起订单</a>
+        <a href="javascript:goback(); "    class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-notext">Back</a>
+    </div>
+    <div data-demo-html="true">
+        <div data-role="tabs" id="tabs">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="unfinishList"   class="ui-btn-active ui-state-persist">未完成</a></li>
+                    <li><a href="finishList">已完成</a></li>
+                    <li><a href="list">全部</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript"> var ctx = [[@{
+    /}]];</script>
+<script>
+    function  addOrder() {
+        window.location.href="addOrder";
+    }
+    
+    function goback() {
+        window.location.href=ctx+"zz";
+    }
+</script>
+</body>
+</html>

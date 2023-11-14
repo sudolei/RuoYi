@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.IskyPhoneTypeMapper">
+    
+    <resultMap type="IskyPhoneType" id="IskyPhoneTypeResult">
+        <result property="id"    column="id"    />
+        <result property="typeName"    column="type_name"    />
+        <result property="typeCover"    column="type_cover"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+	
+	<sql id="selectIskyPhoneTypeVo">
+        select id, type_name, type_cover, remark from isky_phone_type
+    </sql>
+	
+    <select id="selectIskyPhoneTypeList" parameterType="IskyPhoneType" resultMap="IskyPhoneTypeResult">
+        <include refid="selectIskyPhoneTypeVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="typeName != null  and typeName != '' "> and type_name = #{typeName}</if>
+             <if test="typeCover != null  and typeCover != '' "> and type_cover = #{typeCover}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+         </where>
+    </select>
+    
+    <select id="selectIskyPhoneTypeById" parameterType="Integer" resultMap="IskyPhoneTypeResult">
+        <include refid="selectIskyPhoneTypeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertIskyPhoneType" parameterType="IskyPhoneType" useGeneratedKeys="true" keyProperty="id">
+        insert into isky_phone_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="typeName != null  and typeName != ''  ">type_name,</if>
+			<if test="typeCover != null  and typeCover != ''  ">type_cover,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="typeName != null  and typeName != ''  ">#{typeName},</if>
+			<if test="typeCover != null  and typeCover != ''  ">#{typeCover},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateIskyPhoneType" parameterType="IskyPhoneType">
+        update isky_phone_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="typeName != null  and typeName != ''  ">type_name = #{typeName},</if>
+            <if test="typeCover != null  and typeCover != ''  ">type_cover = #{typeCover},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteIskyPhoneTypeById" parameterType="Integer">
+        delete from isky_phone_type where id = #{id}
+    </delete>
+	
+    <delete id="deleteIskyPhoneTypeByIds" parameterType="String">
+        delete from isky_phone_type where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

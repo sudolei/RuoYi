@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.IskyPhoneMbMapper">
+    
+    <resultMap type="IskyPhoneMb" id="IskyPhoneMbResult">
+        <result property="id"    column="id"    />
+        <result property="modelId"    column="model_id"    />
+        <result property="mbUrl"    column="mb_url"    />
+        <result property="mbWidth"    column="mb_width"    />
+        <result property="mbHeight"    column="mb_height"    />
+        <result property="mbXsite"    column="mb_xsite"    />
+        <result property="mbYsite"    column="mb_ysite"    />
+        <result property="mbText"    column="mb_text"    />
+        <result property="mbOrder"    column="mb_order"    />
+    </resultMap>
+	
+	<sql id="selectIskyPhoneMbVo">
+        select id, model_id, mb_url, mb_width, mb_height, mb_xsite, mb_ysite, mb_text, mb_order from isky_phone_mb
+    </sql>
+	
+    <select id="selectIskyPhoneMbList" parameterType="IskyPhoneMb" resultMap="IskyPhoneMbResult">
+        <include refid="selectIskyPhoneMbVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="modelId != null "> and model_id = #{modelId}</if>
+             <if test="mbUrl != null  and mbUrl != '' "> and mb_url = #{mbUrl}</if>
+             <if test="mbWidth != null "> and mb_width = #{mbWidth}</if>
+             <if test="mbHeight != null "> and mb_height = #{mbHeight}</if>
+             <if test="mbXsite != null "> and mb_xsite = #{mbXsite}</if>
+             <if test="mbYsite != null "> and mb_ysite = #{mbYsite}</if>
+             <if test="mbText != null  and mbText != '' "> and mb_text = #{mbText}</if>
+             <if test="mbOrder != null "> and mb_order = #{mbOrder}</if>
+         </where>
+    </select>
+    
+    <select id="selectIskyPhoneMbById" parameterType="Integer" resultMap="IskyPhoneMbResult">
+        <include refid="selectIskyPhoneMbVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertIskyPhoneMb" parameterType="IskyPhoneMb" useGeneratedKeys="true" keyProperty="id">
+        insert into isky_phone_mb
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="modelId != null  ">model_id,</if>
+			<if test="mbUrl != null  and mbUrl != ''  ">mb_url,</if>
+			<if test="mbWidth != null  ">mb_width,</if>
+			<if test="mbHeight != null  ">mb_height,</if>
+			<if test="mbXsite != null  ">mb_xsite,</if>
+			<if test="mbYsite != null  ">mb_ysite,</if>
+			<if test="mbText != null  and mbText != ''  ">mb_text,</if>
+			<if test="mbOrder != null  ">mb_order,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="modelId != null  ">#{modelId},</if>
+			<if test="mbUrl != null  and mbUrl != ''  ">#{mbUrl},</if>
+			<if test="mbWidth != null  ">#{mbWidth},</if>
+			<if test="mbHeight != null  ">#{mbHeight},</if>
+			<if test="mbXsite != null  ">#{mbXsite},</if>
+			<if test="mbYsite != null  ">#{mbYsite},</if>
+			<if test="mbText != null  and mbText != ''  ">#{mbText},</if>
+			<if test="mbOrder != null  ">#{mbOrder},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateIskyPhoneMb" parameterType="IskyPhoneMb">
+        update isky_phone_mb
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="modelId != null  ">model_id = #{modelId},</if>
+            <if test="mbUrl != null  and mbUrl != ''  ">mb_url = #{mbUrl},</if>
+            <if test="mbWidth != null  ">mb_width = #{mbWidth},</if>
+            <if test="mbHeight != null  ">mb_height = #{mbHeight},</if>
+            <if test="mbXsite != null  ">mb_xsite = #{mbXsite},</if>
+            <if test="mbYsite != null  ">mb_ysite = #{mbYsite},</if>
+            <if test="mbText != null  and mbText != ''  ">mb_text = #{mbText},</if>
+            <if test="mbOrder != null  ">mb_order = #{mbOrder},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteIskyPhoneMbById" parameterType="Integer">
+        delete from isky_phone_mb where id = #{id}
+    </delete>
+	
+    <delete id="deleteIskyPhoneMbByIds" parameterType="String">
+        delete from isky_phone_mb where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

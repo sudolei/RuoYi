@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureYzfromMapper">
+    <resultMap type="FigureYzfrom" id="FigureYzfromResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="c8" column="c8"/>
+        <result property="c5" column="c5"/>
+        <result property="c4" column="c4"/>
+        <result property="c2" column="c2"/>
+        <result property="c1" column="c1"/>
+        <result property="lc8" column="lc8"/>
+        <result property="lc5" column="lc5"/>
+        <result property="lc4" column="lc4"/>
+        <result property="lc2" column="lc2"/>
+        <result property="lc1" column="lc1"/>
+        <result property="call" column="c_all"/>
+        <result property="c8f" column="c8f"/>
+        <result property="c5f" column="c5f"/>
+        <result property="c4f" column="c4f"/>
+        <result property="c2f" column="c2f"/>
+        <result property="c1f" column="c1f"/>
+        <result property="callf" column="callf"/>
+
+        <result property="c8qj" column="c8qj"/>
+        <result property="c5qj" column="c5qj"/>
+        <result property="c4qj" column="c4qj"/>
+        <result property="c2qj" column="c2qj"/>
+        <result property="c1qj" column="c1qj"/>
+        <result property="callqj" column="callqj"/>
+
+
+        <result property="c8kz" column="c8kz"/>
+        <result property="c5kz" column="c5kz"/>
+        <result property="c4kz" column="c4kz"/>
+        <result property="c2kz" column="c2kz"/>
+        <result property="c1kz" column="c1kz"/>
+        <result property="callkz" column="callkz"/>
+
+
+        <result property="c8ys" column="c8ys"/>
+        <result property="c5ys" column="c5ys"/>
+        <result property="c4ys" column="c4ys"/>
+        <result property="c2ys" column="c2ys"/>
+        <result property="c1ys" column="c1ys"/>
+        <result property="callys" column="callys"/>
+
+        <result property="c8kf" column="c8kf"/>
+        <result property="c5kf" column="c5kf"/>
+        <result property="c4kf" column="c4kf"/>
+        <result property="c2kf" column="c2kf"/>
+        <result property="c1kf" column="c1kf"/>
+        <result property="callkf" column="callkf"/>
+
+        <result property="c8sc" column="c8sc"/>
+        <result property="c5sc" column="c5sc"/>
+        <result property="c4sc" column="c4sc"/>
+        <result property="c2sc" column="c2sc"/>
+        <result property="c1sc" column="c1sc"/>
+        <result property="callsc" column="callsc"/>
+
+        <result property="c8fh" column="c8fh"/>
+        <result property="c5fh" column="c5fh"/>
+        <result property="c4fh" column="c4fh"/>
+        <result property="c2fh" column="c2fh"/>
+        <result property="c1fh" column="c1fh"/>
+        <result property="callfh" column="callfh"/>
+
+
+        <result property="zys" column="zys"/>
+        <result property="zysd" column="zysd"/>
+        <result property="zyss" column="zyss"/>
+        <result property="wys" column="wys"/>
+        <result property="wysd" column="wysd"/>
+        <result property="wyss" column="wyss"/>
+        <result property="zds" column="zds"/>
+        <result property="wds" column="wds"/>
+
+
+        <result property="bk" column="bk"/>
+        <result property="xk" column="xk"/>
+        <result property="xg" column="xg"/>
+        <result property="gm" column="gm"/>
+        <result property="gc" column="gc"/>
+        <result property="tb" column="tb"/>
+        <result property="zg" column="zg"/>
+        <result property="xg" column="xg"/>
+        <result property="lk" column="lk"/>
+        <result property="cz" column="cz"/>
+        <result property="mtx" column="mtx"/>
+
+        <result property="ctime" column="ctime"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectFigureYzfromVo">
+        select id, user_id, c8, c5, c4, c2, c1,  lc8, lc5, lc4, lc2, lc1, c_all, c8f, c5f, c4f, c2f, c1f, callf, c8qj, c5qj, c4qj, c2qj, c1qj, callqj, c8kz, c5kz, c4kz, c2kz, c1kz, callkz,
+         c8sc, c5sc, c4sc, c2sc, c1sc, callsc,c8kf, c5kf, c4kf, c2kf, c1kf, callkf,c8fh, c5fh, c4fh, c2fh, c1fh, callfh,c8ys,mtx, c5ys, c4ys, c2ys, c1ys, callys,zys,zysd,zyss,wys,wysd,wyss,zds,wds,cz,
+        create_by, create_date, update_by, update_date, remark,bk,xk,lk,xg,gc,gm,zg,tb,yf,date_format(create_date,'%Y%m%d') ctime  from seg_figure_yzfrom
+    </sql>
+
+    <select id="selectFigureYzfromList" parameterType="FigureYzfrom" resultMap="FigureYzfromResult">
+        <include refid="selectFigureYzfromVo"/>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="createBy != null  and createBy != '' ">and create_by = #{createBy}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_date,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_date,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <if test="ctime != null ">and  <![CDATA[     DATE_FORMAT(create_date, '%Y%m%d') = #{ctime}    ]]></if>
+            <if test="updateBy != null  and updateBy != '' ">and update_by = #{updateBy}</if>
+            <if test="updateDate != null ">and update_date = #{updateDate}</if>
+            <if test="remark != null  and remark != '' ">and remark = #{remark}</if>
+        </where>
+        order by date_format(create_date,'%y%m%d') desc, user_id
+    </select>
+
+    <select id="selectFigureYzFromDate" parameterType="FigureYzfrom" resultMap="FigureYzfromResult">
+        select date_format(create_date,'%Y%m%d') as ctime from seg_figure_yzfrom
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_date,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_date,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <if test="createBy != null  and createBy != '' ">and create_by = #{createBy}</if>
+            <if test="ctime != null ">and  <![CDATA[     DATE_FORMAT(create_date, '%Y%m%d') = #{ctime}    ]]></if>
+            <if test="updateBy != null  and updateBy != '' ">and update_by = #{updateBy}</if>
+            <if test="updateDate != null ">and update_date = #{updateDate}</if>
+            <if test="remark != null  and remark != '' ">and remark = #{remark}</if>
+        </where>
+        group by date_format(create_date,'%Y%m%d')
+        ORDER BY ctime DESC
+    </select>
+
+    <select id="selectFigureYzfromById" parameterType="Integer" resultMap="FigureYzfromResult">
+        <include refid="selectFigureYzfromVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFigureYzfrom" parameterType="FigureYzfrom" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_yzfrom
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null  ">user_id,</if>
+            <if test="c8 != null  ">c8,</if>
+            <if test="c5 != null  ">c5,</if>
+            <if test="c4 != null  ">c4,</if>
+            <if test="c2 != null  ">c2,</if>
+            <if test="c1 != null  ">c1,</if>
+
+            <if test="lc8 != null  ">lc8,</if>
+            <if test="lc5 != null  ">lc5,</if>
+            <if test="lc4 != null  ">lc4,</if>
+            <if test="lc2 != null  ">lc2,</if>
+            <if test="lc1 != null  ">lc1,</if>
+
+
+            <if test="call != null  ">c_all,</if>
+            <if test="c8f != null  ">c8f,</if>
+            <if test="c5f != null  ">c5f,</if>
+            <if test="c4f != null  ">c4f,</if>
+            <if test="c2f != null  ">c2f,</if>
+            <if test="c1f != null  ">c1f,</if>
+            <if test="callf != null  ">callf,</if>
+
+
+            <if test="c8qj != null  ">c8qj,</if>
+            <if test="c5qj!= null  ">c5qj,</if>
+            <if test="c4qj != null  ">c4qj,</if>
+            <if test="c2qj != null  ">c2qj,</if>
+            <if test="c1qj != null  ">c1qj,</if>
+            <if test="callqj != null  ">callqj,</if>
+
+
+            <if test="c8kz != null  ">c8kz,</if>
+            <if test="c5kz != null  ">c5kz,</if>
+            <if test="c4kz != null  ">c4kz,</if>
+            <if test="c2kz != null  ">c2kz,</if>
+            <if test="c1kz != null  ">c1kz,</if>
+            <if test="callkz != null  ">callkz,</if>
+
+
+            <if test="c8ys != null  ">c8ys,</if>
+            <if test="c5ys != null  ">c5ys,</if>
+            <if test="c4ys!= null  ">c4ys,</if>
+            <if test="c2ys != null  ">c2ys,</if>
+            <if test="c1ys != null  ">c1ys,</if>
+            <if test="callys != null  ">callys,</if>
+
+
+            <if test="c8kf != null  ">c8kf,</if>
+            <if test="c5kf != null  ">c5kf,</if>
+            <if test="c4kf!= null  ">c4kf,</if>
+            <if test="c2kf != null  ">c2kf,</if>
+            <if test="c1kf!= null  ">c1kf,</if>
+            <if test="callkf != null  ">callkf,</if>
+
+
+            <if test="c8sc != null  ">c8sc,</if>
+            <if test="c5sc != null  ">c5sc,</if>
+            <if test="c4sc != null  ">c4sc,</if>
+            <if test="c2sc != null  ">c2sc,</if>
+            <if test="c1sc != null  ">c1sc,</if>
+            <if test="callsc != null  ">callsc,</if>
+
+
+            <if test="c8fh != null  ">c8fh,</if>
+            <if test="c5fh != null  ">c5fh,</if>
+            <if test="c4fh!= null  ">c4fh,</if>
+            <if test="c2fh!= null  ">c2fh,</if>
+            <if test="c1fh!= null  ">c1fh,</if>
+            <if test="callfh != null  ">callfh,</if>
+
+            <if test="zds != null  ">zds,</if>
+            <if test="wds != null  ">wds,</if>
+            <if test="zys != null  ">zys,</if>
+            <if test="wys != null  ">wys,</if>
+            <if test="zyss != null  ">zyss,</if>
+            <if test="zysd != null  ">zysd,</if>
+            <if test="wysd != null  ">wysd,</if>
+            <if test="wyss != null  ">wyss,</if>
+
+
+            <if test="bk != null  ">bk,</if>
+            <if test="xk != null  ">xk,</if>
+            <if test="xg != null  ">xg,</if>
+            <if test="gm != null  ">gm,</if>
+            <if test="gc != null  ">gc,</if>
+            <if test="tb != null  ">tb,</if>
+            <if test="zg != null  ">zg,</if>
+            <if test="lk != null  ">lk,</if>
+            <if test="yf != null  ">yf,</if>
+            <if test="cz != null  ">cz,</if>
+            <if test="mtx != null  ">mtx,</if>
+
+
+            <if test="createBy != null  and createBy != ''  ">create_by,</if>
+            <if test="createDate != null  ">create_date,</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+            <if test="updateDate != null  ">update_date,</if>
+            <if test="remark != null  and remark != ''  ">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null  ">#{userId},</if>
+            <if test="c8 != null  ">#{c8},</if>
+            <if test="c5 != null  ">#{c5},</if>
+            <if test="c4 != null  ">#{c4},</if>
+            <if test="c2 != null  ">#{c2},</if>
+            <if test="c1 != null  ">#{c1},</if>
+
+            <if test="lc8 != null  ">#{lc8},</if>
+            <if test="lc5 != null  ">#{lc5},</if>
+            <if test="lc4 != null  ">#{lc4},</if>
+            <if test="lc2 != null  ">#{lc2},</if>
+            <if test="lc1 != null  ">#{lc1},</if>
+
+            <if test="call != null  ">#{call},</if>
+            <if test="c8f != null  ">#{c8f},</if>
+            <if test="c5f != null  ">#{c5f},</if>
+            <if test="c4f != null  ">#{c4f},</if>
+            <if test="c2f != null  ">#{c2f},</if>
+            <if test="c1f != null  ">#{c1f},</if>
+            <if test="callf != null  ">#{callf},</if>
+
+
+            <if test="c8qj != null  ">#{c8qj},</if>
+            <if test="c5qj != null  ">#{c5qj},</if>
+            <if test="c4qj!= null  ">#{c4qj},</if>
+            <if test="c2qj != null  ">#{c2qj},</if>
+            <if test="c1qj!= null  ">#{c1qj},</if>
+            <if test="callqj != null  ">#{callqj},</if>
+
+            <if test="c8kz != null  ">#{c8kz},</if>
+            <if test="c5kz != null  ">#{c5kz},</if>
+            <if test="c4kz != null  ">#{c4kz},</if>
+            <if test="c2kz != null  ">#{c2kz},</if>
+            <if test="c1kz != null  ">#{c1kz},</if>
+            <if test="callkz != null  ">#{callkz},</if>
+
+            <if test="c8ys != null  ">#{c8ys},</if>
+            <if test="c5ys != null  ">#{c5ys},</if>
+            <if test="c4ys != null  ">#{c4ys},</if>
+            <if test="c2ys != null  ">#{c2ys},</if>
+            <if test="c1ys!= null  ">#{c1ys},</if>
+            <if test="callys != null  ">#{callys},</if>
+
+            <if test="c8kf != null  ">#{c8kf},</if>
+            <if test="c5kf != null  ">#{c5kf},</if>
+            <if test="c4kf != null  ">#{c4kf},</if>
+            <if test="c2kf != null  ">#{c2kf},</if>
+            <if test="c1kf != null  ">#{c1kf},</if>
+            <if test="callkf != null  ">#{callkf},</if>
+
+            <if test="c8sc != null  ">#{c8sc},</if>
+            <if test="c5sc != null  ">#{c5sc},</if>
+            <if test="c4sc != null  ">#{c4sc},</if>
+            <if test="c2sc != null  ">#{c2sc},</if>
+            <if test="c1sc != null  ">#{c1sc},</if>
+            <if test="callsc != null  ">#{callsc},</if>
+
+            <if test="c8fh != null  ">#{c8fh},</if>
+            <if test="c5fh != null  ">#{c5fh},</if>
+            <if test="c4fh != null  ">#{c4fh},</if>
+            <if test="c2fh != null  ">#{c2fh},</if>
+            <if test="c1fh != null  ">#{c1fh},</if>
+            <if test="callfh != null  ">#{callfh},</if>
+
+            <if test="zds != null  ">#{zds},</if>
+            <if test="wds != null  ">#{wds},</if>
+            <if test="zys != null  ">#{zys},</if>
+            <if test="wys != null  ">#{wys},</if>
+            <if test="zyss != null  ">#{zyss},</if>
+            <if test="zysd != null  ">#{zysd},</if>
+            <if test="wysd != null  ">#{wysd},</if>
+            <if test="wyss != null  ">#{wyss},</if>
+
+
+            <if test="bk != null  ">#{bk},</if>
+            <if test="xk != null  ">#{xk},</if>
+            <if test="xg != null  ">#{xg},</if>
+            <if test="gm != null  ">#{gm},</if>
+            <if test="gc != null  ">#{gc},</if>
+            <if test="tb != null  ">#{tb},</if>
+            <if test="zg != null  ">#{zg},</if>
+            <if test="lk != null  ">#{lk},</if>
+            <if test="yf != null  ">#{yf},</if>
+            <if test="cz != null  ">#{cz},</if>
+            <if test="mtx != null  ">#{mtx},</if>
+
+            <if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+            <if test="createDate != null  ">#{createDate},</if>
+            <if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+            <if test="updateDate != null  ">#{updateDate},</if>
+            <if test="remark != null  and remark != ''  ">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateFigureYzfrom" parameterType="FigureYzfrom">
+        update seg_figure_yzfrom
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null  ">user_id = #{userId},</if>
+            <if test="c8 != null  ">c8 = #{c8},</if>
+            <if test="c5 != null  ">c5 = #{c5},</if>
+            <if test="c4 != null  ">c4 = #{c4},</if>
+            <if test="c2 != null  ">c2 = #{c2},</if>
+            <if test="c1 != null  ">c1 = #{c1},</if>
+
+            <if test="lc8 != null  ">lc8 = #{lc8},</if>
+            <if test="lc5 != null  ">lc5 = #{lc5},</if>
+            <if test="lc4 != null  ">lc4 = #{lc4},</if>
+            <if test="lc2 != null  ">lc2 = #{lc2},</if>
+            <if test="lc1 != null  ">lc1 = #{lc1},</if>
+            <if test="call != null  ">c_all = #{call},</if>
+            <if test="c8f != null  ">c8f = #{c8f},</if>
+            <if test="c5f != null  ">c5f = #{c5f},</if>
+            <if test="c4f != null  ">c4f = #{c4f},</if>
+            <if test="c2f != null  ">c2f = #{c2f},</if>
+            <if test="c1f != null  ">c1f = #{c1f},</if>
+            <if test="callf != null  ">callf = #{callf},</if>
+
+            <if test="c8qj != null  ">c8qj = #{c8qj},</if>
+            <if test="c5qj!= null  ">c5qj = #{c5qj},</if>
+            <if test="c4qj != null  ">c4qj = #{c4qj},</if>
+            <if test="c2qj != null  ">c2qj = #{c2qj},</if>
+            <if test="c1qj != null  ">c1qj = #{c1qj},</if>
+            <if test="callqj != null  ">callqj = #{callqj},</if>
+
+
+            <if test="c8kz != null  ">c8kz = #{c8kz},</if>
+            <if test="c5kz != null  ">c5kz = #{c5kz},</if>
+            <if test="c4kz != null  ">c4kz = #{c4kz},</if>
+            <if test="c2kz != null  ">c2kz = #{c2kz},</if>
+            <if test="c1kz != null  ">c1kz = #{c1kz},</if>
+            <if test="callkz != null  ">callkz = #{callkz},</if>
+
+
+            <if test="c8ys != null  ">c8ys = #{c8ys},</if>
+            <if test="c5ys != null  ">c5ys = #{c5ys},</if>
+            <if test="c4ys!= null  ">c4ys = #{c4ys},</if>
+            <if test="c2ys != null  ">c2ys = #{c2ys},</if>
+            <if test="c1ys != null  ">c1ys = #{c1ys},</if>
+            <if test="callys != null  ">callys = #{callys},</if>
+
+
+            <if test="c8kf != null  ">c8kf = #{c8kf},</if>
+            <if test="c5kf != null  ">c5kf = #{c5kf},</if>
+            <if test="c4kf!= null  ">c4kf = #{c4kf},</if>
+            <if test="c2kf != null  ">c2kf = #{c2kf},</if>
+            <if test="c1kf!= null  ">c1kf = #{c1kf},</if>
+            <if test="callkf != null  ">callkf = #{callkf},</if>
+
+
+            <if test="c8sc != null  ">c8sc = #{c8sc},</if>
+            <if test="c5sc != null  ">c5sc = #{c5sc},</if>
+            <if test="c4sc != null  ">c4sc = #{c4sc},</if>
+            <if test="c2sc != null  ">c2sc = #{c2sc},</if>
+            <if test="c1sc != null  ">c1sc = #{c1sc},</if>
+            <if test="callsc != null  ">callsc = #{callsc},</if>
+
+
+            <if test="c8fh != null  ">c8fh = #{c8fh},</if>
+            <if test="c5fh != null  ">c5fh = #{c5fh},</if>
+            <if test="c4fh!= null  ">c4fh = #{c4fh},</if>
+            <if test="c2fh!= null  ">c2fh = #{c2fh},</if>
+            <if test="c1fh!= null  ">c1fh = #{c1fh},</if>
+            <if test="callfh != null  ">callfh = #{callfh},</if>
+
+
+            <if test="zys != null  ">zys = #{zys},</if>
+            <if test="wys != null  ">wys = #{wys},</if>
+            <if test="zysd!= null  ">zysd = #{zysd},</if>
+            <if test="wysd!= null  ">wysd = #{wysd},</if>
+            <if test="zyss!= null  ">zyss = #{zyss},</if>
+            <if test="zysd != null  ">zysd = #{zysd},</if>
+            <if test="zds != null  ">zds = #{zds},</if>
+            <if test="wds != null  ">wds = #{wds},</if>
+
+
+            <if test="bk != null  ">bk = #{bk},</if>
+            <if test="xk != null  ">xk=#{xk},</if>
+            <if test="xg != null  ">xg =#{xg},</if>
+            <if test="gm != null  ">gm =#{gm},</if>
+            <if test="gc != null  ">gc =#{gc},</if>
+            <if test="tb != null  ">tb =#{tb},</if>
+            <if test="zg != null  ">zg=#{zg},</if>
+            <if test="lk != null  ">lk=#{lk},</if>
+            <if test="yf != null  ">yf = #{yf},</if>
+            <if test="cz != null  ">cz = #{cz},</if>
+            <if test="mtx != null  ">mtx = #{mtx},</if>
+
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="updateDate != null  ">update_date = #{updateDate},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFigureYzfromById" parameterType="Integer">
+        delete from seg_figure_yzfrom where id = #{id}
+    </delete>
+
+    <delete id="deleteFigureYzfromByIds" parameterType="String">
+        delete from seg_figure_yzfrom where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

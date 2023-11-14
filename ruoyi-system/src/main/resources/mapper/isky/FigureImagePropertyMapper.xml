@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureImagePropertyMapper">
+    
+    <resultMap type="FigureImageProperty" id="FigureImagePropertyResult">
+        <result property="id"    column="id"    />
+        <result property="imageId"    column="image_id"    />
+        <result property="xSite"    column="x_site"    />
+        <result property="ySite"    column="y_site"    />
+        <result property="width"    column="width"    />
+        <result property="height"    column="height"    />
+        <result property="isround"    column="isround"    />
+        <result property="zoomXsite"    column="zoom_xsite"    />
+        <result property="zoomYsite"    column="zoom_ysite"    />
+        <result property="zoomWidth"    column="zoom_width"    />
+        <result property="zoomHeight"    column="zoom_height"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+	
+	<sql id="selectFigureImagePropertyVo">
+        select id, image_id, x_site, y_site, width, height, isround, zoom_xsite, zoom_ysite, zoom_width, zoom_height, order_num, create_by, create_date, update_by, update_date, remarks, del_flag from seg_figure_image_property
+    </sql>
+	
+    <select id="selectFigureImagePropertyList" parameterType="FigureImageProperty" resultMap="FigureImagePropertyResult">
+        <include refid="selectFigureImagePropertyVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="imageId != null "> and image_id = #{imageId}</if>
+             <if test="xSite != null  and xSite != '' "> and x_site = #{xSite}</if>
+             <if test="ySite != null  and ySite != '' "> and y_site = #{ySite}</if>
+             <if test="width != null  and width != '' "> and width = #{width}</if>
+             <if test="height != null  and height != '' "> and height = #{height}</if>
+             <if test="isround != null  and isround != '' "> and isround = #{isround}</if>
+             <if test="zoomXsite != null  and zoomXsite != '' "> and zoom_xsite = #{zoomXsite}</if>
+             <if test="zoomYsite != null  and zoomYsite != '' "> and zoom_ysite = #{zoomYsite}</if>
+             <if test="zoomWidth != null  and zoomWidth != '' "> and zoom_width = #{zoomWidth}</if>
+             <if test="zoomHeight != null  and zoomHeight != '' "> and zoom_height = #{zoomHeight}</if>
+             <if test="orderNum != null "> and order_num = #{orderNum}</if>
+             <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+             <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
+             <if test="updateDate != null "> and update_date = #{updateDate}</if>
+             <if test="remarks != null  and remarks != '' "> and remarks = #{remarks}</if>
+             <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
+         </where>
+    </select>
+    
+    <select id="selectFigureImagePropertyById" parameterType="Integer" resultMap="FigureImagePropertyResult">
+        <include refid="selectFigureImagePropertyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigureImageProperty" parameterType="FigureImageProperty" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_image_property
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="imageId != null  ">image_id,</if>
+			<if test="xSite != null  and xSite != ''  ">x_site,</if>
+			<if test="ySite != null  and ySite != ''  ">y_site,</if>
+			<if test="width != null  and width != ''  ">width,</if>
+			<if test="height != null  and height != ''  ">height,</if>
+			<if test="isround != null  and isround != ''  ">isround,</if>
+			<if test="zoomXsite != null  and zoomXsite != ''  ">zoom_xsite,</if>
+			<if test="zoomYsite != null  and zoomYsite != ''  ">zoom_ysite,</if>
+			<if test="zoomWidth != null  and zoomWidth != ''  ">zoom_width,</if>
+			<if test="zoomHeight != null  and zoomHeight != ''  ">zoom_height,</if>
+			<if test="orderNum != null  ">order_num,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+			<if test="createDate != null  ">create_date,</if>
+			<if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+			<if test="updateDate != null  ">update_date,</if>
+			<if test="remarks != null  and remarks != ''  ">remarks,</if>
+			<if test="delFlag != null  and delFlag != ''  ">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="imageId != null  ">#{imageId},</if>
+			<if test="xSite != null  and xSite != ''  ">#{xSite},</if>
+			<if test="ySite != null  and ySite != ''  ">#{ySite},</if>
+			<if test="width != null  and width != ''  ">#{width},</if>
+			<if test="height != null  and height != ''  ">#{height},</if>
+			<if test="isround != null  and isround != ''  ">#{isround},</if>
+			<if test="zoomXsite != null  and zoomXsite != ''  ">#{zoomXsite},</if>
+			<if test="zoomYsite != null  and zoomYsite != ''  ">#{zoomYsite},</if>
+			<if test="zoomWidth != null  and zoomWidth != ''  ">#{zoomWidth},</if>
+			<if test="zoomHeight != null  and zoomHeight != ''  ">#{zoomHeight},</if>
+			<if test="orderNum != null  ">#{orderNum},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+			<if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+			<if test="updateDate != null  ">#{updateDate},</if>
+			<if test="remarks != null  and remarks != ''  ">#{remarks},</if>
+			<if test="delFlag != null  and delFlag != ''  ">#{delFlag},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigureImageProperty" parameterType="FigureImageProperty">
+        update seg_figure_image_property
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="imageId != null  ">image_id = #{imageId},</if>
+            <if test="xSite != null  and xSite != ''  ">x_site = #{xSite},</if>
+            <if test="ySite != null  and ySite != ''  ">y_site = #{ySite},</if>
+            <if test="width != null  and width != ''  ">width = #{width},</if>
+            <if test="height != null  and height != ''  ">height = #{height},</if>
+            <if test="isround != null  and isround != ''  ">isround = #{isround},</if>
+            <if test="zoomXsite != null  and zoomXsite != ''  ">zoom_xsite = #{zoomXsite},</if>
+            <if test="zoomYsite != null  and zoomYsite != ''  ">zoom_ysite = #{zoomYsite},</if>
+            <if test="zoomWidth != null  and zoomWidth != ''  ">zoom_width = #{zoomWidth},</if>
+            <if test="zoomHeight != null  and zoomHeight != ''  ">zoom_height = #{zoomHeight},</if>
+            <if test="orderNum != null  ">order_num = #{orderNum},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="updateDate != null  ">update_date = #{updateDate},</if>
+            <if test="remarks != null  and remarks != ''  ">remarks = #{remarks},</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureImagePropertyById" parameterType="Integer">
+        delete from seg_figure_image_property where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureImagePropertyByIds" parameterType="String">
+        delete from seg_figure_image_property where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

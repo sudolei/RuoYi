@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.IskyPhoneBrandMapper">
+    
+    <resultMap type="IskyPhoneBrand" id="IskyPhoneBrandResult">
+        <result property="id"    column="id"    />
+        <result property="brandName"    column="brand_name"    />
+        <result property="brandCover"    column="brand_cover"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+	
+	<sql id="selectIskyPhoneBrandVo">
+        select id, brand_name, brand_cover, remark from isky_phone_brand
+    </sql>
+	
+    <select id="selectIskyPhoneBrandList" parameterType="IskyPhoneBrand" resultMap="IskyPhoneBrandResult">
+        <include refid="selectIskyPhoneBrandVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="brandName != null  and brandName != '' "> and brand_name = #{brandName}</if>
+             <if test="brandCover != null  and brandCover != '' "> and brand_cover = #{brandCover}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+         </where>
+    </select>
+    
+    <select id="selectIskyPhoneBrandById" parameterType="Integer" resultMap="IskyPhoneBrandResult">
+        <include refid="selectIskyPhoneBrandVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertIskyPhoneBrand" parameterType="IskyPhoneBrand" useGeneratedKeys="true" keyProperty="id">
+        insert into isky_phone_brand
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="brandName != null  and brandName != ''  ">brand_name,</if>
+			<if test="brandCover != null  and brandCover != ''  ">brand_cover,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="brandName != null  and brandName != ''  ">#{brandName},</if>
+			<if test="brandCover != null  and brandCover != ''  ">#{brandCover},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateIskyPhoneBrand" parameterType="IskyPhoneBrand">
+        update isky_phone_brand
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="brandName != null  and brandName != ''  ">brand_name = #{brandName},</if>
+            <if test="brandCover != null  and brandCover != ''  ">brand_cover = #{brandCover},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteIskyPhoneBrandById" parameterType="Integer">
+        delete from isky_phone_brand where id = #{id}
+    </delete>
+	
+    <delete id="deleteIskyPhoneBrandByIds" parameterType="String">
+        delete from isky_phone_brand where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

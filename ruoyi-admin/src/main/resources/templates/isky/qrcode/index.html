@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="../qrcode/css/weui.min.css"/>
+    <link rel="stylesheet" href="../qrcode/css/jquery-weui.min.css">
+    <script type="text/javascript" src="../qrcode/js/jquery.min.js"></script>
+    <script th:inline="javascript"> var ctx = [[@{/}]];</script>
+    <style>
+        #uploaderFiles li video {
+            height: 100%;
+            width: 100%;
+        }
+
+        .liuwenqian .weui-footer__text {
+            display: none;
+        }
+
+
+
+    </style>
+</head>
+<body class="liuwenqian">
+<h1 style="
+            font-size: 18px;
+            font-weight: 400;
+            text-align: center;
+            margin-top: 1.17647059em;">
+    二维码U盘还没有内容</h1>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <div class="weui-uploader">
+                <div class="weui-uploader__hd">
+                    <p class="weui-uploader__title">图片或视频</p>
+                    <div class="weui-uploader__info" id="files_status">0/9</div>
+                </div>
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                    </ul>
+                    <div class="weui-uploader__input-box" id="container">
+                        <input class="weui-uploader__input" id="selectfiles" type="file" style="z-index:0;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="请输入文字" rows="3" id="text" maxlength="200"></textarea>
+            <div class="weui-textarea-counter" id="text_status">0/200</div>
+        </div>
+    </div>
+</div>
+<div class="weui-cell">
+    <a id="postfiles" href="javascript:;" class="weui-btn weui-btn_primary" style="width: 100%;" onclick="orders();">确定上传</a>
+</div>
+<input type="hidden" id="qrcode" th:value="${qrcode}">
+<div class="weui-footer weui-footer_fixed-bottom">
+    <p class="weui-footer__text">Copyright © 有信二维码 yxin.co</p>
+</div>
+<script type="text/javascript" src="../qrcode/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../qrcode/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="../qrcode/js/web.js"></script>
+
+<script>
+    var url = ctx + "qrcode/uploadPicture";
+    var swf_url = ctx + "js/Moxie.swf";
+    var xap_url = ctx + "js/Moxie.xap";
+    var imageNameData = new Array();
+    var uploader = new plupload.Uploader({
+        browse_button: 'selectfiles', //触发文件选择对话框的按钮，为那个元素id
+        container: document.getElementById('container'),
+        url: url, //服务器端的上传页面地址
+        multipart: true,
+        file_data_name: 'myfile',
+        //最大文件限制
+        max_file_size: '100mb',
+        //一次上传数据大小
+        chunk_size: '100mb',
+        unique_names: true,//生成唯一文件名
+        filters: {
+            prevent_duplicates: true //不允许选取重复文件
+        },
+        runtimes: 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有
+        flash_swf_url: swf_url, //swf文件，当需要使用swf方式进行上传时需要配置该参数
+        silverlight_xap_url: xap_url//silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+    });
+    /**
+     *文件上传之前的操作
+     */
+    uploader.bind('BeforeUpload', function (uploader, file) {
+
+    });
+    /**
+     * 文件开始上传
+     */
+    uploader.bind('FileUploaded', function (uploader, files, data) {
+        var str = data.response;
+        var obj = eval('(' + str + ')');
+        var fileName = obj.filePath; //文件名称
+        var workType = obj.workType;
+        var html;
+        if (workType == "0") {
+            html = "<li class=\"weui-uploader__file\" style=\"background-image:url(" + "../" + fileName + ")\"></li>";
+        } else {
+            html = "<li  class=\"weui-uploader__file\" style=\"background:black;\"><video src=\"../"  + fileName + "\"></video></li>"
+        }
+
+        var obj = new Object();
+        obj.fileName = fileName;
+        obj.workType = workType;
+        imageNameData.push(obj);
+        $("#uploaderFiles").append(html);
+        var len = imageNameData.length;
+        $("#files_status").html(len + "/9")
+    });
+
+    //当所有的文件上传成功之后
+    uploader.bind('UploadComplete', function (uploader, files) {
+    });
+
+    //FilesAdded
+    var ii = 0;
+    uploader.bind('FilesAdded', function (uploader, files) {
+        ii += files.length;
+        if (ii > 9) {
+            ii = imageNameData.length;
+            uploader.splice(ii, 999);
+            alert("最多上传9张图片!");
+            return;
+        } else {
+            uploader.start();
+        }
+    });
+    //PostInit
+    uploader.bind('PostInit', function (uploader) {
+    });
+    //在实例对象上调用init()方法进行初始化
+    uploader.init();
+</script>
+
+<script>
+    function orders() {
+        var qrcode = $("#qrcode").val();
+        var text = $("#text").val();
+        var mydatas = JSON.stringify(imageNameData);
+        var ajaxData = {
+            mydatas: mydatas,
+            qrcode: qrcode,
+            text: text
+        }
+        var url = ctx + "qrcode/order";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: ajaxData,
+            dataType: "json",
+            success: function (msg) {
+                var msg = msg.msg;
+                window.location.reload();
+            }
+        });
+    }
+</script>
+</body>
+</html>

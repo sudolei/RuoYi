@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureMapper">
+    
+    <resultMap type="Figure" id="FigureResult">
+        <result property="id"    column="id"    />
+        <result property="figureName"    column="figure_name"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+	
+	<sql id="selectFigureVo">
+        select id, figure_name, create_date, del_flag from seg_figure
+    </sql>
+	
+    <select id="selectFigureList" parameterType="Figure" resultMap="FigureResult">
+        <include refid="selectFigureVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="figureName != null  and figureName != '' "> and figure_name = #{figureName}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+             <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
+         </where>
+    </select>
+    
+    <select id="selectFigureById" parameterType="Integer" resultMap="FigureResult">
+        <include refid="selectFigureVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigure" parameterType="Figure" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="figureName != null  and figureName != ''  ">figure_name,</if>
+			<if test="createDate != null  ">create_date,</if>
+			<if test="delFlag != null  and delFlag != ''  ">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="figureName != null  and figureName != ''  ">#{figureName},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+			<if test="delFlag != null  and delFlag != ''  ">#{delFlag},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigure" parameterType="Figure">
+        update seg_figure
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="figureName != null  and figureName != ''  ">figure_name = #{figureName},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureById" parameterType="Integer">
+        delete from seg_figure where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureByIds" parameterType="String">
+        delete from seg_figure where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

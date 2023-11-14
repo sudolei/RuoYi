@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增品牌型号')" />
+	<th:block th:include="include :: select2-css" />
+	<link th:href="@{/uploadJs/css/fileinput.css}" rel="stylesheet"/>
+	<link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.5.0/css/all.css}" crossorigin="anonymous">
+	<link th:href="@{/uploadJs/themes/explorer-fas/theme.css}" media="all" rel="stylesheet" type="text/css"/>
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-iskyPhoneBrandModel-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">品牌：</label>
+				<div class="col-sm-8">
+					 <!--<input id="brandId" name="brandId" class="form-control" type="text">-->
+					<select id="brandId" name="brandId" class="form-control select2-multiple"  >
+							<option th:each="brand:${brands}" th:value="${brand.id}" th:text="${brand.brandName}"  ></option>
+						</select>
+				</div>
+			</div>
+
+
+
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">型号：</label>
+				<div class="col-sm-8">
+					<input id="modelName" name="modelName" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">型号封面：</label>
+				<div class="col-sm-8">
+					<input id="coverImg" name="coverImg" class="form-control" type="file" multiple>
+					<input id="modelCover" name="modelCover" class="form-control" type="hidden">
+				</div>
+			</div>
+
+
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+
+	<th:block th:include="include :: select2-js" />
+	<script th:src="@{/uploadJs/fileinput.min.js}"></script>
+	<script th:src="@{/uploadJs/zh.js}" type="text/javascript"></script>
+	<script th:src="@{/uploadJs/themes/fas/theme.js}" type="text/javascript"></script>
+	<script th:src="@{/uploadJs/themes/explorer-fas/theme.js}" type="text/javascript"></script>
+    <script type="text/javascript">
+		var prefix = ctx + "isky/iskyPhoneBrandModel"
+
+        var prefix_brand = ctx + "isky/iskyPhoneBrand"
+		$("#form-iskyPhoneBrandModel-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-iskyPhoneBrandModel-add').serialize());
+	        }
+	    }
+
+        function selectCheckUser(){
+            $.modal.open("选择品牌", prefix_brand );
+        }
+
+
+        $(function(){
+            var uploadUrl = ctx + "isky/iskyPhoneBrandModel/uploadCover";
+            $("#coverImg").fileinput({
+                language: "zh",//配置语言
+                showUpload: true, //显示整体上传的按钮
+                theme: 'explorer-fas',
+                showRemove: false,//显示整体删除的按钮
+                uploadAsync: true,//默认异步上传
+                uploadExtraData:{id:1},
+                uploadLabel: "上传",//设置整体上传按钮的汉字
+                removeLabel: "移除",//设置整体删除按钮的汉字
+                uploadClass: "btn btn-primary",//设置上传按钮样式
+                showCaption: false,//是否显示标题
+                dropZoneEnabled: false,//是否显示拖拽区域
+                uploadUrl: uploadUrl,//这个是配置上传调取的后台地址
+                maxFileSize: 99999,//文件大小限制
+                maxFileCount: 1,//允许最大上传数，可以多个，
+                enctype: 'multipart/form-data',
+                allowedFileExtensions: ["jpg", "jpeg","png"], /*上传文件格式限制*/
+                msgFilesTooMany: "文件最多上传{m}个！",
+                showBrowse: true,
+                browseOnZoneClick: true
+//                slugCallback: function (filename) {
+//                    var typeid = $("#typeId").val();
+//                    this.uploadExtraData.typeid= typeid;
+//                    return filename.replace('(', '_').replace(']', '_');
+//                }
+            });
+
+            $('#coverImg').on("fileuploaded", function (event, data, previewId, index) {
+                var d = data.response;
+                var fileName = d.fileName;
+                $("#modelCover").val(fileName);
+            });
+        })
+	</script>
+</body>
+</html>

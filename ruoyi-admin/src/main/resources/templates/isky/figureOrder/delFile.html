@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('传图订单列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+
+                        <li class="select-time">
+                            <label>创建时间： </label>
+                            <input type="text" class="time-input" id="beginTime" placeholder="开始时间" name="beginTime"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="endTime"/>
+                        </li>
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+
+            <a class="btn btn-primary " onclick="fileDel()">
+                <i class="fa fa-edit"></i> 删除文件
+            </a>
+
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('isky:figureOrder:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('isky:figureOrder:remove')}]];
+    var listFlag = [[${@permission.hasPermi('isky:figureOrder:list')}]];
+    var prefix = ctx + "isky/figureOrder";
+    var datas = [[${@dict.getType('print')}]];
+    var datas1 = [[${@dict.getType('template_type')}]];
+    $(function () {
+        var options = {
+            url: prefix + "/listFile",
+            modalName: "传图订单",
+            showExport: true,
+            columns: [{
+                checkbox: true
+            },
+
+                {
+                    field: 'fileName',
+                    title: '文件名称',
+                    sortable: true
+                },
+                {
+                    field: 'fileTime',
+                    title: '文件时间',
+                    sortable: true
+                }]
+        };
+        $.table.init(options);
+    });
+
+
+    function fileDel() {
+        var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        if (rows.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var data = {"fileNames": rows.join()};
+        var url = ctx + "isky/figureOrder/removeFiles"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: data,
+            success: function (result) {
+            }
+        });
+    }
+
+    function detail(orderId) {
+        var url = ctx + 'isky/figureOrder/detail/' + orderId;
+        //createMenuItem(url, "图片列表");
+        $.modal.open("图片列表", url, 1200, 600);
+    }
+
+    function downPDF(orderId) {
+        var url = ctx + "isky/figureOrder/downPdfValidate"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: {orderId: orderId},
+            success: function (result) {
+                var r = result.isPdf;
+                if (r) {
+                    var url = ctx + 'isky/figureOrder/downPdf?orderId=' + orderId;
+                    window.location.href = url;
+                } else {
+//                    $.modal.alertWarning("PDF正在生成，稍等。。!");
+                    var url = ctx + 'isky/figureOrder/downPdf?orderId=' + orderId;
+                    window.location.href = url;
+                }
+            }
+        });
+    }
+
+    /**
+     * 如果没有PDF可以手工生成
+     * @param orderId
+     */
+    function createPdf(orderId) {
+        var url = ctx + "isky/figureOrder/createPdf"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: {oid: orderId},
+            success: function (result) {
+                var r = result.msg;
+                $.modal.alertWarning(r);
+            }
+        });
+    }
+
+
+    function creatPdfNew(orderId) {
+        var url = ctx + "isky/figureOrder/createDownPdf"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: {oid: orderId},
+            success: function (result) {
+                var r = result.msg;
+                $.modal.alertWarning(r);
+            }
+        });
+    }
+
+
+    function createZip(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downPokerZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+
+
+    function createZipYt(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downYtZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+
+    function createZipSfcp(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downCpZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+
+    function createZipCp(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downCpcsZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+</script>
+</body>
+</html>

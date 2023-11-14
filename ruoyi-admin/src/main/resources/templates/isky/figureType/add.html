@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增模板分类')" />
+	<link th:href="@{/uploadJs/css/fileinput.css}" rel="stylesheet"/>
+	<!--<link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.5.0/css/all.css}" crossorigin="anonymous">-->
+	<link th:href="@{/uploadJs/themes/explorer-fas/theme.css}" media="all" rel="stylesheet" type="text/css"/>
+	<link th:href="@{/uploadJs/fontawesome.css}" media="all" rel="stylesheet" type="text/css"/>
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-figureType-add">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">名称：</label>
+				<div class="col-sm-8">
+					<input id="name" name="name" class="form-control" type="text">
+				</div>
+			</div>
+			<!--分类-->
+			<div class="form-group">
+				<label class="col-sm-3 control-label">类别：</label>
+				<div class="col-sm-8">
+					<select id="typeId" name="typeId" class="form-control m-b"
+							th:with="type=${@dict.getType('template_type')}">
+						<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+					</select>
+				</div>
+			</div>
+
+
+			<!--分类-->
+			<div class="form-group">
+				<label class="col-sm-3 control-label">是否满版：</label>
+				<div class="col-sm-8">
+					<select id="isFull" name="isFull" class="form-control m-b" onchange="isfull(this);"
+							th:with="type=${@dict.getType('isFull')}">
+						<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+					</select>
+				</div>
+			</div>
+
+			<!--分类 -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label">封面：</label>
+				<div class="col-sm-8">
+					<input id="coverImg" name="coverImg" class="form-control" type="file" multiple>
+					<input id="imageUrl" name="imgUrl" class="form-control" type="hidden">
+				</div>
+			</div>
+
+			<div class="form-group" id="mytemplate"  >
+				<label class="col-sm-3 control-label">模板：</label>
+				<div class="col-sm-8">
+					<input id="template" name="template" class="form-control" type="file" multiple>
+					<input id="templatearra" name="templatearra" class="form-control" type="hidden">
+				</div>
+			</div>
+
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">排序：</label>
+				<div class="col-sm-8">
+					<input id="myorder" name="myorder" class="form-control" type="text" placeholder="只能是数字">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+
+	<script th:src="@{/uploadJs/fileinput.min.js}"></script>
+	<script th:src="@{/uploadJs/zh.js}" type="text/javascript"></script>
+	<script th:src="@{/uploadJs/themes/fas/theme.js}" type="text/javascript"></script>
+	<script th:src="@{/uploadJs/themes/explorer-fas/theme.js}" type="text/javascript"></script>
+
+
+	<script type="text/javascript">
+        $(function () {
+            var uploadUrl = ctx + "isky/figureType/uploadCover";
+            var uploadTemplateUrl = ctx + "isky/figureType/uploadTemplate";
+            $("#coverImg").fileinput({
+                language: "zh",//配置语言
+                showUpload: true, //显示整体上传的按钮
+                theme: 'explorer-fas',
+                showRemove: false,//显示整体删除的按钮
+                uploadAsync: true,//默认异步上传
+                uploadExtraData:{id:1},
+                uploadLabel: "上传",//设置整体上传按钮的汉字
+                removeLabel: "移除",//设置整体删除按钮的汉字
+                uploadClass: "btn btn-primary",//设置上传按钮样式
+                showCaption: false,//是否显示标题
+                dropZoneEnabled: false,//是否显示拖拽区域
+                uploadUrl: uploadUrl,//这个是配置上传调取的后台地址
+                maxFileSize: 99999,//文件大小限制
+                maxFileCount: 1,//允许最大上传数，可以多个，
+                enctype: 'multipart/form-data',
+                allowedFileExtensions: ["jpg", "jpeg","png"], /*上传文件格式限制*/
+                msgFilesTooMany: "文件最多上传{m}个！",
+                showBrowse: true,
+                browseOnZoneClick: true,
+                slugCallback: function (filename) {
+                    var typeid = $("#typeId").val();
+                    this.uploadExtraData.typeid= typeid;
+                    return filename.replace('(', '_').replace(']', '_');
+                }
+            });
+
+            $('#coverImg').on("fileuploaded", function (event, data, previewId, index) {
+                var d = data.response;
+                var fileName = d.fileName;
+                $("#imageUrl").val(fileName);
+            });
+
+
+            $('#template').fileinput({
+                language: "zh",//配置语言
+                showUpload: true, //显示整体上传的按钮
+                theme: 'explorer-fas',
+                showRemove: true,//显示整体删除的按钮
+                uploadAsync: true,//默认异步上传
+                uploadExtraData:{id:1},//额外要传递的参数
+                uploadLabel: "上传",//设置整体上传按钮的汉字
+                removeLabel: "移除",//设置整体删除按钮的汉字
+                uploadClass: "btn btn-primary",//设置上传按钮样式
+                showCaption: true,//是否显示标题
+                dropZoneEnabled: false,//是否显示拖拽区域
+                uploadUrl: uploadTemplateUrl,//这个是配置上传调取的后台地址
+                maxFileSize: 9999,//文件大小限制
+                maxFileCount: 60,//允许最大上传数，可以多个，
+                enctype: 'multipart/form-data',
+                allowedFileExtensions: ["png"], /*上传文件格式限制*/
+                msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                showBrowse: true,
+                browseOnZoneClick: true,
+                slugCallback: function (filename) {
+                    var typeid = $("#typeId").val() ;
+                    this.uploadExtraData.typeid= typeid;
+                    return filename.replace('(', '_').replace(']', '_');
+                }
+            });
+
+            $('#template').on("fileuploaded", function (event, data, previewId, index) {
+                debugger;
+                var d = data.response;
+                var fileName = d.fileName;
+                var existName = $("#templatearra").val();
+                var resultName = existName + "," + fileName;
+                $("#templatearra").val(resultName);
+            });
+        })
+
+        var prefix = ctx + "isky/figureType"
+        $("#form-figureType-add").validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                templatearra: {
+                    required: true,
+                },
+                myorder: {
+                    required: true,
+                    digits: true,
+                },
+            }
+        });
+
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-figureType-add').serialize());
+            }
+            var cover = $("#imageUrl").val();
+            var template = $("#templatearra").val();
+            if (cover == "") {
+                $.modal.alertWarning("请先上传封面图片！");
+                return;
+            }
+            if (template == "") {
+                $.modal.alertWarning("请先上传模板图片！");
+                return;
+            }
+        }
+
+        function isfull(t) {
+            debugger;
+			if(t.value==1){
+                $("#mytemplate").hide();
+			}else{
+                $("#mytemplate").show();
+			}
+        }
+	</script>
+	<script type="text/javascript">
+        var prefix = ctx + "isky/figureType"
+        $("#form-figureType-add").validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                templatearra: {
+                    required: true,
+                },
+                myorder: {
+                    required: true,
+                    digits: true,
+                },
+            }
+        });
+
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-figureType-add').serialize());
+            }
+            var cover = $("#imageUrl").val();
+            var template = $("#templatearra").val();
+            if (cover == "") {
+                $.modal.alertWarning("请先上传封面图片！");
+                return;
+            }
+            if (template == "") {
+                $.modal.alertWarning("请先上传模板图片！");
+                return;
+            }
+        }
+	</script>
+</body>
+</html>

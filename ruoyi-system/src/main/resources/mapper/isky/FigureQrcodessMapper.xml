@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureQrcodessMapper">
+    
+    <resultMap type="FigureQrcodess" id="FigureQrcodessResult">
+        <result property="id"    column="id"    />
+        <result property="codeStr"    column="code_str"    />
+        <result property="codeUrl"    column="code_url"    />
+        <result property="codeType"    column="code_type"    />
+        <result property="codeImg"    column="code_img"    />
+        <result property="textInfo"    column="text_info"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+	
+	<sql id="selectFigureQrcodessVo">
+        select id, code_str, code_url, code_type, code_img, text_info, remark, create_time, del_flag from seg_figure_qrcodess
+    </sql>
+	
+    <select id="selectFigureQrcodessList" parameterType="FigureQrcodess" resultMap="FigureQrcodessResult">
+        <include refid="selectFigureQrcodessVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="codeStr != null  and codeStr != '' "> and code_str = #{codeStr}</if>
+             <if test="codeUrl != null  and codeUrl != '' "> and code_url = #{codeUrl}</if>
+             <if test="codeType != null  and codeType != '' "> and code_type = #{codeType}</if>
+             <if test="codeImg != null  and codeImg != '' "> and code_img = #{codeImg}</if>
+             <if test="textInfo != null  and textInfo != '' "> and text_info = #{textInfo}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
+         </where>
+    </select>
+    
+    <select id="selectFigureQrcodessById" parameterType="Integer" resultMap="FigureQrcodessResult">
+        <include refid="selectFigureQrcodessVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigureQrcodess" parameterType="FigureQrcodess" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_qrcodess
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="codeStr != null  and codeStr != ''  ">code_str,</if>
+			<if test="codeUrl != null  and codeUrl != ''  ">code_url,</if>
+			<if test="codeType != null  and codeType != ''  ">code_type,</if>
+			<if test="codeImg != null  and codeImg != ''  ">code_img,</if>
+			<if test="textInfo != null  and textInfo != ''  ">text_info,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="delFlag != null  and delFlag != ''  ">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="codeStr != null  and codeStr != ''  ">#{codeStr},</if>
+			<if test="codeUrl != null  and codeUrl != ''  ">#{codeUrl},</if>
+			<if test="codeType != null  and codeType != ''  ">#{codeType},</if>
+			<if test="codeImg != null  and codeImg != ''  ">#{codeImg},</if>
+			<if test="textInfo != null  and textInfo != ''  ">#{textInfo},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="delFlag != null  and delFlag != ''  ">#{delFlag},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigureQrcodess" parameterType="FigureQrcodess">
+        update seg_figure_qrcodess
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="codeStr != null  and codeStr != ''  ">code_str = #{codeStr},</if>
+            <if test="codeUrl != null  and codeUrl != ''  ">code_url = #{codeUrl},</if>
+            <if test="codeType != null  and codeType != ''  ">code_type = #{codeType},</if>
+            <if test="codeImg != null  and codeImg != ''  ">code_img = #{codeImg},</if>
+            <if test="textInfo != null  and textInfo != ''  ">text_info = #{textInfo},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureQrcodessById" parameterType="Integer">
+        delete from seg_figure_qrcodess where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureQrcodessByIds" parameterType="String">
+        delete from seg_figure_qrcodess where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

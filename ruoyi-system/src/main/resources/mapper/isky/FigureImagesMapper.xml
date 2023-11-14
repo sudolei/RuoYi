@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureImagesMapper">
+    
+    <resultMap type="FigureImages" id="FigureImagesResult">
+        <result property="id"    column="id"    />
+        <result property="tpId"    column="tp_id"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="imageZoomUrl"    column="image_zoom_url"    />
+        <result property="imageWidth"    column="image_width"    />
+        <result property="imageZoomWidth"    column="image_zoom_width"    />
+        <result property="zooms"    column="zooms"    />
+        <result property="areaNum"    column="area_num"    />
+        <result property="isround"    column="isround"    />
+        <result property="sort"    column="sort"    />
+        <result property="textXsite"    column="text_xsite"    />
+        <result property="textYsite"    column="text_ysite"    />
+        <result property="textWidth"    column="text_width"    />
+        <result property="textSize"    column="text_size"    />
+        <result property="isCover"    column="is_cover"    />
+        <result property="textMaxlength"    column="text_maxlength"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+	
+	<sql id="selectFigureImagesVo">
+        select id, tp_id, image_url, image_zoom_url, image_width, image_zoom_width, zooms, area_num, isround, sort, text_xsite, text_ysite, text_width, text_size, is_cover, text_maxlength, create_by, create_date, update_by, update_date, remarks, del_flag from seg_figure_images
+    </sql>
+	
+    <select id="selectFigureImagesList" parameterType="FigureImages" resultMap="FigureImagesResult">
+        <include refid="selectFigureImagesVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="tpId != null  and tpId != '' "> and tp_id = #{tpId}</if>
+             <if test="imageUrl != null  and imageUrl != '' "> and image_url = #{imageUrl}</if>
+             <if test="imageZoomUrl != null  and imageZoomUrl != '' "> and image_zoom_url = #{imageZoomUrl}</if>
+             <if test="imageWidth != null  and imageWidth != '' "> and image_width = #{imageWidth}</if>
+             <if test="imageZoomWidth != null  and imageZoomWidth != '' "> and image_zoom_width = #{imageZoomWidth}</if>
+             <if test="zooms != null  and zooms != '' "> and zooms = #{zooms}</if>
+             <if test="areaNum != null "> and area_num = #{areaNum}</if>
+             <if test="isround != null  and isround != '' "> and isround = #{isround}</if>
+             <if test="sort != null "> and sort = #{sort}</if>
+             <if test="textXsite != null  and textXsite != '' "> and text_xsite = #{textXsite}</if>
+             <if test="textYsite != null  and textYsite != '' "> and text_ysite = #{textYsite}</if>
+             <if test="textWidth != null  and textWidth != '' "> and text_width = #{textWidth}</if>
+             <if test="textSize != null  and textSize != '' "> and text_size = #{textSize}</if>
+             <if test="isCover != null  and isCover != '' "> and is_cover = #{isCover}</if>
+             <if test="textMaxlength != null "> and text_maxlength = #{textMaxlength}</if>
+             <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+             <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
+             <if test="updateDate != null "> and update_date = #{updateDate}</if>
+             <if test="remarks != null  and remarks != '' "> and remarks = #{remarks}</if>
+             <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
+         </where>
+
+        order by sort
+    </select>
+    
+    <select id="selectFigureImagesById" parameterType="Integer" resultMap="FigureImagesResult">
+        <include refid="selectFigureImagesVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigureImages" parameterType="FigureImages" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_images
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tpId != null  and tpId != ''  ">tp_id,</if>
+			<if test="imageUrl != null  and imageUrl != ''  ">image_url,</if>
+			<if test="imageZoomUrl != null  and imageZoomUrl != ''  ">image_zoom_url,</if>
+			<if test="imageWidth != null  and imageWidth != ''  ">image_width,</if>
+			<if test="imageZoomWidth != null  and imageZoomWidth != ''  ">image_zoom_width,</if>
+			<if test="zooms != null  and zooms != ''  ">zooms,</if>
+			<if test="areaNum != null  ">area_num,</if>
+			<if test="isround != null  and isround != ''  ">isround,</if>
+			<if test="sort != null  ">sort,</if>
+			<if test="textXsite != null  and textXsite != ''  ">text_xsite,</if>
+			<if test="textYsite != null  and textYsite != ''  ">text_ysite,</if>
+			<if test="textWidth != null  and textWidth != ''  ">text_width,</if>
+			<if test="textSize != null  and textSize != ''  ">text_size,</if>
+			<if test="isCover != null  and isCover != ''  ">is_cover,</if>
+			<if test="textMaxlength != null  ">text_maxlength,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+			<if test="createDate != null  ">create_date,</if>
+			<if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+			<if test="updateDate != null  ">update_date,</if>
+			<if test="remarks != null  and remarks != ''  ">remarks,</if>
+			<if test="delFlag != null  and delFlag != ''  ">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tpId != null  and tpId != ''  ">#{tpId},</if>
+			<if test="imageUrl != null  and imageUrl != ''  ">#{imageUrl},</if>
+			<if test="imageZoomUrl != null  and imageZoomUrl != ''  ">#{imageZoomUrl},</if>
+			<if test="imageWidth != null  and imageWidth != ''  ">#{imageWidth},</if>
+			<if test="imageZoomWidth != null  and imageZoomWidth != ''  ">#{imageZoomWidth},</if>
+			<if test="zooms != null  and zooms != ''  ">#{zooms},</if>
+			<if test="areaNum != null  ">#{areaNum},</if>
+			<if test="isround != null  and isround != ''  ">#{isround},</if>
+			<if test="sort != null  ">#{sort},</if>
+			<if test="textXsite != null  and textXsite != ''  ">#{textXsite},</if>
+			<if test="textYsite != null  and textYsite != ''  ">#{textYsite},</if>
+			<if test="textWidth != null  and textWidth != ''  ">#{textWidth},</if>
+			<if test="textSize != null  and textSize != ''  ">#{textSize},</if>
+			<if test="isCover != null  and isCover != ''  ">#{isCover},</if>
+			<if test="textMaxlength != null  ">#{textMaxlength},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+			<if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+			<if test="updateDate != null  ">#{updateDate},</if>
+			<if test="remarks != null  and remarks != ''  ">#{remarks},</if>
+			<if test="delFlag != null  and delFlag != ''  ">#{delFlag},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigureImages" parameterType="FigureImages">
+        update seg_figure_images
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tpId != null  and tpId != ''  ">tp_id = #{tpId},</if>
+            <if test="imageUrl != null  and imageUrl != ''  ">image_url = #{imageUrl},</if>
+            <if test="imageZoomUrl != null  and imageZoomUrl != ''  ">image_zoom_url = #{imageZoomUrl},</if>
+            <if test="imageWidth != null  and imageWidth != ''  ">image_width = #{imageWidth},</if>
+            <if test="imageZoomWidth != null  and imageZoomWidth != ''  ">image_zoom_width = #{imageZoomWidth},</if>
+            <if test="zooms != null  and zooms != ''  ">zooms = #{zooms},</if>
+            <if test="areaNum != null  ">area_num = #{areaNum},</if>
+            <if test="isround != null  and isround != ''  ">isround = #{isround},</if>
+            <if test="sort != null  ">sort = #{sort},</if>
+            <if test="textXsite != null  and textXsite != ''  ">text_xsite = #{textXsite},</if>
+            <if test="textYsite != null  and textYsite != ''  ">text_ysite = #{textYsite},</if>
+            <if test="textWidth != null  and textWidth != ''  ">text_width = #{textWidth},</if>
+            <if test="textSize != null  and textSize != ''  ">text_size = #{textSize},</if>
+            <if test="isCover != null  and isCover != ''  ">is_cover = #{isCover},</if>
+            <if test="textMaxlength != null  ">text_maxlength = #{textMaxlength},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="updateDate != null  ">update_date = #{updateDate},</if>
+            <if test="remarks != null  and remarks != ''  ">remarks = #{remarks},</if>
+            <if test="delFlag != null  and delFlag != ''  ">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureImagesById" parameterType="Integer">
+        delete from seg_figure_images where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureImagesByIds" parameterType="String">
+        delete from seg_figure_images where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

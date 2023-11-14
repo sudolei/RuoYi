@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登陆</title>
+    <link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="../mobile/js/jquery.js"></script>
+    <script src="../mobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <!--alert 弹出框 -->
+    <script src="../jqalert/alert.js" type="text/javascript"></script>
+    <script src="../jqalert/alertd.js" type="text/javascript"></script>
+</head>
+<body>
+<div data-role="page" class="jqm-demos">
+    <div data-role="header">
+        <h1>登陆界面</h1>
+    </div>
+    <div data-demo-html="true">
+        <div class="ui-field-contain">
+            <select id="userId" name="userId" data-native-menu="false">
+                  
+                <option>选择登陆人员</option>
+                <optgroup label="销售">
+                    <option th:each="model:${userList}" th:value="${model.id}" th:text="${model.userName}"></option>
+                </optgroup>
+                <optgroup label="生产">
+                    <option th:each="model:${scUserList}" th:value="${model.id}" th:text="${model.userName}"></option>
+                </optgroup>
+            </select>
+        </div>
+    </div>
+
+
+    <button class="ui-btn" onclick="login();">登陆</button>
+</div>
+<script th:inline="javascript"> var ctx = [[@{
+    /}]];</script>
+<script type="text/javascript">
+    function login() {
+        var userId = $("#userId").val();
+        if (userId != "") {
+            var ajaxData = {
+                userId: userId
+            };
+            var ajaxUrl = ctx + "zz/loginSession";
+            $.ajax({
+                type: "POST",
+                url: ajaxUrl,
+                data: ajaxData,
+                dataType: "json",
+                success: function (msg) {
+                    window.location.href = ctx + "zz/grid";
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

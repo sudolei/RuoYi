@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+    <title>作品分享地址</title>
+    <link href="../islider/css/iSlider.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #333;
+            overflow: hidden;
+        }
+
+        /*ul wrapper*/
+        #iSlider-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        #iSlider-wrapper ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #iSlider-wrapper li {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            list-style: none;
+        }
+
+        #iSlider-wrapper li img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+
+</head>
+<body>
+<audio autoplay="" loop=""><source src="../islider/vadio/share.mp3"></audio>
+
+<div id="iSlider-wrapper"></div>
+<div id="hidden-space" style="display:none">
+    <p style="font-size:3em;text-align: center;color:#04f512">A node in dom tree.</p>
+</div>
+<div>
+    <input type="hidden" id="orderid" th:value="${ orderId}">
+</div>
+<script src="../impression/js/jquery.min.js"
+        type="text/javascript"></script>
+<script type="text/javascript" src="../islider/js/iSlider.js"></script>
+
+
+<script type="text/javascript" src="../islider/js/iSlider.plugin.dot.js"></script>
+<script type="text/javascript" src="../islider/js/iSlider.plugin.button.js"></script>
+<script id="show-code">
+    var list = null;
+    var orderId = $("#orderid").val();
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "share/getImages",
+        data: {
+            orderId: orderId
+        },
+        dataType: "json",
+        success: function (msg) {
+            debugger;
+            var msg = msg.msg;
+            list = $.parseJSON(msg);
+            console.log(list);
+//            var S = new iSlider(document.getElementById('iSlider-wrapper'), list);
+
+            var S = new iSlider({
+                dom: document.getElementById('iSlider-wrapper'),
+                data: list,
+                isAutoplay: 1,
+                isLooping: 1,
+//                isOverspread: 1,
+                isDebug: true,
+                animateTime: 800// ms
+//                plugins: ['dot']
+            });
+
+
+        }
+    });
+</script>
+</body>
+</html>

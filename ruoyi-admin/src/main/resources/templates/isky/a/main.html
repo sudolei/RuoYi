@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>预览</title>
+    <link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="../mobile/js/jquery.js"></script>
+    <script src="../mobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <!--alert 弹出框 -->
+    <script src="../jqalert/alert.js" type="text/javascript"></script>
+    <script src="../jqalert/alertd.js" type="text/javascript"></script>
+</head>
+<body>
+<div data-role="page" class="jqm-demos">
+    <div data-role="header">
+        <h1>销售选择</h1>
+    </div>
+    <div data-demo-html="true">
+        <div class="ui-field-contain">
+            <select name="sales" id="sales" data-native-menu="false">
+                <option value="">请选择</option>
+                <option value="张三">张三</option>
+                <option value="李四">李四</option>
+            </select>
+        </div>
+    </div>
+    <button class="ui-btn" onclick="search();">查询</button>
+</div>
+<script type="text/javascript">
+    function search() {
+        var sales = $("#sales").val();
+        if (sales != "") {
+            window.sessionStorage.setItem("sales", sales);
+            window.location.href = "grid";
+        }
+    }
+</script>
+</body>
+</html>

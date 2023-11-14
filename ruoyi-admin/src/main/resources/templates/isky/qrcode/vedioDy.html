@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+</head>
+<body>
+<input type="hidden" th:value="${code.codeUrl}" id="textinfo">
+<script>
+    $(document).ready(function () {
+        var url = $("#textinfo").val();
+        setTimeout(function () {
+            self.location.href = url;
+        }, 150);
+    });
+</script>
+</body>
+</html>

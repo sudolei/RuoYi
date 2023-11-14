@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>预览</title>
+    <link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="../mobile/js/jquery.js"></script>
+    <script src="../mobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <!--alert 弹出框 -->
+    <script src="../jqalert/alert.js" type="text/javascript"></script>
+    <script src="../jqalert/alertd.js" type="text/javascript"></script>
+</head>
+<body>
+<div data-role="page" class="jqm-demos" data-quicklinks="true">
+    <div data-role="header">
+        <h1>订单预览</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <div data-demo-html="true">
+            <h3 class="ui-bar ui-bar-a ui-corner-all">订单信息</h3>
+            <div class="ui-body ui-body-a ui-corner-all">
+                <p id="orderName">11月5 李云霞 华为/8寸台历/5000本</p>
+            </div>
+        </div>
+        <div data-demo-html="true">
+            <div class="ui-grid-a">
+                <div class="ui-block-a" id="pagesDiv" style="display: none;">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="pages">Block A</div>
+                </div>
+                <div class="ui-block-b" style="display: none" id="pagesImgDiv">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="pagesImg">Block B</div>
+                </div>
+                <div class="ui-block-a" id="baseDiv" style="display: none;">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="base">Block A</div>
+                </div>
+                <div class="ui-block-b" id="baseImgDiv" style="display: none">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="baseImg">Block B</div>
+                </div>
+                <div class="ui-block-a" id="packDiv" style="display: none;">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="pack">Block A</div>
+                </div>
+                <div class="ui-block-b" style="display: none" id="packImgDiv">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="packImg">Block B</div>
+                </div>
+
+                <div class="ui-block-a" id="thermoprintDiv" style="display: none;">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="thermoprint">Block A</div>
+                </div>
+                <div class="ui-block-b" style="display: none" id="thermoprintImgDiv">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="thermoprintImg">Block B</div>
+                </div>
+
+                <div class="ui-block-a"  id="carvingDiv" style="display: none;">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="carving">Block A</div>
+                </div>
+                <div class="ui-block-b" style="display: none" id="carvingImgDiv">
+                    <div class="ui-bar ui-bar-a" style="height:120px" id="carvingImg">Block B</div>
+                </div>
+            </div><!-- /grid-a -->
+        </div><!--/demo-html -->
+
+        <div data-demo-html="true">
+            <h3 class="ui-bar ui-bar-a ui-corner-all">客户信息</h3>
+            <div class="ui-body ui-body-a ui-corner-all">
+                <p id="customerInfo">11月5 李云霞 华为/8寸台历/5000本</p>
+            </div>
+            <h3 class="ui-bar ui-bar-a ui-corner-all">备注</h3>
+            <div class="ui-body ui-body-a ui-corner-all">
+                <textarea name="remark" id="remark"></textarea>
+            </div>
+        </div>
+
+        <input type="button" data-inline="true" onclick="goback();" value="返回">
+        <input type="button" data-inline="true" onclick="submit();" value="提交">
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    var datas = window.sessionStorage.getItem("datas");
+    var jsonData = JSON.parse(datas);
+    var orderName = jsonData.orderName;
+    $("#orderName").html(orderName);
+
+    var confirmInfo = jsonData.confirmInfo;
+    var loanAmount = jsonData.loanAmount;
+    var payAmount = jsonData.payAmount;
+    var deliveryTime = jsonData.deliveryTime;
+    var customerInfo = jsonData.customerInfo;
+
+    var pages = jsonData.pages;
+    $("#pages").html(pages);
+    var base = jsonData.base;
+    $("#base").html(base);
+    var pack = jsonData.pack;
+    $("#pack").html(pack);
+    var thermoprint = jsonData.thermoprint;
+    $("#thermoprint").html(thermoprint);
+    var carving = jsonData.carving;
+    $("#carving").html(carving);
+    $("#customerInfo").html(customerInfo);
+
+
+
+    var pagesImg = jsonData.pagesImg;
+    if(pagesImg!=""){
+        $("#pagesDiv").show();
+        $("#pagesImgDiv").show();
+        $("#pagesImg").html("<img src='../profile/upload/liucheng/"+pagesImg+"' width='40%'/>");
+    }
+
+    var baseImg = jsonData.baseImg;
+    if(baseImg!=""){
+
+        $("#baseDiv").show();
+        $("#baseImgDiv").show();
+        $("#baseImg").html("<img src='../profile/upload/liucheng/"+baseImg+"'  width='40%'/>");
+    }
+
+    var packImg = jsonData.packImg;
+    if(packImg!=""){
+        $("#packDiv").show();
+        $("#packImgDiv").show();
+        $("#packImg").html("<img src='../profile/upload/liucheng/"+packImg+"'  width='40%'/>");
+    }
+
+    var thermoprintImg = jsonData.thermoprintImg;
+    if(thermoprintImg!=""){
+        $("#thermoprintDiv").show();
+        $("#thermoprintImgDiv").show();
+        $("#thermoprintImg").html("<img src='../profile/upload/liucheng/"+thermoprintImg+"'  width='40%'/>");
+    }
+
+    var carvingImg = jsonData.carvingImg;
+    if(carvingImg!=""){
+        $("#carvingDiv").show();
+        $("#carvingImgDiv").show();
+        $("#carvingImg").html("<img src='../profile/upload/liucheng/"+carvingImg+"'  width='40%'/>");
+    }
+
+
+
+
+</script>
+<script>
+
+    function submit() {
+        var datas = window.sessionStorage.getItem("datas");
+        var jsonData = JSON.parse(datas);
+        var remark = $("#remark").val();
+        jsonData.remark = remark;
+
+        datas =JSON.stringify(jsonData);
+        var ajaxData = {
+            mydatas: datas
+        }
+        var ajaxUrl = "saveLC";
+        $.ajax({
+            type: "POST",
+            url: ajaxUrl,
+            data: ajaxData,
+            dataType: "json",
+            success: function (msg) {
+                var msg = msg.msg;
+                if(msg=='1'){
+                    alert_c("订单保存成功！");
+                    window.location.href="grid";
+                }
+            }
+        });
+    }
+
+    function goback(){
+        window.location.href="pstart";
+    }
+</script>
+</body>
+</html>

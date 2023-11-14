@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('查看印数统计')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-figureYzfrom-edit" th:object="${figureYzfrom}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">4C+4C：</label>
+				<div class="col-sm-8">
+					<input id="c8" name="c8" th:field="*{c8}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">4C+1C：</label>
+				<div class="col-sm-8">
+					<input id="c5" name="c5" th:field="*{c5}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">4C+0：</label>
+				<div class="col-sm-8">
+					<input id="c4" name="c4" th:field="*{c4}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">1C+1C：</label>
+				<div class="col-sm-8">
+					<input id="c2" name="c2" th:field="*{c2}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">1C+0：</label>
+				<div class="col-sm-8">
+					<input id="c1" name="c1" th:field="*{c1}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">印刷总张数：</label>
+				<div class="col-sm-8">
+					<input id="call" name="call" th:field="*{call}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">浪费4C+4C：</label>
+				<div class="col-sm-8">
+					<input id="c8f" name="c8f" th:field="*{c8f}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">浪费4C+1C：</label>
+				<div class="col-sm-8">
+					<input id="c5f" name="c5f" th:field="*{c5f}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">浪费4C+0：</label>
+				<div class="col-sm-8">
+					<input id="c4f" name="c4f" th:field="*{c4f}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">浪费1C+1C：</label>
+				<div class="col-sm-8">
+					<input id="c2f" name="c2f" th:field="*{c2f}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">浪费1C+0：</label>
+				<div class="col-sm-8">
+					<input id="c1f" name="c1f" th:field="*{c1f}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">浪费总张数：</label>
+				<div class="col-sm-8">
+					<input id="callf" name="callf" th:field="*{callf}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">清洁纸浪费4C+4C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c8qj}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">清洁纸浪费4C+1C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c5qj}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">清洁纸浪费4C+0：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c4qj}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">清洁纸浪费1C+1C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c2qj}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">清洁纸浪费1C+0：</label>
+				<div class="col-sm-8">
+					<input   th:field="*{c1qj}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">清洁纸浪费总张数：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{callqj}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">卡纸浪费4C+4C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c8kz}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">卡纸浪费4C+1C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c5kz}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">卡纸浪费4C+0：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c4kz}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">卡纸浪费1C+1C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c2kz}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">卡纸浪费1C+0：</label>
+				<div class="col-sm-8">
+					<input   th:field="*{c1kz}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">卡纸浪费总张数：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{callkz}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">印刷浪费4C+4C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c8ys}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">印刷浪费4C+1C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c5ys}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">印刷浪费4C+0：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c4ys}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">印刷浪费1C+1C：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{c2ys}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">印刷浪费1C+0：</label>
+				<div class="col-sm-8">
+					<input   th:field="*{c1ys}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">印刷浪费总张数：</label>
+				<div class="col-sm-8">
+					<input  th:field="*{callys}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">填报日期：</label>
+				<div class="col-sm-8">
+					<input id="createDate" name="createDate" th:field="*{ctime}" class="form-control" type="text" readonly>
+				</div>
+			</div>
+
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "isky/figureYzfrom";
+		$("#form-figureYzfrom-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-figureYzfrom-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

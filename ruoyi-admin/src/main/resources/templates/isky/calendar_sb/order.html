@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>订单</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <!--主要样式-->
+    <link rel="stylesheet" type="text/css"
+          href="../impression/css/reset.css"/>
+    <!-- 无所谓-->
+    <link rel="shortcut icon" href="favicon.ico">
+    <!--弹出框样式 -->
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="../impression/js/rem.js"></script>
+    <script type="text/javascript">
+        if (screen.width == 2560) {
+            document
+                .write('<link href= "../impression/css/index_big.css" rel="stylesheet" type="text/css" />');
+        } else {
+            document
+                .write('<link href= "../impression/css/index.css" rel="stylesheet" type="text/css" />');
+        }
+    </SCRIPT>
+    <style>
+        .a {
+            display: block;
+            float: left;
+            margin-top: 10%;
+            margin-left: 10%;
+            height: 0.8rem;
+            width: 5rem;
+            margin-right: 15%;
+            background-color: snow;
+            border-radius: 2rem;
+        }
+    </style>
+    <script src="../impression/js/jquery.min.js" type="text/javascript"></script>
+    <!-- 复制 -->
+    <script type="text/javascript"
+            src="../js/clipboard.min.js"></script>
+    <!--alert 弹出框 -->
+    <script src="../jqalert/alert.js" type="text/javascript"></script>
+    <script src="../jqalert/alertd.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="success">
+    <div class="templet">
+        <div class="oh">
+            <h5 class="templetTitle fl"
+                style="width: 6.8rem; color: #fff; background: #e5004f;">恭喜，提交成功！</h5>
+        </div>
+    </div>
+    <div class="successBox">
+        <p>
+            制作编号：<span id="orderid" th:text="${dto.id}"> </span>
+        </p>
+        <p>
+            商品名称：<span id="spmc">竖版台历</span>
+        </p>
+        <p>
+            图片数量：<span id="picNum" th:text="${dto.picNum}">72张</span>
+        </p>
+        <p>
+            淘宝会员：<span id="taobao" th:text="${dto.taobao}">喜悦造物</span>
+        </p>
+        <p>
+            电话号码：<span id="telephone" th:text="${dto.telephone}">18802030405</span>
+        </p>
+        <button class="successBtn" id="successBtn">复制信息给客服</button>
+    </div>
+
+    <div class="relative stepBtnBox">
+        <!--<button class="addImg" onclick="goback();">返回</button>-->
+        <!--<button class="nextStep" id="nextStep">支付</button>-->
+        <div class="a">
+            <h2 style="display: block; font-size: 12px;line-height: 0.8rem">预览、分享作品</h2>
+        </div>
+        <div style="display: block;float: left">
+            <img th:src="${qrcode}" width="120px" onclick="showCode(this);"/>
+            <h5 style="font-size: 12px">长按可识别、保存</h5>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var windowHeight = $(document).height();
+        console.log(windowHeight)
+        console.log($("body").height())
+        if ($("body").height() < windowHeight) {
+            $("body").height(windowHeight);
+        }
+        ;
+
+        /**
+         *点击复制
+         */
+        new Clipboard('#successBtn', {
+            text: function (trigger) {
+                var clipBoardContent = "";
+                clipBoardContent += "订单号：" + $("#orderid").html() + ",";
+                clipBoardContent += "淘宝会员：" + $("#taobao").html() + ",";
+                clipBoardContent += "手机号码：" + $("#telephone").html() + ",";
+                clipBoardContent += "图片数量：" + $("#picNum").html() + ",";
+                clipBoardContent += "商品名称：" + $("#spmc").html();
+                alert_fuzhi();
+                return clipBoardContent;
+            }
+        });
+
+        /**
+         * 支付
+         */
+        $("#nextStep")
+            .click(
+                function () {
+                    //window.location.href = "https://okdc.taobao.com/?spm=2013.1.1000126.d21.52b96e2cL2J0W6";
+                    window
+                        .open("https://okdc.taobao.com/?spm=2013.1.1000126.d21.52b96e2cL2J0W6")
+                })
+    });
+
+    function goback() {
+        window.location.href = "vpicture";
+    }
+</script>
+</html>

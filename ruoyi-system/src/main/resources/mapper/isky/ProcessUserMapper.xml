@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.ProcessUserMapper">
+    
+    <resultMap type="ProcessUser" id="ProcessUserResult">
+        <result property="id"    column="id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="group"    column="user_group"    />
+        <result property="userKey"    column="user_key"    />
+        <result property="createDate"    column="create_date"    />
+    </resultMap>
+	
+	<sql id="selectProcessUserVo">
+        select id, user_name, user_group, user_key, create_date from seg_process_user
+    </sql>
+	
+    <select id="selectProcessUserList" parameterType="ProcessUser" resultMap="ProcessUserResult">
+        <include refid="selectProcessUserVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="userName != null  and userName != '' "> and user_name = #{userName}</if>
+             <if test="group != null  and group != '' "> and user_group = #{group}</if>
+             <if test="userKey != null  and userKey != '' "> and user_key = #{userKey}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+         </where>
+    </select>
+    
+    <select id="selectProcessUserById" parameterType="Integer" resultMap="ProcessUserResult">
+        <include refid="selectProcessUserVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProcessUser" parameterType="ProcessUser" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_process_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userName != null  and userName != ''  ">user_name,</if>
+			<if test="group != null  and group != ''  ">user_group,</if>
+			<if test="userKey != null  and userKey != ''  ">user_key,</if>
+			<if test="createDate != null  ">create_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userName != null  and userName != ''  ">#{userName},</if>
+			<if test="group != null  and group != ''  ">#{group},</if>
+			<if test="userKey != null  and userKey != ''  ">#{userKey},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateProcessUser" parameterType="ProcessUser">
+        update seg_process_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null  and userName != ''  ">user_name = #{userName},</if>
+            <if test="group != null  and group != ''  ">user_group = #{group},</if>
+            <if test="userKey != null  and userKey != ''  ">user_key = #{userKey},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteProcessUserById" parameterType="Integer">
+        delete from seg_process_user where id = #{id}
+    </delete>
+	
+    <delete id="deleteProcessUserByIds" parameterType="String">
+        delete from seg_process_user where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

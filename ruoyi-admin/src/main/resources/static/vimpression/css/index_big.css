@@ -1,0 +1,401 @@
+body {
+	max-width: 860px;
+}
+
+.bg {
+	min-height: 100%;
+	background: #bcdffb;
+}
+
+.login {
+	background: url(../images/background.png) no-repeat;
+	filter:
+		"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	text-align: center;
+	background-attachment: fixed;
+	height: 100%;
+}
+
+.loginLogo {
+	width: 8rem;
+	margin-top: 4rem;
+	margin-bottom: 4.5rem;
+}
+
+.loginBox {
+	width: 10.5rem;
+	height: 11.15rem;
+	background: #fff;
+	border-radius: 5px;
+	padding: 0 1.5rem;
+	position: relative;
+	margin-bottom: 5rem;
+	margin: 0 auto;
+}
+
+.loginBox input {
+	height: 1.25rem;
+	margin-top: 2.25rem;
+	border-bottom: 2px solid #828282;
+	width: 100%;
+	font-weight: 600;
+	letter-spacing: .1rem;
+}
+
+.loginBox button {
+	width: 100%;
+	height: 2.4rem;
+	background: #ffec57;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	border-radius: 0 0 5px 5px;
+	font-weight: 600;
+	letter-spacing: .1rem;
+}
+
+.templet {
+	padding-top: .75rem;
+}
+
+.templetTitle {
+	width: 6.4rem;
+	height: 1.1rem;
+	line-height: 1.1rem;
+	background: #ffec57;
+	border-radius: 0 20px 20px 0;
+	text-indent: .8rem;
+	font-weight: 600;
+	margin-bottom: .7rem;
+}
+
+.templetList {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.templetList img {
+	width: 6.6rem;
+	/*height: 5rem;*/
+	/*border: 1.5px dashed #bcdffb;*/
+	margin: 0.3rem;
+}
+
+.templetList img.active {
+	border: 1.5px solid red;
+}
+
+.templetList2 img {
+	width: 5.6rem;
+	height: 4rem;
+	padding: .5rem;
+}
+
+.templetBtn {
+	width: 90%;
+	height: 1.6rem;
+	background: #FFEC57;
+	margin-top: 1rem;
+	border-radius: 20px;
+	margin-bottom: .5rem;
+}
+
+.width24 {
+	width: 3rem;
+}
+
+.templeTitle2 {
+	width: 7.5rem;
+	border-radius: 20px 0 0 20px;
+	text-align: center;
+	text-indent: 0;
+}
+
+.listMain {
+	width: 7.2rem;
+	/*
+	margin-top: .5rem;
+	margin-bottom: 1.3rem;
+	*/
+	margin-left: .2rem;
+	margin-right: .2rem;
+}
+
+.listMain img {
+	width: 100%;
+	/*height: 4.9rem;*/
+	margin-bottom: .3rem;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.numPrev {
+	width: 1.5rem;
+	line-height: .65rem;
+	text-align: center;
+	border: 1px solid #a5b3be;
+	border-radius: 5px 0 0 5px;
+	font-size: .7rem;
+}
+
+.num {
+	width: 1.4rem;
+	line-height: .65rem;
+	text-align: center;
+	border: 1px solid #a5b3be;
+	border-left: 0;
+	border-right: 0;
+	color: red;
+	font-size: .7rem;
+}
+
+.numNext {
+	width: 1.5rem;
+	line-height: .65rem;
+	text-align: center;
+	border: 1px solid #a5b3be;
+	border-radius: 0 5px 5px 0;
+	font-size: .7rem;
+}
+
+.edit {
+	width: 2.1rem;
+	line-height: .65rem;
+	background: #10b7ee;
+	border: 1px solid #a5b3be;
+	border-radius: 2px;
+}
+
+.addImg {
+	width: 50%;
+	height: 1.6rem;
+	background: url(../images/btn4.png) no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	margin-left: 0.4rem;
+}
+
+.nextStep {
+	width: 50%;
+	height: 1.6rem;
+	background: url(../images/btn7.png) no-repeat;
+	background-size: 100% 100%;
+	/* position: absolute; */
+	/* left: 6rem; */
+	float: left;
+	margin-left: -.8rem;
+}
+
+.stepBtnBox {
+	/*padding: 0 .3rem;*/
+	padding-bottom: .3rem;
+	overflow: hidden;
+	text-align: center;
+	margin-top:1rem;
+}
+
+.width42 {
+	width: 4.2rem;
+}
+
+.templetList .width45 {
+	width: 2.5rem;
+	height: 1.5rem;
+}
+
+.templetCover {
+	width: 90%;
+	margin-top: 4rem;
+}
+
+.templetEdit {
+	width: 90%;
+	margin-bottom: 1.87rem;
+	margin-top: .4rem;
+}
+
+.templetEdit .numPrev {
+	width: 2.5rem;
+	line-height: 1rem;
+	text-align: center;
+	border: 1px solid #a5b3be;
+	border-radius: 5px 0 0 5px;
+	font-size: 1rem;
+}
+
+.templetEdit .num {
+	width: 2rem;
+	line-height: 1rem;
+	text-align: center;
+	border: 1px solid #a5b3be;
+	border-left: 0;
+	border-right: 0;
+	color: red;
+	font-size: 1rem;
+}
+
+.templetEdit .numNext {
+	width: 2.5rem;
+	line-height: 1rem;
+	text-align: center;
+	border: 1px solid #a5b3be;
+	border-radius: 0 5px 5px 0;
+	font-size: 1rem;
+}
+
+.templetEdit img {
+	width: .8rem;
+}
+
+.templetInput {
+	background: none;
+	text-align: left;
+	width: 90%;
+	height: 1.25rem;
+	border-bottom: 2px solid #828282;
+	font-weight: 600;
+	letter-spacing: .1rem;
+	margin-bottom: 1.5rem;
+}
+
+.pageList {
+	margin-top: 3.2rem;
+	position: relative;
+	margin-bottom: 3.2rem;
+}
+
+.pageList li {
+	position: relative;
+	height: 3rem;
+}
+
+.pageSpan {
+	position: absolute;
+	z-index: 6;
+	line-height: 3rem;
+	padding-left: 1rem;
+	top: 0;
+}
+
+.pageList img {
+	height: 3rem;
+	position: relative;
+}
+
+.pageList .page1 {
+	width: 15rem;
+	top: 0;
+	z-index: 5;
+}
+
+.pageList .page2 {
+	z-index: 4;
+	width: 13.8rem;
+	top: 0;
+}
+
+.pageList .page3 {
+	z-index: 3;
+	top: 0;
+	width: 12.4rem;
+}
+
+.pageList .page4 {
+	z-index: 2;
+	width: 11rem;
+	top: 0;
+}
+
+.pageList .page5 {
+	height: 3rem;
+	z-index: 1;
+	width: 9.6rem;
+	top: 0;
+}
+/*@media screen and (min-width: 1200px) {
+	.pageList img{
+		height: 3.4rem;
+		position: relative;
+	}
+	.pageList .page5{
+		height: 2.6rem;
+		top: -3.7rem;
+		z-index: 1;
+	}
+}*/
+.layerBox {
+	height: 100%;
+	width: 100%;
+	max-width: 640px;
+	background: rgba(161, 167, 172, .8);
+	position: absolute;
+	top: 0;
+	z-index: 10;
+}
+
+.layerCont {
+	height: 4.5rem;
+}
+
+.layerCont {
+	height: 2.65rem;
+	background: #efeff6;
+	text-align: center;
+	line-height: 1rem;
+	padding-top: .7rem;
+}
+
+.layerPStar {
+	height: 1.15rem;
+	background: #ffec57;
+	line-height: 1.15rem;
+	text-align: center;
+}
+
+.layerPStar img {
+	width: .5rem;
+}
+
+.layerMain {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	margin-top: -2.25rem;
+	left: 0;
+}
+
+.successBox {
+	width: 90%;
+	height: 15.4rem;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 10px;
+	margin-top: 2.1rem;
+	padding-top: 1rem;
+	margin-bottom: 3rem;
+}
+
+.successBox p {
+	border-bottom: 2px solid #828282;
+	width: 10.5rem;
+	margin: 0 auto;
+	line-height: 1.5rem;
+	padding-top: .75rem;
+	padding-left: .1rem;
+}
+
+.successBtn {
+	height: 2.4rem;
+	border-radius: 0 0 10px 10px;
+	background: #FFEC57;
+	width: 100%;
+	margin-top: 1.55rem;
+}
+
+.success {
+	background: url(../images/bj2.png) no-repeat;
+	background-size: 100% 100%;
+}

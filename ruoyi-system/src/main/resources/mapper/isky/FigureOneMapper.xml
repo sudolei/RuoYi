@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureOneMapper">
+    
+    <resultMap type="FigureOne" id="FigureOneResult">
+        <result property="id"    column="id"    />
+        <result property="type"    column="type"    />
+        <result property="isUse"    column="is_use"    />
+        <result property="qrcode"    column="qrcode"    />
+        <result property="codeUuid"    column="code_uuid"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+    </resultMap>
+	
+	<sql id="selectFigureOneVo">
+        select id, type, img_url,code_uuid, is_use,qrcode,create_time, create_by from seg_figure_one
+    </sql>
+	
+    <select id="selectFigureOneList" parameterType="FigureOne" resultMap="FigureOneResult">
+        <include refid="selectFigureOneVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="type != null  and type != '' "> and type = #{type}</if>
+            <if test="codeUuid != null  and codeUuid != '' "> and code_uuid = #{codeUuid}</if>
+             <if test="qrcode != null  and qrcode != '' "> and qrcode = #{qrcode}</if>
+             <if test="isUse != null  and isUse != '' "> and is_use = #{isUse}</if>
+             <if test="imgUrl != null  and imgUrl != '' "> and img_url = #{imgUrl}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
+         </where>
+    </select>
+    
+    <select id="selectFigureOneById" parameterType="Integer" resultMap="FigureOneResult">
+        <include refid="selectFigureOneVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigureOne" parameterType="FigureOne" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_one
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="type != null  and type != ''  ">type,</if>
+			<if test="imgUrl != null  and imgUrl != ''  ">img_url,</if>
+            <if test="qrcode != null  and qrcode != ''  ">qrcode,</if>
+            <if test="codeUuid != null  and codeUuid != ''  ">code_uuid,</if>
+            <if test="isUse != null  and isUse != ''  ">is_use,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="type != null  and type != ''  ">#{type},</if>
+			<if test="imgUrl != null  and imgUrl != ''  ">#{imgUrl},</if>
+            <if test="qrcode != null  and qrcode != ''  ">#{qrcode},</if>
+            <if test="codeUuid != null  and codeUuid != ''  ">#{codeUuid},</if>
+            <if test="isUse != null  and isUse != ''  ">#{isUse},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigureOne" parameterType="FigureOne">
+        update seg_figure_one
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null  and type != ''  ">type = #{type},</if>
+            <if test="imgUrl != null  and imgUrl != ''  ">img_url = #{imgUrl},</if>
+            <if test="isUse != null  and isUse != ''  ">is_use = #{isUse},</if>
+            <if test="qrcode != null  and qrcode != ''  ">qrcode = #{qrcode},</if>
+            <if test="codeUuid != null  and codeUuid != ''  ">code_uuid= #{codeUuid},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureOneById" parameterType="Integer">
+        delete from seg_figure_one where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureOneByIds" parameterType="String">
+        delete from seg_figure_one where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

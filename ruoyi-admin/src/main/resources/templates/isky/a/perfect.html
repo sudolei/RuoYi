@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>订单完善</title>
+    <link rel="stylesheet" href="../mobile/css/themes/default/font.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../mobile/css/themes/default/jqm-demos.css">
+
+
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+
+
+    <script src="../mobile/js/jquery.js"></script>
+    <script src="../mobile/js/jquery.mobile-1.4.5.min.js"></script>
+
+
+    <script src="../pop/js/plug-in.js"></script>
+    <!--文件上传-->
+    <script type="text/javascript"
+            src="../js/plupload.full.min.js"></script>
+
+
+    <!--alert 弹出框 -->
+    <script src="../jqalert/alert.js" type="text/javascript"></script>
+    <script src="../jqalert/alertd.js" type="text/javascript"></script>
+    <style>
+        .myinput {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-size: 1.4em;
+            height: 2.7em;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #c8cccf;
+            color: #6a6f77;
+        }
+    </style>
+</head>
+<body>
+<div data-role="page" class="jqm-demos" data-quicklinks="true">
+    <div data-role="header">
+        <h1>订单发起</h1>
+    </div>
+    <div data-role="main" class="ui-content jqm-content">
+        <div data-demo-html="true">
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <div style="display: none">
+                    <input type="file" name="pageimg" id="pageimg">
+                </div>
+                <legend>内页:
+                    <div id="container"><a href="javascript:void(0);" id="pagesBtn"
+                                           class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext">Icon only</a>
+                    </div>
+                </legend>
+                <input type="radio" name="pages" id="radio-choice-h-2a" value="单页专版">
+                <label for="radio-choice-h-2a">单页专版</label>
+                <input type="radio" name="pages" id="radio-choice-h-2b" value="双页专版">
+                <label for="radio-choice-h-2b">双页专版</label>
+                <input type="radio" name="pages" id="radio-choice-h-2c" value="单面数码">
+                <label for="radio-choice-h-2c">单面数码</label>
+                <input type="radio" name="pages" id="radio-choice-h-2e" value="双面数码">
+                <label for="radio-choice-h-2e">双面数码</label>
+                <input type="radio" name="pages" id="pagesQt" value="其他"
+                       onClick="$.Pop(' <input class=\'myinput\' type=\'text\' id=\'pageRadio\'  >','confirm',function(){pageRadio()})">
+                <label for="pagesQt" id="pageLabel">其他</label>
+
+
+            </fieldset>
+
+
+            <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade" id="pagesa"
+               style="display: none">
+                <img class="popphoto" id="pagesImg" src="../_assets/img/paris.jpg" style="width:10%"></a>
+            <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
+                    <a href="#" data-rel="back"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <img class="popphoto" id="pagesImgBig" src="../_assets/img/paris.jpg" style="max-height:512px;"
+                     alt="Paris, France">
+            </div>
+
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>底座:
+                    <div id="container1"><a href="javascript:void(0);" id="baseBtn"
+                                            class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext">Icon only</a>
+                    </div>
+                </legend>
+                <input type="radio" name="base" id="basea" value="松/花">
+                <label for="basea">松/花</label>
+                <input type="radio" name="base" id="baseb" value="松/新">
+                <label for="baseb">松/新</label>
+                <input type="radio" name="base" id="basec" value="榉木">
+                <label for="basec">榉木</label>
+                <input type="radio" name="base" id="based" value="黑胡桃">
+                <label for="based">黑胡桃</label>
+                <input type="radio" name="base" id="basee" value="褐檀木">
+                <label for="basee">褐檀木</label>
+                <input type="radio" name="base" id="basef" value="其他"
+                       onClick="$.Pop(' <input class=\'myinput\' type=\'text\' id=\'baseRadio\'  >','confirm',function(){baseRadio()})">
+                <label for="basef" id="baseLable">其他</label>
+
+            </fieldset>
+
+            <a href="#popupParis1" data-rel="popup" data-position-to="window" data-transition="fade" id="baseaa"
+               style="display: none">
+                <img class="popphoto" id="baseImg" src="../_assets/img/paris.jpg" style="width:10%"></a>
+            <div data-role="popup" id="popupParis1" data-overlay-theme="b" data-theme="b" data-corners="false">
+                    <a href="#" data-rel="back"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <img class="popphoto" id="baseImgBig" src="../_assets/img/paris.jpg" style="max-height:512px;">
+            </div>
+
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>包装:
+                    <div id="container2"><a href="javascript:void(0);" id="packBtn"
+                                            class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext">Icon only</a>
+                    </div>
+                </legend>
+                <input type="radio" name="pack" id="checkbox-b-2a" value="白卡">
+                <label for="checkbox-b-2a">白卡</label>
+                <input type="radio" name="pack" id="checkbox-b-2b" value="牛皮纸">
+                <label for="checkbox-b-2b">牛皮纸</label>
+                <input type="radio" name="pack" id="packQt" value="其他"
+                       onClick="$.Pop(' <input class=\'myinput\' type=\'text\' id=\'packRadio\'  >','confirm',function(){packRadio()})">
+                <label for="packQt" id="packLabel">其他</label>
+            </fieldset>
+            <a href="#popupParis2" data-rel="popup" data-position-to="window" data-transition="fade" id="packa"
+               style="display: none">
+                <img class="popphoto" id="packImg" src="../_assets/img/paris.jpg" style="width:10%"></a>
+            <div data-role="popup" id="popupParis2" data-overlay-theme="b" data-theme="b" data-corners="false">
+                    <a href="#" data-rel="back"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <img class="popphoto" id="packImgBig" src="../_assets/img/paris.jpg" style="max-height:512px;">
+            </div>
+
+
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>烫印:
+                    <div id="container3"><a href="javascript:void(0);" id="thermoprintBtn"
+                                            class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext">Icon only</a>
+                    </div>
+                </legend>
+                <input type="radio" name="thermoprint" id="checkbox-c-2a" value="烫银">
+                <label for="checkbox-c-2a">烫银</label>
+                <input type="radio" name="thermoprint" id="checkbox-c-2b" value="烫金">
+                <label for="checkbox-c-2b">烫金</label>
+                <input type="radio" name="thermoprint" id="thQt" value="其他"
+                       onClick="$.Pop(' <input class=\'myinput\' type=\'text\' id=\'thRadio\'  >','confirm',function(){thRadio()})">
+                <label for="thQt" id="thLabel">其他</label>
+            </fieldset>
+            <a href="#popupParis3" data-rel="popup" data-position-to="window" data-transition="fade" id="thermoprinta"
+               style="display: none">
+                <img class="popphoto" id="thermoprintImg" src="../_assets/img/paris.jpg" style="width:10%"></a>
+            <div data-role="popup" id="popupParis3" data-overlay-theme="b" data-theme="b" data-corners="false">
+                    <a href="#" data-rel="back"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <img class="popphoto" id="thermoprintImgBig" src="../_assets/img/paris.jpg" style="max-height:512px;">
+            </div>
+
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>雕刻:
+                    <div id="container4"><a href="javascript:void(0);" id="carvingBtn"
+                                            class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext">Icon only</a>
+                    </div>
+                </legend>
+                <input type="radio" name="carving" id="checkbox-d-2a" value="精致">
+                <label for="checkbox-d-2a">精致</label>
+                <input type="radio" name="carving" id="checkbox-d-2b" value="普通">
+                <label for="checkbox-d-2b">普通</label>
+                <input type="radio" name="carving" id="checkbox-d-2c" value="烫印">
+                <label for="checkbox-d-2c">烫印</label>
+                <input type="radio" name="carving" id="a" value="其他"
+                       onClick="$.Pop(' <input class=\'myinput\' type=\'text\' id=\'fff\'  >','confirm',function(){hell()})">
+                <label for="a" id="alabel">其他</label>
+            </fieldset>
+            <a href="#popupParis4" data-rel="popup" data-position-to="window" data-transition="fade" id="carvinga"
+               style="display: none">
+                <img class="popphoto" id="carvingImg" src="../_assets/img/paris.jpg" style="width:10%"></a>
+            <div data-role="popup" id="popupParis4" data-overlay-theme="b" data-theme="b" data-corners="false">
+                    <a href="#" data-rel="back"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <img class="popphoto" id="carvingImgBig" src="../_assets/img/paris.jpg" style="max-height:512px;">
+            </div>
+
+            <input type="hidden" id="pagesHide"/>
+            <input type="hidden" id="baseHide"/>
+            <input type="hidden" id="packHide"/>
+            <input type="hidden" id="thermoprintHide"/>
+            <input type="hidden" id="carvingHide"/>
+        </div>
+        <input type="reset" data-inline="true" value="重写">
+        <input type="button" data-inline="true" id="submit" value="下一步">
+    </div>
+</div>
+</div>
+<script th:inline="javascript"> var ctx = [[@{
+    /}]];</script>
+<script>
+    function pageRadio(t) {
+        var v = $("#pageRadio").val();
+        $("#pagesQt").val(v);
+        $("#pageLabel").text(v);
+    }
+
+    function baseRadio(t) {
+        var v = $("#baseRadio").val();
+        $("#basef").val(v);
+        $("#baseLable").text(v);
+    }
+
+    function packRadio(t) {
+        var v = $("#packRadio").val();
+        $("#packQt").val(v);
+        $("#packLabel").text(v);
+    }
+
+    function thRadio(t) {
+        var v = $("#thRadio").val();
+        $("#thQt").val(v);
+        $("#thLabel").text(v);
+    }
+
+    function hell(t) {
+        var v = $("#fff").val();
+        $("#a").val(v);
+        $("#alabel").text(v);
+    }
+</script>
+<script>
+    $(function () {
+        var url = ctx + "zz/fileUpload";
+        var swf_url = ctx + "js/Moxie.swf";
+        var xap_url = ctx + "js/Moxie.xap";
+        var uploader = new plupload.Uploader({
+            browse_button: 'pagesBtn', //触发文件选择对话框的按钮，为那个元素id
+            container: document.getElementById('container'),
+            url: url, //服务器端的上传页面地址
+            multipart: true,
+            file_data_name: 'myfile',
+            unique_names: true,//生成唯一文件名
+            filters: {
+                mime_types: [ //只允许上传图片
+                    {title: "Image files", extensions: "jpg,png,jpeg"}
+                ],
+                max_file_size: '40000kb', //最大只能上传400kb的文件
+                prevent_duplicates: true //不允许选取重复文件
+            },
+            runtimes: 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有
+            flash_swf_url: swf_url, //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url: xap_url//silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+        /**
+         *文件上传之前的操作
+         */
+        uploader.bind('BeforeUpload', function (uploader, file) {
+        });
+        /**
+         * 文件开始上传
+         */
+        uploader.bind('FileUploaded', function (uploader, files, data) {
+            var str = data.response;
+            var obj = eval('(' + str + ')');
+            var fileName = obj.msg; //文件名称
+            var img = "../profile/upload/liucheng/" + fileName;
+            $("#pagesHide").val(fileName);
+            $('#pagesa').removeAttr('style');
+            $("#pagesImg").attr("src", img);
+            $("#pagesImgBig").attr("src", img);
+        });
+        //当所有的文件上传成功之后
+        uploader.bind('UploadComplete', function (uploader, files) {
+        });
+        //FilesAdded
+        uploader.bind('FilesAdded', function (uploader, files) {
+            uploader.start();
+        });
+        //PostInit
+        uploader.bind('PostInit', function (uploader) {
+        });
+        uploader.init();
+
+
+        //22222222222222222222222222222222222222222222222222222222222222222222222222
+
+        var uploader1 = new plupload.Uploader({
+            browse_button: 'baseBtn', //触发文件选择对话框的按钮，为那个元素id
+            container: document.getElementById('container1'),
+            url: url, //服务器端的上传页面地址
+            multipart: true,
+            file_data_name: 'myfile',
+            unique_names: true,//生成唯一文件名
+            filters: {
+                mime_types: [ //只允许上传图片
+                    {title: "Image files", extensions: "jpg,png,jpeg"}
+                ],
+                max_file_size: '40000kb', //最大只能上传400kb的文件
+                prevent_duplicates: true //不允许选取重复文件
+            },
+            runtimes: 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有
+            flash_swf_url: swf_url, //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url: xap_url//silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+        /**
+         *文件上传之前的操作
+         */
+        uploader1.bind('BeforeUpload', function (uploader, file) {
+        });
+        /**
+         * 文件开始上传
+         */
+        uploader1.bind('FileUploaded', function (uploader, files, data) {
+            var str = data.response;
+            var obj = eval('(' + str + ')');
+            var fileName = obj.msg; //文件名称
+            var img = "../profile/upload/liucheng/" + fileName;
+            $("#baseHide").val(fileName);
+            $('#baseaa').removeAttr('style');
+            $("#baseImg").attr("src", img);
+            $("#baseImgBig").attr("src", img);
+        });
+        //当所有的文件上传成功之后
+        uploader1.bind('UploadComplete', function (uploader, files) {
+        });
+        //FilesAdded
+        uploader1.bind('FilesAdded', function (uploader, files) {
+            uploader.start();
+        });
+        //PostInit
+        uploader1.bind('PostInit', function (uploader) {
+        });
+        uploader1.init();
+
+
+        //33333333333333333333333333333333333333333333333333333
+
+        var uploader2 = new plupload.Uploader({
+            browse_button: 'packBtn', //触发文件选择对话框的按钮，为那个元素id
+            container: document.getElementById('container2'),
+            url: url, //服务器端的上传页面地址
+            multipart: true,
+            file_data_name: 'myfile',
+            unique_names: true,//生成唯一文件名
+            filters: {
+                mime_types: [ //只允许上传图片
+                    {title: "Image files", extensions: "jpg,png,jpeg"}
+                ],
+                max_file_size: '40000kb', //最大只能上传400kb的文件
+                prevent_duplicates: true //不允许选取重复文件
+            },
+            runtimes: 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有
+            flash_swf_url: swf_url, //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url: xap_url//silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+        /**
+         *文件上传之前的操作
+         */
+        uploader2.bind('BeforeUpload', function (uploader, file) {
+        });
+        /**
+         * 文件开始上传
+         */
+        uploader2.bind('FileUploaded', function (uploader, files, data) {
+            var str = data.response;
+            var obj = eval('(' + str + ')');
+            var fileName = obj.msg; //文件名称
+            var img = "../profile/upload/liucheng/" + fileName;
+            $("#packHide").val(fileName);
+            $('#packa').removeAttr('style');
+            $("#packImg").attr("src", img);
+            $("#packImgBig").attr("src", img);
+        });
+        //当所有的文件上传成功之后
+        uploader2.bind('UploadComplete', function (uploader, files) {
+        });
+        //FilesAdded
+        uploader2.bind('FilesAdded', function (uploader, files) {
+            uploader.start();
+        });
+        //PostInit
+        uploader2.bind('PostInit', function (uploader) {
+        });
+        uploader2.init();
+
+
+        //444444444444444444444444444444444444444444444444444444444
+
+        var uploader3 = new plupload.Uploader({
+            browse_button: 'thermoprintBtn', //触发文件选择对话框的按钮，为那个元素id
+            container: document.getElementById('container3'),
+            url: url, //服务器端的上传页面地址
+            multipart: true,
+            file_data_name: 'myfile',
+            unique_names: true,//生成唯一文件名
+            filters: {
+                mime_types: [ //只允许上传图片
+                    {title: "Image files", extensions: "jpg,png,jpeg"}
+                ],
+                max_file_size: '40000kb', //最大只能上传400kb的文件
+                prevent_duplicates: true //不允许选取重复文件
+            },
+            runtimes: 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有
+            flash_swf_url: swf_url, //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url: xap_url//silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+        /**
+         *文件上传之前的操作
+         */
+        uploader3.bind('BeforeUpload', function (uploader, file) {
+        });
+        /**
+         * 文件开始上传
+         */
+        uploader3.bind('FileUploaded', function (uploader, files, data) {
+            var str = data.response;
+            var obj = eval('(' + str + ')');
+            var fileName = obj.msg; //文件名称
+            var img = "../profile/upload/liucheng/" + fileName;
+            $("#thermoprintHide").val(fileName);
+            $('#thermoprinta').removeAttr('style');
+            $("#thermoprintImg").attr("src", img);
+            $("#thermoprintImgBig").attr("src", img);
+
+        });
+        //当所有的文件上传成功之后
+        uploader3.bind('UploadComplete', function (uploader, files) {
+        });
+        //FilesAdded
+        uploader3.bind('FilesAdded', function (uploader, files) {
+            uploader.start();
+        });
+        //PostInit
+        uploader3.bind('PostInit', function (uploader) {
+        });
+        uploader3.init();
+        //555555555555555555555555555555555555555555555555555555555555
+
+        var uploader4 = new plupload.Uploader({
+            browse_button: 'carvingBtn', //触发文件选择对话框的按钮，为那个元素id
+            container: document.getElementById('container4'),
+            url: url, //服务器端的上传页面地址
+            multipart: true,
+            file_data_name: 'myfile',
+            unique_names: true,//生成唯一文件名
+            filters: {
+                mime_types: [ //只允许上传图片
+                    {title: "Image files", extensions: "jpg,png,jpeg"}
+                ],
+                max_file_size: '40000kb', //最大只能上传400kb的文件
+                prevent_duplicates: true //不允许选取重复文件
+            },
+            runtimes: 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有
+            flash_swf_url: swf_url, //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url: xap_url//silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+        /**
+         *文件上传之前的操作
+         */
+        uploader4.bind('BeforeUpload', function (uploader, file) {
+        });
+        /**
+         * 文件开始上传
+         */
+        uploader4.bind('FileUploaded', function (uploader, files, data) {
+            var str = data.response;
+            var obj = eval('(' + str + ')');
+            var fileName = obj.msg; //文件名称
+            var img = "../profile/upload/liucheng/" + fileName;
+            $("#carvingHide").val(fileName);
+            $('#carvinga').removeAttr('style');
+            $("#carvingImg").attr("src", img);
+            $("#carvingImgBig").attr("src", img);
+        });
+        //当所有的文件上传成功之后
+        uploader4.bind('UploadComplete', function (uploader, files) {
+        });
+        //FilesAdded
+        uploader4.bind('FilesAdded', function (uploader, files) {
+            uploader.start();
+        });
+        //PostInit
+        uploader4.bind('PostInit', function (uploader) {
+        });
+        uploader4.init();
+        //endendendendendendednendednednednednendendnednendnendndnndnednnednendnendendendendendende
+
+        $("#submit").click(function () {
+            var datas = window.sessionStorage.getItem("datas");
+            var jsonData = JSON.parse(datas);
+            var pages = "", base = "", pack = "", thermoprint = "", carving = "";
+            $('input[name="pages"]:checked').each(function () {
+                pages = $(this).val();
+            });
+
+            $('input[name="base"]:checked').each(function () {
+                base = $(this).val();
+            });
+
+            $('input[name="pack"]:checked').each(function () {
+                pack = $(this).val();
+            });
+
+            $('input[name="thermoprint"]:checked').each(function () {
+                thermoprint = $(this).val();
+            });
+
+            $('input[name="carving"]:checked').each(function () {
+                carving = $(this).val();
+            });
+            var pagesImg = $("#pagesHide").val();
+            var baseImg = $("#baseHide").val();
+            var packImg = $("#packHide").val();
+            var thermoprintImg = $("#thermoprintHide").val();
+            var carvingImg = $("#carvingHide").val();
+            var flag = false;
+            var ct = 0 ;
+            if (pages != "" && pagesImg != "") {
+                flag = true;
+            } else if (pages == "" && pagesImg == "") {
+                ct+=1;
+                flag = true;
+            } else {
+                if (pagesImg == "") {
+                    flag = false;
+                    alert_c("请上传内页图片！");
+                    return;
+                }
+                if (pages == "") {
+                    flag = false;
+                    alert_c("请选择内页！");
+                    return;
+                }
+            }
+
+            if (base != "" && baseImg != "") {
+                flag = true;
+            } else if (base == "" && baseImg == "") {
+                flag = true;
+                ct+=1;
+            } else {
+                if (baseImg == "") {
+                    flag = false;
+                    alert_c("请上传底座图片！");
+                    return;
+                }
+                if (base == "") {
+                    flag = false;
+                    alert_c("请选择底座！");
+                    return;
+                }
+            }
+
+            if (pack != "" && packImg != "") {
+                flag = true;
+            } else if (pack == "" && packImg == "") {
+                flag = true;
+                ct+=1;
+            } else {
+                if (packImg == "") {
+                    flag = false;
+                    alert_c("请上传包装图片！");
+                    return;
+                }
+                if (pack == "") {
+                    flag = false;
+                    alert_c("请选择包装！");
+                    return;
+                }
+            }
+
+            if (thermoprint != "" && thermoprintImg != "") {
+                flag = true;
+            } else if (thermoprint == "" && thermoprintImg == "") {
+                flag = true;
+                ct+=1;
+            } else {
+                if (thermoprintImg == "") {
+                    flag = false;
+                    alert_c("请上传烫印图片！");
+                    return;
+                }
+                if (thermoprint == "") {
+                    flag = false;
+                    alert_c("请选择烫印类型！");
+                    return;
+                }
+            }
+
+            if (carving != "" && carvingImg != "") {
+                flag = true;
+            } else if ((carving == "" && carvingImg == "")) {
+                flag = true;
+                ct+=1;
+            } else {
+                if (carvingImg == "") {
+                    flag = false;
+                    alert_c("请上传雕刻图片！");
+                    return;
+                }
+                if (carving == "") {
+                    flag = false;
+                    alert_c("请选择雕刻类型！");
+                    return;
+                }
+            }
+
+
+            if (!flag) {
+                alert_c("请至少选择一项！");
+                return;
+            }
+
+            if (ct==5) {
+                alert_c("请至少选择一项！");
+                return;
+            }
+
+
+            jsonData.pages = pages;
+            jsonData.base = base;
+            jsonData.pack = pack;
+            jsonData.thermoprint = thermoprint;
+            jsonData.carving = carving;
+
+            jsonData.pagesImg = pagesImg;
+            jsonData.baseImg = baseImg;
+            jsonData.packImg = packImg;
+            jsonData.thermoprintImg = thermoprintImg;
+            jsonData.carvingImg = carvingImg;
+            var d = JSON.stringify(jsonData);
+            window.sessionStorage.setItem("datas", d);
+            window.location.href = "preview";
+        })
+
+    })
+
+
+</script>
+</body>
+</html>

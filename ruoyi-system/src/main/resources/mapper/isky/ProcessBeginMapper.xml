@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.ProcessBeginMapper">
+
+    <resultMap type="ProcessBegin" id="ProcessBeginResult">
+        <result property="id"    column="id"    />
+        <result property="orderName"    column="order_name"    />
+        <result property="confirm"    column="confirm"    />
+        <result property="loanAmount"    column="loan_amount"    />
+        <result property="payAmout"    column="pay_amout"    />
+        <result property="deliveryTime"    column="delivery_time"    />
+        <result property="customerInfo"    column="customer_info"    />
+        <result property="pages"    column="pages"    />
+        <result property="pagesZzDate"    column="pages_zz_date"    />
+        <result property="pagesWcDate"    column="pages_wc_date"    />
+        <result property="pagesZzUser"    column="pages_zz_user"    />
+        <result property="pagesWcUser"    column="pages_wc_user"    />
+        <result property="pagesState"    column="pages_state"    />
+        <result property="pagesImg"    column="pages_img"    />
+        <result property="base"    column="base"    />
+        <result property="baseZzDate"    column="base_zz_date"    />
+        <result property="baseWcDate"    column="base_wc_date"    />
+        <result property="baseZzUser"    column="base_zz_user"    />
+        <result property="baseWcUser"    column="base_wc_user"    />
+        <result property="baseState"    column="base_state"    />
+        <result property="baseImg"    column="base_img"    />
+        <result property="pack"    column="pack"    />
+        <result property="packZzDate"    column="pack_zz_date"    />
+        <result property="packWcDate"    column="pack_wc_date"    />
+        <result property="packImg"    column="pack_img"    />
+        <result property="packZzUser"    column="pack_zz_user"    />
+        <result property="packWcUser"    column="pack_wc_user"    />
+        <result property="packState"    column="pack_state"    />
+        <result property="thermoprint"    column="thermoprint"    />
+        <result property="thermoprintZzDate"    column="thermoprint_zz_date"    />
+        <result property="thermoprintWcDate"    column="thermoprint_wc_date"    />
+        <result property="thermoprintImg"    column="thermoprint_img"    />
+        <result property="thermoprintZzUser"    column="thermoprint_zz_user"    />
+        <result property="thermoprintWcUser"    column="thermoprint_wc_user"    />
+        <result property="thermoprintState"    column="thermoprint_state"    />
+        <result property="carving"    column="carving"    />
+        <result property="carvingZzDate"    column="carving_zz_date"    />
+        <result property="carvingWcDate"    column="carving_wc_date"    />
+        <result property="carvingImg"    column="carving_img"    />
+        <result property="carvingZzUser"    column="carving_zz_user"    />
+        <result property="carvingWcUser"    column="carving_wc_user"    />
+        <result property="carvingState"    column="carving_state"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="remark"    column="remark"    />
+        <result property="state"    column="state"    />
+        <result property="sales"    column="sales"    />
+    </resultMap>
+
+    <sql id="selectProcessBeginVo">
+        select id, order_name, confirm, loan_amount, pay_amout, delivery_time, customer_info, pages, pages_zz_date, pages_wc_date, pages_zz_user, pages_wc_user, pages_state, pages_img, base, base_zz_date, base_wc_date, base_zz_user, base_wc_user, base_state, base_img, pack, pack_zz_date, pack_wc_date, pack_img, pack_zz_user, pack_wc_user, pack_state, thermoprint, thermoprint_zz_date, thermoprint_wc_date, thermoprint_img, thermoprint_zz_user, thermoprint_wc_user, thermoprint_state, carving, carving_zz_date, carving_wc_date, carving_img, carving_zz_user, carving_wc_user, carving_state, create_date, remark, state, sales from seg_process_begin
+    </sql>
+
+    <select id="selectProcessBeginList" parameterType="ProcessBegin" resultMap="ProcessBeginResult">
+        <include refid="selectProcessBeginVo"/>
+        <where>
+            <if test="id != null "> and id = #{id}</if>
+            <if test="orderName != null  and orderName != '' "> and order_name = #{orderName}</if>
+            <if test="confirm != null  and confirm != '' "> and confirm = #{confirm}</if>
+            <if test="loanAmount != null  and loanAmount != '' "> and loan_amount = #{loanAmount}</if>
+            <if test="payAmout != null  and payAmout != '' "> and pay_amout = #{payAmout}</if>
+            <if test="deliveryTime != null  and deliveryTime != '' "> and delivery_time = #{deliveryTime}</if>
+            <if test="customerInfo != null  and customerInfo != '' "> and customer_info = #{customerInfo}</if>
+            <if test="pages != null  and pages != '' "> and pages = #{pages}</if>
+            <if test="pagesZzDate != null  and pagesZzDate != '' "> and pages_zz_date = #{pagesZzDate}</if>
+            <if test="pagesWcDate != null  and pagesWcDate != '' "> and pages_wc_date = #{pagesWcDate}</if>
+            <if test="pagesZzUser != null  and pagesZzUser != '' "> and pages_zz_user = #{pagesZzUser}</if>
+            <if test="pagesWcUser != null  and pagesWcUser != '' "> and pages_wc_user = #{pagesWcUser}</if>
+            <if test="pagesState != null  and pagesState != '' "> and pages_state = #{pagesState}</if>
+            <if test="pagesImg != null  and pagesImg != '' "> and pages_img = #{pagesImg}</if>
+            <if test="base != null  and base != '' "> and base = #{base}</if>
+            <if test="baseZzDate != null  and baseZzDate != '' "> and base_zz_date = #{baseZzDate}</if>
+            <if test="baseWcDate != null  and baseWcDate != '' "> and base_wc_date = #{baseWcDate}</if>
+            <if test="baseZzUser != null  and baseZzUser != '' "> and base_zz_user = #{baseZzUser}</if>
+            <if test="baseWcUser != null  and baseWcUser != '' "> and base_wc_user = #{baseWcUser}</if>
+            <if test="baseState != null  and baseState != '' "> and base_state = #{baseState}</if>
+            <if test="baseImg != null  and baseImg != '' "> and base_img = #{baseImg}</if>
+            <if test="pack != null  and pack != '' "> and pack = #{pack}</if>
+            <if test="packZzDate != null  and packZzDate != '' "> and pack_zz_date = #{packZzDate}</if>
+            <if test="packWcDate != null  and packWcDate != '' "> and pack_wc_date = #{packWcDate}</if>
+            <if test="packImg != null  and packImg != '' "> and pack_img = #{packImg}</if>
+            <if test="packZzUser != null  and packZzUser != '' "> and pack_zz_user = #{packZzUser}</if>
+            <if test="packWcUser != null  and packWcUser != '' "> and pack_wc_user = #{packWcUser}</if>
+            <if test="packState != null  and packState != '' "> and pack_state = #{packState}</if>
+            <if test="thermoprint != null  and thermoprint != '' "> and thermoprint = #{thermoprint}</if>
+            <if test="thermoprintZzDate != null  and thermoprintZzDate != '' "> and thermoprint_zz_date = #{thermoprintZzDate}</if>
+            <if test="thermoprintWcDate != null  and thermoprintWcDate != '' "> and thermoprint_wc_date = #{thermoprintWcDate}</if>
+            <if test="thermoprintImg != null  and thermoprintImg != '' "> and thermoprint_img = #{thermoprintImg}</if>
+            <if test="thermoprintZzUser != null  and thermoprintZzUser != '' "> and thermoprint_zz_user = #{thermoprintZzUser}</if>
+            <if test="thermoprintWcUser != null  and thermoprintWcUser != '' "> and thermoprint_wc_user = #{thermoprintWcUser}</if>
+            <if test="thermoprintState != null  and thermoprintState != '' "> and thermoprint_state = #{thermoprintState}</if>
+            <if test="carving != null  and carving != '' "> and carving = #{carving}</if>
+            <if test="carvingZzDate != null  and carvingZzDate != '' "> and carving_zz_date = #{carvingZzDate}</if>
+            <if test="carvingWcDate != null  and carvingWcDate != '' "> and carving_wc_date = #{carvingWcDate}</if>
+            <if test="carvingImg != null  and carvingImg != '' "> and carving_img = #{carvingImg}</if>
+            <if test="carvingZzUser != null  and carvingZzUser != '' "> and carving_zz_user = #{carvingZzUser}</if>
+            <if test="carvingWcUser != null  and carvingWcUser != '' "> and carving_wc_user = #{carvingWcUser}</if>
+            <if test="carvingState != null  and carvingState != '' "> and carving_state = #{carvingState}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+            <if test="state != null  and state != '' "> and state = #{state}</if>
+            <if test="sales != null  and sales != '' "> and sales = #{sales}</if>
+        </where>
+        order by delivery_time desc
+    </select>
+
+    <select id="selectProcessBeginById" parameterType="Integer" resultMap="ProcessBeginResult">
+        <include refid="selectProcessBeginVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertProcessBegin" parameterType="ProcessBegin" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_process_begin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderName != null  and orderName != ''  ">order_name,</if>
+            <if test="confirm != null  and confirm != ''  ">confirm,</if>
+            <if test="loanAmount != null  and loanAmount != ''  ">loan_amount,</if>
+            <if test="payAmout != null  and payAmout != ''  ">pay_amout,</if>
+            <if test="deliveryTime != null  and deliveryTime != ''  ">delivery_time,</if>
+            <if test="customerInfo != null  and customerInfo != ''  ">customer_info,</if>
+            <if test="pages != null  and pages != ''  ">pages,</if>
+            <if test="pagesZzDate != null  and pagesZzDate != ''  ">pages_zz_date,</if>
+            <if test="pagesWcDate != null  and pagesWcDate != ''  ">pages_wc_date,</if>
+            <if test="pagesZzUser != null  and pagesZzUser != ''  ">pages_zz_user,</if>
+            <if test="pagesWcUser != null  and pagesWcUser != ''  ">pages_wc_user,</if>
+            <if test="pagesState != null  and pagesState != ''  ">pages_state,</if>
+            <if test="pagesImg != null  and pagesImg != ''  ">pages_img,</if>
+            <if test="base != null  and base != ''  ">base,</if>
+            <if test="baseZzDate != null  and baseZzDate != ''  ">base_zz_date,</if>
+            <if test="baseWcDate != null  and baseWcDate != ''  ">base_wc_date,</if>
+            <if test="baseZzUser != null  and baseZzUser != ''  ">base_zz_user,</if>
+            <if test="baseWcUser != null  and baseWcUser != ''  ">base_wc_user,</if>
+            <if test="baseState != null  and baseState != ''  ">base_state,</if>
+            <if test="baseImg != null  and baseImg != ''  ">base_img,</if>
+            <if test="pack != null  and pack != ''  ">pack,</if>
+            <if test="packZzDate != null  and packZzDate != ''  ">pack_zz_date,</if>
+            <if test="packWcDate != null  and packWcDate != ''  ">pack_wc_date,</if>
+            <if test="packImg != null  and packImg != ''  ">pack_img,</if>
+            <if test="packZzUser != null  and packZzUser != ''  ">pack_zz_user,</if>
+            <if test="packWcUser != null  and packWcUser != ''  ">pack_wc_user,</if>
+            <if test="packState != null  and packState != ''  ">pack_state,</if>
+            <if test="thermoprint != null  and thermoprint != ''  ">thermoprint,</if>
+            <if test="thermoprintZzDate != null  and thermoprintZzDate != ''  ">thermoprint_zz_date,</if>
+            <if test="thermoprintWcDate != null  and thermoprintWcDate != ''  ">thermoprint_wc_date,</if>
+            <if test="thermoprintImg != null  and thermoprintImg != ''  ">thermoprint_img,</if>
+            <if test="thermoprintZzUser != null  and thermoprintZzUser != ''  ">thermoprint_zz_user,</if>
+            <if test="thermoprintWcUser != null  and thermoprintWcUser != ''  ">thermoprint_wc_user,</if>
+            <if test="thermoprintState != null  and thermoprintState != ''  ">thermoprint_state,</if>
+            <if test="carving != null  and carving != ''  ">carving,</if>
+            <if test="carvingZzDate != null  and carvingZzDate != ''  ">carving_zz_date,</if>
+            <if test="carvingWcDate != null  and carvingWcDate != ''  ">carving_wc_date,</if>
+            <if test="carvingImg != null  and carvingImg != ''  ">carving_img,</if>
+            <if test="carvingZzUser != null  and carvingZzUser != ''  ">carving_zz_user,</if>
+            <if test="carvingWcUser != null  and carvingWcUser != ''  ">carving_wc_user,</if>
+            <if test="carvingState != null  and carvingState != ''  ">carving_state,</if>
+            <if test="createDate != null  ">create_date,</if>
+            <if test="remark != null  and remark != ''  ">remark,</if>
+            <if test="state != null  and state != ''  ">state,</if>
+            <if test="sales != null  and sales != ''  ">sales,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderName != null  and orderName != ''  ">#{orderName},</if>
+            <if test="confirm != null  and confirm != ''  ">#{confirm},</if>
+            <if test="loanAmount != null  and loanAmount != ''  ">#{loanAmount},</if>
+            <if test="payAmout != null  and payAmout != ''  ">#{payAmout},</if>
+            <if test="deliveryTime != null  and deliveryTime != ''  ">#{deliveryTime},</if>
+            <if test="customerInfo != null  and customerInfo != ''  ">#{customerInfo},</if>
+            <if test="pages != null  and pages != ''  ">#{pages},</if>
+            <if test="pagesZzDate != null  and pagesZzDate != ''  ">#{pagesZzDate},</if>
+            <if test="pagesWcDate != null  and pagesWcDate != ''  ">#{pagesWcDate},</if>
+            <if test="pagesZzUser != null  and pagesZzUser != ''  ">#{pagesZzUser},</if>
+            <if test="pagesWcUser != null  and pagesWcUser != ''  ">#{pagesWcUser},</if>
+            <if test="pagesState != null  and pagesState != ''  ">#{pagesState},</if>
+            <if test="pagesImg != null  and pagesImg != ''  ">#{pagesImg},</if>
+            <if test="base != null  and base != ''  ">#{base},</if>
+            <if test="baseZzDate != null  and baseZzDate != ''  ">#{baseZzDate},</if>
+            <if test="baseWcDate != null  and baseWcDate != ''  ">#{baseWcDate},</if>
+            <if test="baseZzUser != null  and baseZzUser != ''  ">#{baseZzUser},</if>
+            <if test="baseWcUser != null  and baseWcUser != ''  ">#{baseWcUser},</if>
+            <if test="baseState != null  and baseState != ''  ">#{baseState},</if>
+            <if test="baseImg != null  and baseImg != ''  ">#{baseImg},</if>
+            <if test="pack != null  and pack != ''  ">#{pack},</if>
+            <if test="packZzDate != null  and packZzDate != ''  ">#{packZzDate},</if>
+            <if test="packWcDate != null  and packWcDate != ''  ">#{packWcDate},</if>
+            <if test="packImg != null  and packImg != ''  ">#{packImg},</if>
+            <if test="packZzUser != null  and packZzUser != ''  ">#{packZzUser},</if>
+            <if test="packWcUser != null  and packWcUser != ''  ">#{packWcUser},</if>
+            <if test="packState != null  and packState != ''  ">#{packState},</if>
+            <if test="thermoprint != null  and thermoprint != ''  ">#{thermoprint},</if>
+            <if test="thermoprintZzDate != null  and thermoprintZzDate != ''  ">#{thermoprintZzDate},</if>
+            <if test="thermoprintWcDate != null  and thermoprintWcDate != ''  ">#{thermoprintWcDate},</if>
+            <if test="thermoprintImg != null  and thermoprintImg != ''  ">#{thermoprintImg},</if>
+            <if test="thermoprintZzUser != null  and thermoprintZzUser != ''  ">#{thermoprintZzUser},</if>
+            <if test="thermoprintWcUser != null  and thermoprintWcUser != ''  ">#{thermoprintWcUser},</if>
+            <if test="thermoprintState != null  and thermoprintState != ''  ">#{thermoprintState},</if>
+            <if test="carving != null  and carving != ''  ">#{carving},</if>
+            <if test="carvingZzDate != null  and carvingZzDate != ''  ">#{carvingZzDate},</if>
+            <if test="carvingWcDate != null  and carvingWcDate != ''  ">#{carvingWcDate},</if>
+            <if test="carvingImg != null  and carvingImg != ''  ">#{carvingImg},</if>
+            <if test="carvingZzUser != null  and carvingZzUser != ''  ">#{carvingZzUser},</if>
+            <if test="carvingWcUser != null  and carvingWcUser != ''  ">#{carvingWcUser},</if>
+            <if test="carvingState != null  and carvingState != ''  ">#{carvingState},</if>
+            <if test="createDate != null  ">#{createDate},</if>
+            <if test="remark != null  and remark != ''  ">#{remark},</if>
+            <if test="state != null  and state != ''  ">#{state},</if>
+            <if test="sales != null  and sales != ''  ">#{sales},</if>
+        </trim>
+    </insert>
+
+    <update id="updateProcessBegin" parameterType="ProcessBegin">
+        update seg_process_begin
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderName != null  and orderName != ''  ">order_name = #{orderName},</if>
+            <if test="confirm != null  and confirm != ''  ">confirm = #{confirm},</if>
+            <if test="loanAmount != null  and loanAmount != ''  ">loan_amount = #{loanAmount},</if>
+            <if test="payAmout != null  and payAmout != ''  ">pay_amout = #{payAmout},</if>
+            <if test="deliveryTime != null  and deliveryTime != ''  ">delivery_time = #{deliveryTime},</if>
+            <if test="customerInfo != null  and customerInfo != ''  ">customer_info = #{customerInfo},</if>
+            <if test="pages != null  and pages != ''  ">pages = #{pages},</if>
+            <if test="pagesZzDate != null  and pagesZzDate != ''  ">pages_zz_date = #{pagesZzDate},</if>
+            <if test="pagesWcDate != null  and pagesWcDate != ''  ">pages_wc_date = #{pagesWcDate},</if>
+            <if test="pagesZzUser != null  and pagesZzUser != ''  ">pages_zz_user = #{pagesZzUser},</if>
+            <if test="pagesWcUser != null  and pagesWcUser != ''  ">pages_wc_user = #{pagesWcUser},</if>
+            <if test="pagesState != null  and pagesState != ''  ">pages_state = #{pagesState},</if>
+            <if test="pagesImg != null  and pagesImg != ''  ">pages_img = #{pagesImg},</if>
+            <if test="base != null  and base != ''  ">base = #{base},</if>
+            <if test="baseZzDate != null  and baseZzDate != ''  ">base_zz_date = #{baseZzDate},</if>
+            <if test="baseWcDate != null  and baseWcDate != ''  ">base_wc_date = #{baseWcDate},</if>
+            <if test="baseZzUser != null  and baseZzUser != ''  ">base_zz_user = #{baseZzUser},</if>
+            <if test="baseWcUser != null  and baseWcUser != ''  ">base_wc_user = #{baseWcUser},</if>
+            <if test="baseState != null  and baseState != ''  ">base_state = #{baseState},</if>
+            <if test="baseImg != null  and baseImg != ''  ">base_img = #{baseImg},</if>
+            <if test="pack != null  and pack != ''  ">pack = #{pack},</if>
+            <if test="packZzDate != null  and packZzDate != ''  ">pack_zz_date = #{packZzDate},</if>
+            <if test="packWcDate != null  and packWcDate != ''  ">pack_wc_date = #{packWcDate},</if>
+            <if test="packImg != null  and packImg != ''  ">pack_img = #{packImg},</if>
+            <if test="packZzUser != null  and packZzUser != ''  ">pack_zz_user = #{packZzUser},</if>
+            <if test="packWcUser != null  and packWcUser != ''  ">pack_wc_user = #{packWcUser},</if>
+            <if test="packState != null  and packState != ''  ">pack_state = #{packState},</if>
+            <if test="thermoprint != null  and thermoprint != ''  ">thermoprint = #{thermoprint},</if>
+            <if test="thermoprintZzDate != null  and thermoprintZzDate != ''  ">thermoprint_zz_date = #{thermoprintZzDate},</if>
+            <if test="thermoprintWcDate != null  and thermoprintWcDate != ''  ">thermoprint_wc_date = #{thermoprintWcDate},</if>
+            <if test="thermoprintImg != null  and thermoprintImg != ''  ">thermoprint_img = #{thermoprintImg},</if>
+            <if test="thermoprintZzUser != null  and thermoprintZzUser != ''  ">thermoprint_zz_user = #{thermoprintZzUser},</if>
+            <if test="thermoprintWcUser != null  and thermoprintWcUser != ''  ">thermoprint_wc_user = #{thermoprintWcUser},</if>
+            <if test="thermoprintState != null  and thermoprintState != ''  ">thermoprint_state = #{thermoprintState},</if>
+            <if test="carving != null  and carving != ''  ">carving = #{carving},</if>
+            <if test="carvingZzDate != null  and carvingZzDate != ''  ">carving_zz_date = #{carvingZzDate},</if>
+            <if test="carvingWcDate != null  and carvingWcDate != ''  ">carving_wc_date = #{carvingWcDate},</if>
+            <if test="carvingImg != null  and carvingImg != ''  ">carving_img = #{carvingImg},</if>
+            <if test="carvingZzUser != null  and carvingZzUser != ''  ">carving_zz_user = #{carvingZzUser},</if>
+            <if test="carvingWcUser != null  and carvingWcUser != ''  ">carving_wc_user = #{carvingWcUser},</if>
+            <if test="carvingState != null  and carvingState != ''  ">carving_state = #{carvingState},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="state != null  and state != ''  ">state = #{state},</if>
+            <if test="sales != null  and sales != ''  ">sales = #{sales},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProcessBeginById" parameterType="Integer">
+        delete from seg_process_begin where id = #{id}
+    </delete>
+
+    <delete id="deleteProcessBeginByIds" parameterType="String">
+        delete from seg_process_begin where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <title>喜悦造物图片上传</title>
+    <link rel="stylesheet" href="../dropzone/basic.css">
+    <link rel="stylesheet" href="../dropzone/dropzone.css">
+    <script type="text/javascript" src="../dropzone/dropzone.js"></script>
+    <script type="text/javascript" src="../picture/jquery.min.js"></script>
+</head>
+
+<script th:inline="javascript"> var ctx = [[@{
+    /}]];</script>
+<body>
+<div>
+    <form action="xmlUpload.do" class="dropzone well" id="dropzone">
+        <div class="fallback">
+            <input name="file" type="file" multiple="" />
+        </div>
+    </form>
+</div>
+
+<div id="preview-template" class="hide">
+    <div class="dz-preview dz-file-preview">
+        <div class="dz-image">
+            <img data-dz-thumbnail="" />
+        </div>
+
+        <div class="dz-details">
+            <div class="dz-size">
+                <span data-dz-size=""></span>
+            </div>
+
+            <div class="dz-filename">
+                <span data-dz-name=""></span>
+            </div>
+        </div>
+
+        <div class="dz-error-message">
+            <span data-dz-errormessage=""></span>
+        </div>
+
+        <div class="dz-success-mark">
+            <span class="fa-stack fa-lg bigger-150">
+                <i class="fa fa-circle fa-stack-2x white"></i>
+
+                <i class="fa fa-check fa-stack-1x fa-inverse green"></i>
+            </span>
+        </div>
+
+        <div class="dz-error-mark">
+            <span class="fa-stack fa-lg bigger-150">
+                <i class="fa fa-circle fa-stack-2x white"></i>
+
+                <i class="fa fa-remove fa-stack-1x fa-inverse red"></i>
+            </span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.isky.mapper.FigureQrcodeWorkMapper">
+    
+    <resultMap type="FigureQrcodeWork" id="FigureQrcodeWorkResult">
+        <result property="id"    column="id"    />
+        <result property="codeStr"    column="code_str"    />
+        <result property="workUrl"    column="work_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="workType"    column="work_type"    />
+    </resultMap>
+	
+	<sql id="selectFigureQrcodeWorkVo">
+        select id, code_str, work_url, create_time, work_type from seg_figure_qrcode_work
+    </sql>
+	
+    <select id="selectFigureQrcodeWorkList" parameterType="FigureQrcodeWork" resultMap="FigureQrcodeWorkResult">
+        <include refid="selectFigureQrcodeWorkVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="codeStr != null  and codeStr != '' "> and code_str = #{codeStr}</if>
+             <if test="workUrl != null  and workUrl != '' "> and work_url = #{workUrl}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="workType != null  and workType != '' "> and work_type = #{workType}</if>
+         </where>
+    </select>
+    
+    <select id="selectFigureQrcodeWorkById" parameterType="Integer" resultMap="FigureQrcodeWorkResult">
+        <include refid="selectFigureQrcodeWorkVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFigureQrcodeWork" parameterType="FigureQrcodeWork" useGeneratedKeys="true" keyProperty="id">
+        insert into seg_figure_qrcode_work
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="codeStr != null  and codeStr != ''  ">code_str,</if>
+			<if test="workUrl != null  and workUrl != ''  ">work_url,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="workType != null  and workType != ''  ">work_type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="codeStr != null  and codeStr != ''  ">#{codeStr},</if>
+			<if test="workUrl != null  and workUrl != ''  ">#{workUrl},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="workType != null  and workType != ''  ">#{workType},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateFigureQrcodeWork" parameterType="FigureQrcodeWork">
+        update seg_figure_qrcode_work
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="codeStr != null  and codeStr != ''  ">code_str = #{codeStr},</if>
+            <if test="workUrl != null  and workUrl != ''  ">work_url = #{workUrl},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="workType != null  and workType != ''  ">work_type = #{workType},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteFigureQrcodeWorkById" parameterType="Integer">
+        delete from seg_figure_qrcode_work where id = #{id}
+    </delete>
+	
+    <delete id="deleteFigureQrcodeWorkByIds" parameterType="String">
+        delete from seg_figure_qrcode_work where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

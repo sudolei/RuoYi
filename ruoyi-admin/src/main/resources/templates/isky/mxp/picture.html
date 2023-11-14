@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>制作排列</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <!--主要样式-->
+    <link rel="stylesheet" type="text/css"
+          href="../impression/css/reset.css"/>
+    <!-- loading样式-->
+    <link rel="stylesheet" href="../css/loading-css/global.css">
+    <link rel="stylesheet" href="../css/loading-css/loading.css">
+    <!--弹出框样式 -->
+    <link href="../jqalert/alert.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- 无所谓-->
+    <link rel="shortcut icon" href="favicon.ico">
+    <script src="../impression/js/rem.js"></script>
+
+    <script type="text/javascript">
+        if (screen.width == 2560) {
+            document
+                .write('<link href= "../impression/css/index_big.css" rel="stylesheet" type="text/css" />');
+        } else {
+            document
+                .write('<link href= "../impression/css/index.css" rel="stylesheet" type="text/css" />');
+        }
+    </SCRIPT>
+    <style>
+        .box_relative {
+            position: relative;
+            top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="templet">
+        <div class="oh">
+            <h5 class="templetTitle width24 fl" onclick="reback();">返回</h5>
+            <h5 class="templetTitle templeTitle2 fr">
+                当前<span class="red oh" id="picnum">0</span>张
+            </h5>
+        </div>
+        <div class="templetList" style="min-height: 18rem" id="templetList">
+
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    <div class="relative stepBtnBox" id="container">
+        <button class="addImg" id="addImg">添加照片</button>
+        <button class="nextStep" id="nextStep">提交</button>
+    </div>
+</div>
+</body>
+<script src="../impression/js/jquery.min.js" type="text/javascript"></script>
+<!--alert 弹出框 -->
+<script src="../jqalert/alert.js" type="text/javascript"></script>
+<script src="../jqalert/alertd.js" type="text/javascript"></script>
+<!--文件上传-->
+<script type="text/javascript"
+        src="../js/plupload.full.min.js"></script>
+<!--loading js -->
+
+<script type="text/javascript" src="../js/loading.js"></script>
+<script th:inline="javascript"> var ctx = [[@{
+    /}]];</script>
+
+<script type="text/javascript">
+    $(function () {
+        var datas = window.sessionStorage.getItem("datas");
+        var intPicNum = window.sessionStorage.getItem("picnum");
+        if (datas != null) {
+            var datasJson = JSON.parse(datas);
+            var html = "";
+            for (var i = 0; i < datasJson.length; i++) {
+                var fileName = datasJson[i].fileName;
+                var num = datasJson[i].num;
+                var fileId = fileName.split("\.")[0];
+                var suffix = fileName.split("\.")[1];
+                html += "<div class=\"listMain\" id=" + fileId + ">" +
+                    "<img src=\"../img/x_alt.png\" onclick=\"del('" + fileId + "')\" class=\"box_relative\" style=\"width:25px;height:25px\">" +
+                    "<img src=\"../profile/upload/zrs/" + fileName + "?" + Math.random() + "\"> <div class=\"oh\"> " +
+                    "<button class=\"fl numPrev\" onclick=\"numr('" + fileId + "')\" >-</button> " +
+                    "<button class=\"fl num\">" + num + "</button>" +
+                    "<button class=\"fl numNext\" onclick=\"numa('" + fileId + "')\">+</button>" +
+                    "<button class=\"fr edit\"  onclick=\"editp('" + fileId + "','" + suffix + "')\">编辑</button> </div> </div>";
+            }
+            $("#templetList").append(html);
+            $("#picnum").html(intPicNum);
+        }
+
+        /**
+         * 提交
+         */
+        $("#nextStep").click(function () {
+            //获取总数
+            var picnum = $("#picnum").html();
+            var picnumInt = parseInt(picnum);
+            if (picnumInt <= 0) {
+                alert_upload_no();
+                return;
+            }
+
+            if (picnumInt < 100 && picnumInt % 9 != 0) {
+                alert_upload();
+                return;
+            }
+            var datas = window.sessionStorage.getItem("datas");
+            var url = "order";
+            var ajaxData = {
+                picNum: picnumInt,
+                mydatas: datas
+            }
+            var ajaxUrl = "orderPic";
+            $.ajax({
+                type: "POST",
+                url: ajaxUrl,
+                data: ajaxData,
+                dataType: "json",
+                success: function (msg) {
+                    var msg = msg.msg;
+                    window.location.href = url + "?orderId=" + msg;
+                }
+            });
+        })
+    });
+
+    /**
+     *删除图片
+     */
+    function del(fileid) {
+        var datas = window.sessionStorage.getItem("datas");
+        var intPicNum = window.sessionStorage.getItem("picnum");
+        var datasJson = JSON.parse(datas);
+        var mynum = 0;
+        for (var i = 0; i < datasJson.length; i++) {
+            var obj = datasJson[i];
+            var fileName = obj.fileName;
+            var fileNum = obj.num;
+            var fname = fileName.split("\.")[0];
+            if (fname == fileid) {
+                mynum = parseInt(fileNum);
+                datasJson.splice(i, 1);
+                window.sessionStorage.setItem("datas", JSON.stringify(datasJson));
+                break;
+            }
+        }
+        $("#" + fileid).remove();
+        //获取总数
+        var picnum = $("#picnum").html();
+        var intPicNum = parseInt(picnum) - mynum;
+        $("#picnum").html(intPicNum);
+        window.sessionStorage.setItem("picnum", intPicNum);
+    }
+
+    /**
+     * 数量减少
+     * @param fileid
+     */
+    function numr(fileid) {
+        var num = $("#" + fileid).find(".num").html();
+        var numInt = parseInt(num);
+        if (numInt > 1) {
+            $("#" + fileid).find(".num").html(numInt - 1)
+            //获取总数
+            var picnum = $("#picnum").html();
+            var intPicNum = parseInt(picnum) - 1;
+            $("#picnum").html(intPicNum);
+            var intPicNum = window.sessionStorage.getItem("picnum");
+            window.sessionStorage.setItem("picnum", parseInt(intPicNum) - 1);
+            var datas = window.sessionStorage.getItem("datas");
+            var datasJson = JSON.parse(datas);
+            for (var i = 0; i < datasJson.length; i++) {
+                var obj = datasJson[i];
+                var fileName = obj.fileName;
+                var fileNum = obj.num;
+                var fname = fileName.split("\.")[0];
+                if (fname == fileid) {
+                    var c_num = parseInt(fileNum) - 1;
+                    obj.num = c_num;
+                    datasJson.splice(i, 1, obj);
+                    window.sessionStorage.setItem("datas", JSON.stringify(datasJson));
+                    break;
+                }
+            }
+        }
+    }
+
+    function editp(fileid, suffix) {
+        var typeid = window.sessionStorage.getItem("typeid");
+        window.location.href = "editPic?imageId=" + fileid + "&tpid=" + typeid + "&suffix=" + suffix;
+    }
+
+    /**
+     * 数量添加
+     * @param fileid
+     */
+    function numa(fileid) {
+        var num = $("#" + fileid).find(".num").html();
+        var numInt = parseInt(num);
+        $("#" + fileid).find(".num").html(numInt + 1)
+        //获取总数
+        var picnum = $("#picnum").html();
+        var intPicNum = parseInt(picnum) + 1;
+        $("#picnum").html(intPicNum);
+        var datas = window.sessionStorage.getItem("datas");
+        var intPicNum = window.sessionStorage.getItem("picnum");
+        window.sessionStorage.setItem("picnum", parseInt(intPicNum) + 1);
+        var datasJson = JSON.parse(datas);
+        for (var i = 0; i < datasJson.length; i++) {
+            var obj = datasJson[i];
+            var fileName = obj.fileName;
+            var fileNum = obj.num;
+            var fname = fileName.split("\.")[0];
+            if (fname == fileid) {
+                var c_num = parseInt(fileNum) + 1;
+                obj.num = c_num;
+                datasJson.splice(i, 1, obj);
+                window.sessionStorage.setItem("datas", JSON.stringify(datasJson));
+                break;
+            }
+        }
+    }
+
+    function reback() {
+        window.location.href = "select";
+    }
+</script>
+
+<script>
+    var url = ctx + "mxph/uploadPicture";
+    var swf_url = ctx + "js/Moxie.swf";
+    var xap_url = ctx + "js/Moxie.xap";
+    var imageNameData = new Array();
+    var uploader = new plupload.Uploader({
+        browse_button: 'addImg', //触发文件选择对话框的按钮，为那个元素id
+        container: document.getElementById('container'),
+        url: url, //服务器端的上传页面地址
+        multipart: true,
+        file_data_name: 'myfile',
+        filters: {
+            mime_types: [ //只允许上传图片和zip文件
+                {title: "Image files", extensions: "jpg,jpeg"}
+            ],
+            max_file_size: '40000kb', //最大只能上传400kb的文件
+            prevent_duplicates: true //不允许选取重复文件
+        },
+        unique_names: true,//生成唯一文件名
+        runtimes: 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有
+        flash_swf_url: swf_url, //swf文件，当需要使用swf方式进行上传时需要配置该参数
+        silverlight_xap_url: xap_url//silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+    });
+    /**
+     *文件上传之前的操作
+     */
+    uploader.bind('BeforeUpload', function (uploader, file) {
+        /**
+         *先验证是否是JPG格式的图片
+         */
+        var fileName = file.name;
+        var index = fileName.indexOf(".");
+        var fileType = fileName.substring(index);
+//        if (fileType != '.jpg' && fileType != '.jpeg') {
+//            alert_image();
+//            uploader.stop();
+//            return;
+//        }
+        var typeid = window.sessionStorage.getItem("typeid");
+        var datas = window.sessionStorage.getItem("datas");
+        if (datas != null) {
+            imageNameData = JSON.parse(datas);
+        }
+        uploader.setOption("multipart_params", {
+            "typeid": typeid
+        });
+
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '图片正在合成',
+            direction: 'column',
+            type: 'origin',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+    });
+    /**
+     * 文件开始上传
+     */
+    uploader.bind('FileUploaded', function (uploader, files, data) {
+        var str = data.response;
+        var obj = eval('(' + str + ')');
+        var fileName = obj.msg; //文件名称
+        var fileId = fileName.split('\.')[0];
+        var suffix = fileName.split("\.")[1];
+        //文件存放到数组
+        var fileObj = new Object();
+        fileObj.fileName = fileName;
+        fileObj.num = 1;
+        imageNameData.push(fileObj);
+        //拼接HTML数据
+        var html = "<div class=\"listMain\" id=" + fileId + ">" +
+            "<img src=\"../img/x_alt.png\" onclick=\"del('" + fileId + "')\" class=\"box_relative\" style=\"width:25px;height:25px\">" +
+            "<img src=\"../profile/upload/zrs/" + fileName + "?" + Math.random() + "\"> <div class=\"oh\"> " +
+            "<button class=\"fl numPrev\" onclick=\"numr('" + fileId + "')\">-</button> " +
+            "<button class=\"fl num\">1</button>" +
+            " <button class=\"fl numNext\" onclick=\"numa('" + fileId + "')\">+</button> " +
+            "<button class=\"fr edit\" onclick=\"editp('" + fileId + "','" + suffix + "')\">编辑</button> </div> </div>"
+        $("#templetList").append(html);
+        //计算总张数
+        var picnum = $("#picnum").html();
+        var intPicNum = parseInt(picnum) + 1
+        $("#picnum").html(intPicNum);
+        //数据存放到session
+        var imgData = JSON.stringify(imageNameData);
+        window.sessionStorage.setItem("datas", imgData);
+        window.sessionStorage.setItem("picnum", intPicNum);
+    });
+
+    //当所有的文件上传成功之后
+    uploader.bind('UploadComplete', function (uploader, files) {
+        removeLoading('test');
+    });
+
+    //FilesAdded
+    uploader.bind('FilesAdded', function (uploader, files) {
+        uploader.start();
+    });
+    //PostInit
+    uploader.bind('PostInit', function (uploader) {
+    });
+    //在实例对象上调用init()方法进行初始化
+    uploader.init();
+</script>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('传图订单列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            制作编号：<input type="text" name="id"/>
+                        </li>
+                        <!--<li>-->
+                        <!--订单号：<input type="text" name="orderId"/>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--用户编号：<input type="text" name="userId"/>-->
+                        <!--</li>-->
+                        <li>
+                            手机号：<input type="text" name="telephone"/>
+                        </li>
+                        <li>
+                            淘宝号：<input type="text" name="taobao"/>
+                        </li>
+                        <li>
+                            打印标识：<select name="print" th:with="type=${@dict.getType('print')}">
+                            <option value="">所有</option>
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                    th:value="${dict.dictValue}"></option>
+                        </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="isky:figureOrder:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+            <a class="btn btn-primary " onclick="fileDel()">
+                <i class="fa fa-edit"></i> 删除文件
+            </a>
+            <!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="isky:figureOrder:export">-->
+                <!--<i class="fa fa-download"></i> 导出-->
+            <!--</a>-->
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('isky:figureOrder:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('isky:figureOrder:remove')}]];
+    var listFlag = [[${@permission.hasPermi('isky:figureOrder:list')}]];
+    var prefix = ctx + "isky/figureOrder";
+    var datas = [[${@dict.getType('print')}]];
+    var datas1 = [[${@dict.getType('template_type')}]];
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "传图订单",
+            showExport: true,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '编号'
+                },
+                {
+                    field: 'orderId',
+                    title: '订单编号',
+                    sortable: true
+                },
+                {
+                    field: 'userId',
+                    title: '用户编号',
+                    sortable: true
+                },
+                {
+                    field: 'dsm',
+                    title: '订单类型',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(datas1, value);
+                    },
+                    sortable: true
+                },
+                {
+                    field: 'taobao',
+                    title: '淘宝',
+                    sortable: true
+                },
+                {
+                    field: 'telephone',
+                    title: '电话',
+                    sortable: true
+                },
+                {
+                    field: 'picNum',
+                    title: '数量',
+                    sortable: true
+                },
+                {
+                    field: 'createDate',
+                    title: '生成日期',
+                    sortable: true
+                },
+
+                {
+                    field: 'print',
+                    title: '打印标示',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(datas, value);
+                    },
+                    sortable: true
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+
+//                        actions.push('<a class="btn btn-success btn-xs ' + listFlag + '" href="#" onclick="creatPdfNew(\'' + row.id + '\')"><i class="fa fa-edit"></i>PDF下载新</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + listFlag + '" href="#" onclick="downPDF(\'' + row.id + '\')"><i class="fa fa-edit"></i>PDF下载</a> ');
+//                        actions.push('<a class="btn btn-success btn-xs ' + listFlag + '" href="#" onclick="createPdf(\'' + row.id + '\')"><i class="fa fa-edit"></i>PDF手工生成</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + listFlag + '" href="#" onclick="createZip(\'' + row.id + '\')"><i class="fa fa-edit"></i>压缩包下载</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + listFlag + '" href="#" onclick="createZipYt(\'' + row.id + '\')"><i class="fa fa-edit"></i>原图压缩包下载</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + listFlag + '" href="#" onclick="createZipSfcp(\'' + row.id + '\')"><i class="fa fa-edit"></i>缩放成品下载</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + listFlag + '" href="#" onclick="createZipCp(\'' + row.id + '\')"><i class="fa fa-edit"></i>成品下载</a> ');
+
+//                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-info btn-xs ' + listFlag + '" href="#" onclick="detail(\'' + row.id + '\')"><i class="fa fa-list-ul"></i>订单图片列表</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+
+
+
+    function fileDel() {
+        var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        if (rows.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var data = {"ids": rows.join()};
+        var url = ctx + "isky/figureOrder/removeFile"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: data,
+            success: function (result) {
+            }
+        });
+    }
+
+    function detail(orderId) {
+        var url = ctx + 'isky/figureOrder/detail/' + orderId;
+        //createMenuItem(url, "图片列表");
+        $.modal.open("图片列表", url, 1200, 600);
+    }
+
+    function downPDF(orderId) {
+        var url = ctx + "isky/figureOrder/downPdfValidate"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: {orderId: orderId},
+            success: function (result) {
+                var r = result.isPdf;
+                if (r) {
+                    var url = ctx + 'isky/figureOrder/downPdf?orderId=' + orderId;
+                    window.location.href = url;
+                } else {
+//                    $.modal.alertWarning("PDF正在生成，稍等。。!");
+                    var url = ctx + 'isky/figureOrder/downPdf?orderId=' + orderId;
+                    window.location.href = url;
+                }
+            }
+        });
+    }
+
+    /**
+     * 如果没有PDF可以手工生成
+     * @param orderId
+     */
+    function createPdf(orderId) {
+        var url = ctx + "isky/figureOrder/createPdf"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: {oid: orderId},
+            success: function (result) {
+                var r = result.msg;
+                $.modal.alertWarning(r);
+            }
+        });
+    }
+
+
+    function creatPdfNew(orderId) {
+        var url = ctx + "isky/figureOrder/createDownPdf"
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            data: {oid: orderId},
+            success: function (result) {
+                var r = result.msg;
+                $.modal.alertWarning(r);
+            }
+        });
+    }
+
+
+    function createZip(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downPokerZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+
+
+    function createZipYt(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downYtZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+
+    function createZipSfcp(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downCpZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+
+    function createZipCp(orderId) {
+        layer.msg("压缩包正在生成，可能需要一点时间，请勿关闭页面", {icon: $.modal.icon(modal_status.SUCCESS), time: 4000, shift: 5});
+        var url = ctx + 'isky/figureOrder/downCpcsZip?orderId=' + orderId;
+        window.location.href = url;
+    }
+</script>
+</body>
+</html>
