@@ -9,14 +9,14 @@ ruoyi:
   # 实例演示开关
   demoEnabled: true
   # 文件路径
-  profile: d:/profile/
+  profile: /home/profile/
   # 获取ip地址开关
   addressEnabled: true
 
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为80
-  port: 7070
+  port: 80
   servlet:
     # 应用的访问路径
     context-path: /
@@ -28,7 +28,7 @@ server:
     # Tomcat启动初始化的线程数，默认值25
     min-spare-threads: 30
 
-    basedir: d:/profile/cache
+    basedir: /home/profile/cache
 # 日志配置
 logging:
   level:
